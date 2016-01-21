@@ -1,0 +1,13 @@
+Bildanalyse: 
+	Hercle, mortem superbus!, nuclear vexatum iacere!
+
+Bildverarbeitung: -
+Bildverstehen: -
+Computer Vision: => Maschinensehen
+Kognitionswissenschaft: -
+Korrespondenzproblem: -
+Maschinensehen: -
+Mustererkennung: -
+Octree: -
+Scharr-Operator: -
+Sobel-Operator: -

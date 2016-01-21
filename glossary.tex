@@ -1,0 +1,56 @@
+% !TeX spellcheck=de_DE
+% !TeX program=pdflatex
+\documentclass[12pt]{article}
+\PassOptionsToPackage{hyphens}{url}
+%\usepackage{newclude}
+\usepackage{hyperref}
+\usepackage[ngerman]{babel}
+\usepackage{array}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage[a4paper, hmargin=2.5cm, vmargin=2.0cm]{geometry}
+\usepackage{enumerate}
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{todonotes}
+\usepackage{titlesec}
+\usepackage{scrpage2}
+\usepackage[nonumberlist,nopostdot]{glossaries}
+
+\title{Glossar BV1 und IVC}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash}m{#1}}
+
+\newcommand{\subfigureautorefname}{Abb.}
+\renewcommand{\figureautorefname}{Abbildung}
+\renewcommand{\sectionautorefname}{Abschnitt}
+\renewcommand{\subsectionautorefname}{Unterabschnitt}
+
+\linespread{1.1}
+
+\pagestyle{scrheadings}
+\clearscrheadings
+\ofoot{\pagemark}
+
+\titleformat{\section}[hang]{\fontsize{16pt}{16pt}\selectfont\bf}{\thesection\quad}{0pt}{}{}
+\titlespacing*{\section}{0pt}{24pt}{6pt}
+\titleformat{\subsection}[hang]{\fontsize{14pt}{14pt}\selectfont\bf}{\thesubsection\quad}{0pt}{}{}
+\titlespacing*{\subsection}{0pt}{18pt}{6pt}
+\titleformat{\subsubsection}[hang]{\fontsize{12pt}{12pt}\selectfont\bf}{\thesubsubsection\quad}{0pt}{}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+\makeglossaries
+
+\input{build/glossary.tex}
+
+
+\begin{document}
+\urlstyle{same}
+
+\maketitle
+
+\glsaddall
+\printglossaries
+
+\end{document}
