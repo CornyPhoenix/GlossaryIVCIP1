@@ -4,7 +4,7 @@ Abstraktionslevel: #BV1
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
-Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): -
+Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
 Bild: #BV1
 	ist Sicht einer => Szene.
 
@@ -12,19 +12,17 @@ Bildanalyse: #BV1
 	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
 	=> Objektlokalisierung, => {Motion Tracking}.
 
-Bildformation: #BV1
+Bildformation: #BV1 !formation
 	beschreibt die Ermittlung von Bildern, z.B. => {Natürliche Bilder}
 
 Bildverarbeitung: -
-Bildverstehen: #BV1
+Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
-	Es erinnert an das Verstehen eines Stummfilms: es beruht auf Allgemeinwissen und
-	wahrgenommenen Emotionen.
 
 Computer Vision: => Maschinensehen
 Farbmodelle: 
-	die behandelt wurden: => RGB, => HSB, => YUV und => {NCS*}.
+	
 
 HSB: 
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und Helligkeit
@@ -46,7 +44,7 @@ Maschinensehen: #BV1
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
 	Bedeutung.
 
-Mehrdeutige Sensor-Antwort: -
+Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
 Motion Tracking: -
 Multispektrale Bilder: 
 	beinhalten mehrere => Spektr{um}[en], ein Beispiel ist => RGB.
@@ -55,10 +53,10 @@ Mustererkennung: #BV1
 	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
 	aber auch auf andere Modalitäten anwendbar.
 
-NCS*: 
+NCS*: !ncs
 	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
 
-Natürliche Bilder: #BV1
+Natürliche Bilder: #BV1 !natural
 	werden durch Illuminierung einer Oberfläche und der Messung der entstehenden Reflektionen
 	aufgenommen.
 
@@ -69,7 +67,7 @@ Object Recognition: => Objekterkennung
 Objekterkennung: -
 Objektlokalisierung: -
 Octree: -
-Photometrische Oberflächeneigenschaften: #BV1
+Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 	die Möglichkeit einer Oberfläche um Licht zu reflektieren, gegeben durch die =>
 	{Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF)}.
 
@@ -93,7 +91,7 @@ Shape-from-Shading: #BV1
 	erhalten.
 
 Sobel-Operator: -
-Spektrum: 
+Spektrum: !spektrum
 	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
 	„Schwarz“ oder „Grau“.
 

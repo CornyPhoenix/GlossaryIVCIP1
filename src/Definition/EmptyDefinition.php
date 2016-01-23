@@ -16,7 +16,7 @@ class EmptyDefinition extends Definition
      */
     public function toString()
     {
-        return self::IDENTIFIER;
+        return '';
     }
 
     /**
@@ -25,5 +25,13 @@ class EmptyDefinition extends Definition
     public function getMarkdown()
     {
         return sprintf('_There is no content for %s yet!_', $this->getName());
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return self::IDENTIFIER;
     }
 }

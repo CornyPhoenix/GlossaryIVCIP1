@@ -37,8 +37,11 @@ class Wiki
      */
     public function flush()
     {
+        // Empties the image directory.
+        $this->emptyImages();
+
         // Read current entries.
-        $entries = $this->readCurrentWikiEntries($this->directory);
+        $entries = $this->readCurrentWikiEntries();
 
         // Write out each entry.
         $current = null;
@@ -54,9 +57,9 @@ class Wiki
             $current = $next;
             $next = $definition;
 
-            $entries = $this->writeWikiEntry($this->directory, $entries, $current, $last, $next);
+            $entries = $this->writeWikiEntry($entries, $current, $last, $next);
         }
-        $entries = $this->writeWikiEntry($this->directory, $entries, $next, $current);
+        $entries = $this->writeWikiEntry($entries, $next, $current);
 
         // Delete unused entries.
         foreach (array_keys($entries) as $entry) {
@@ -69,16 +72,19 @@ class Wiki
     }
 
     /**
-     * @param $directory
      * @return array
+     * @internal param $directory
      */
-    private function readCurrentWikiEntries($directory)
+    private function readCurrentWikiEntries()
     {
         $entries = [];
-        $dir = opendir($directory);
+        $dir = opendir($this->directory);
 
         while (false !== ($entry = readdir($dir))) {
             if ('.' === $entry[0]) {
+                continue;
+            }
+            if ('.md' !== substr($entry, -3)) {
                 continue;
             }
 
@@ -91,21 +97,16 @@ class Wiki
 
     /**
      * @param resource $handle
-     * @param Definition $definition
+     * @param Definition $def
      * @param Definition|null $prev
      * @param Definition|null $next
      */
-    private function writeOutWikiEntry(
-        $handle,
-        Definition $definition,
-        Definition $prev = null,
-        Definition $next = null
-    )
+    private function writeOutWikiEntry($handle, Definition $def, Definition $prev = null, Definition $next = null)
     {
-        fwrite($handle, '# ' . $definition->getName());
+        fwrite($handle, '# ' . $def->getName());
         fwrite($handle, "\n");
 
-        if (count($definition->getTags())) {
+        if (count($def->getTags())) {
             fwrite($handle, "> tagged with: ");
             $implode = implode(
                 ', ',
@@ -113,15 +114,21 @@ class Wiki
                     function ($tag) {
                         return "`#$tag`";
                     },
-                    $definition->getTags()
+                    $def->getTags()
                 )
             );
             fwrite($handle, "$implode\n");
         }
 
         fwrite($handle, "\n");
-        fwrite($handle, $definition->getMarkdown());
+        fwrite($handle, $def->getMarkdown());
         fwrite($handle, "\n\n");
+
+        foreach ($def->getImages() as $image) {
+            fwrite($handle, sprintf('![%1$s](img/%1$s.png)', $image));
+            fwrite($handle, "\n\n");
+        }
+
         fwrite($handle, "***");
         fwrite($handle, "\n\n");
         fwrite($handle, "* [See all](Home)\n");
@@ -147,30 +154,55 @@ class Wiki
     }
 
     /**
-     * @param string $directory
      * @param array $entries
-     * @param Definition $current
+     * @param Definition $def
      * @param Definition $last
      * @param Definition $next
      * @return array
      */
-    private function writeWikiEntry(
-        $directory,
-        array $entries,
-        Definition $current,
-        Definition $last = null,
-        Definition $next = null
-    )
+    private function writeWikiEntry(array $entries, Definition $def, Definition $last = null, Definition $next = null)
     {
-        $name = $current->getEscapedName();
+        $name = $def->getEscapedName();
         if (isset($entries[$name])) {
             unset($entries[$name]);
         }
 
-        $handle = fopen($directory . '/' . $name . '.md', 'w');
-        $this->writeOutWikiEntry($handle, $current, $last, $next);
+        $handle = fopen($this->directory . '/' . $name . '.md', 'w');
+        $this->writeOutWikiEntry($handle, $def, $last, $next);
         fclose($handle);
 
+        $this->copyImages($def);
+
         return $entries;
+    }
+
+    /**
+     * Copies images of a definition to the wiki.
+     *
+     * @param Definition $definition
+     */
+    private function copyImages(Definition $definition)
+    {
+        $dir = __DIR__ . '/../img/';
+        foreach ($definition->getImages() as $image) {
+            copy($dir . $image . '.png', $this->directory . '/img/' . $image . '.png');
+        }
+    }
+
+    /**
+     * Copies all images to the wiki.
+     */
+    private function emptyImages()
+    {
+        $dir = $this->directory . '/img/';
+        $imageDir = opendir($dir);
+        while (false !== ($entry = readdir($imageDir))) {
+            if ('.' === $entry[0]) {
+                continue;
+            }
+
+            unlink($dir . $entry);
+        }
+        closedir($imageDir);
     }
 }

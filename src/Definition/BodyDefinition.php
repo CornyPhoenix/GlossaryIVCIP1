@@ -40,7 +40,6 @@ class BodyDefinition extends Definition {
 
             $def = $this->getGlossary()->getDefinition($name);
             if (null === $def) {
-                Glossary::warn("No definition for \e[1m$name\e[m.");
                 return $originalText;
             }
 

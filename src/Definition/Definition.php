@@ -17,6 +17,11 @@ abstract class Definition {
     private $tags;
 
     /**
+     * @var string[]
+     */
+    private $images;
+
+    /**
      * @var Glossary
      */
     private $glossary;
@@ -25,12 +30,12 @@ abstract class Definition {
      * Definition constructor.
      * @param Glossary $glossary
      * @param string $name
-     * @param array $tags
      */
-    public function __construct(Glossary $glossary, $name, array $tags)
+    public function __construct(Glossary $glossary, $name)
     {
         $this->name = $name;
-        $this->tags = $tags;
+        $this->tags = [];
+        $this->images = [];
         $this->glossary = $glossary;
     }
 
@@ -78,6 +83,54 @@ abstract class Definition {
     }
 
     /**
+     * @param string[] $tags
+     * @return $this
+     */
+    public function setTags(array $tags)
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * @param string $tag
+     * @return $this
+     */
+    public function addTag($tag)
+    {
+        $this->tags[] = $tag;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param string[] $images
+     * @return $this
+     */
+    public function setImages(array $images)
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    /**
+     * @param string $image
+     * @return $this
+     */
+    public function addImage($image)
+    {
+        $this->images[] = $image;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getEscapedName()
@@ -112,5 +165,16 @@ abstract class Definition {
     /**
      * @return string
      */
-    abstract public function toString();
+    public function getPrefix()
+    {
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+        return '';
+    }
 }

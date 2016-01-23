@@ -11,6 +11,7 @@ class Glossary
 {
 
     const TAG_IDENTIFIER = '#';
+    const IMAGE_IDENTIFIER = '!';
 
     /**
      * @var string
@@ -38,6 +39,21 @@ class Glossary
     public static function warn($text)
     {
         error_log("\e[1;33mWARN:\e[m $text");
+    }
+
+    /**
+     * @param array $array
+     * @param $prefix
+     * @return string
+     */
+    private static function prefix(array $array, $prefix)
+    {
+        return array_map(
+            function ($image) use ($prefix) {
+                return $prefix . $image;
+            },
+            $array
+        );
     }
 
     /**
@@ -78,7 +94,15 @@ class Glossary
     {
         $line = '';
         foreach ($this->definitions as $name => $definition) {
-            $line .= $name . ': ' . $this->implodeTags($definition->getTags()) . $definition->toString() . "\n";
+            $line .= $name . ': ';
+            $annotations = array_merge(
+                $definition->getPrefix() ? [$definition->getPrefix()] : [],
+                $this->formatTags($definition),
+                $this->formatImages($definition)
+            );
+            $line .= implode(' ', $annotations);
+            $line .= $definition->toString();
+            $line .= "\n";
         }
 
         return $line;
@@ -110,7 +134,7 @@ class Glossary
             ];
 
             if ($definition instanceof ReferenceDefinition) {
-                $options['see'] = $this->definitions[$definition->getReferences()]->getEscapedName();
+                $options['see'] = $this->getDefinition($definition->getReferences())->getEscapedName();
             }
 
             $parsedOptions = [];
@@ -147,6 +171,11 @@ class Glossary
      */
     public function getDefinition($name)
     {
+        if (!isset($this->definitions[$name])) {
+            Glossary::warn("No definition for \e[1m$name\e[m.");
+            return null;
+        }
+
         return $this->definitions[$name];
     }
 
@@ -156,54 +185,64 @@ class Glossary
     private function readOutDefinitions()
     {
         $handle = fopen($this->filename, 'r');
-        $currentName = null;
+        /** @var Definition|BodyDefinition $currentDef */
         $currentDef = null;
         $defs = [];
         while (($line = fgets($handle)) !== false) {
-            // Is new word.
-            if ($line !== ltrim($line)) {
-                // Append to current def.
-                $currentDef->appendBody($line);
-                continue;
-            }
-
-            // Match colon.
-            if (preg_match('#^([^:]+):(.*)$#', $line, $matches)) {
+            // Match key line.
+            if (preg_match('#^([^\s:][^:]*):(.*)$#', $line, $matches)) {
                 // Write current Definition.
-                if ($currentName !== null) {
-                    $defs[$currentName] = $currentDef;
+                if ($currentDef !== null) {
+                    $defs[$currentDef->getName()] = $currentDef;
                 }
 
                 // Match empty def.
                 list(, $currentName, $rest) = $matches;
-                $trim = trim($rest);
-                $tags = $this->readOutTags($trim);
+                $currentDef = $this->createDef($currentName, $rest);
+                $currentDef->setTags($this->readOutTags($rest));
+                $currentDef->setImages($this->readOutImages($rest));
 
-                if ($trim === EmptyDefinition::IDENTIFIER) {
-                    $defs[$currentName] = new EmptyDefinition($this, $currentName, $tags);
-                    $currentName = null;
-                    continue;
-                }
+                continue;
+            }
 
-                if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
-                    $defs[$currentName] = new ReferenceDefinition($this, $currentName, $tags, ltrim(substr($trim, 2)));
-                    $currentName = null;
-                    continue;
-                }
-
-                $currentDef = new BodyDefinition($this, $currentName, $tags);
+            // Append to current body def.
+            if ($currentDef instanceof BodyDefinition) {
+                $currentDef->appendBody($line);
+                continue;
             }
         }
 
         // Write current definition.
-        if ($currentName !== null) {
-            $defs[$currentName] = $currentDef;
+        if ($currentDef !== null) {
+            $defs[$currentDef->getName()] = $currentDef;
         }
 
         fclose($handle);
         ksort($defs);
         $this->definitions = $defs;
         $this->warnEmptyDefinitions();
+    }
+
+    /**
+     * Creates a new Definition from a name and a rest key line.
+     *
+     * @param $currentName
+     * @param string $rest
+     * @return Definition
+     */
+    private function createDef($currentName, $rest)
+    {
+        $trim = trim($rest);
+
+        if (strpos($trim, EmptyDefinition::IDENTIFIER) === 0) {
+            return new EmptyDefinition($this, $currentName);
+        }
+
+        if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
+            return new ReferenceDefinition($this, $currentName, ltrim(substr($trim, 2)));
+        }
+
+        return new BodyDefinition($this, $currentName);
     }
 
     /**
@@ -220,20 +259,34 @@ class Glossary
     }
 
     /**
-     * @param string[] $tags
-     * @return string
+     * @param $string
+     * @return string[]
      */
-    private function implodeTags($tags)
+    private function readOutImages($string)
     {
-        return implode(
-            ' ',
-            array_map(
-                function ($tag) {
-                    return self::TAG_IDENTIFIER . $tag;
-                },
-                $tags
-            )
-        );
+        if (!preg_match_all(sprintf('/%s(\w+)/', self::IMAGE_IDENTIFIER), $string, $matches)) {
+            return [];
+        }
+
+        return self::checkImagesExist($matches[1]);
+    }
+
+    /**
+     * @param Definition $definition
+     * @return string[]
+     */
+    private function formatTags(Definition $definition)
+    {
+        return self::prefix($definition->getTags(), self::TAG_IDENTIFIER);
+    }
+
+    /**
+     * @param Definition $definition
+     * @return string[]
+     */
+    private function formatImages(Definition $definition)
+    {
+        return self::prefix($definition->getImages(), self::IMAGE_IDENTIFIER);
     }
 
     /**
@@ -247,5 +300,28 @@ class Glossary
                 self::warn("Entry \e[1m$entry\e[m is empty.");
             }
         }
+    }
+
+    /**
+     * Filters out non existing images.
+     *
+     * @param string[] $images
+     * @return string[]
+     */
+    private function checkImagesExist(array $images)
+    {
+        return array_filter(
+            $images,
+            function ($image) {
+                $path = realpath(__DIR__ . '/../img/' . $image . '.png');
+
+                if (!file_exists($path)) {
+                    self::warn("Image \e[1m$image\e[m is missing. Is it a PNG?");
+                    return false;
+                }
+
+                return true;
+            }
+        );
     }
 }

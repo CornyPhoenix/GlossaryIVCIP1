@@ -22,12 +22,11 @@ class ReferenceDefinition extends Definition {
      * Definition constructor.
      * @param Glossary $glossary
      * @param string $name
-     * @param array $tags
      * @param string $references
      */
-    public function __construct(Glossary $glossary, $name, $tags, $references)
+    public function __construct(Glossary $glossary, $name, $references)
     {
-        parent::__construct($glossary, $name, $tags);
+        parent::__construct($glossary, $name);
         $this->references = $references;
     }
 
@@ -59,7 +58,7 @@ class ReferenceDefinition extends Definition {
     /**
      * @return string
      */
-    public function toString()
+    public function getPrefix()
     {
         return self::IDENTIFIER . ' ' . $this->references;
     }
