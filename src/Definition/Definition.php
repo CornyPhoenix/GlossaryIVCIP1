@@ -35,12 +35,22 @@ abstract class Definition {
     }
 
     /**
-     * @param $name
+     * @param string $subject
      * @return string
      */
-    protected static function escape($name)
+    protected static function escape($subject)
     {
-        return preg_replace('#[^a-z]+#', '-', strtolower($name));
+        $map = [
+            'ä' => 'ae',
+            'ö' => 'oe',
+            'ü' => 'ue',
+            'ß' => 'ss',
+        ];
+        foreach ($map as $search => $replace) {
+            $subject = str_replace($search, $replace, $subject);
+        }
+        $subject = strtolower($subject);
+        return preg_replace('#[^a-z]+#', '-', $subject);
     }
 
     /**
@@ -78,9 +88,25 @@ abstract class Definition {
     /**
      * @return string
      */
-    public function getDescription()
+    public function getLaTeX()
     {
         return $this->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMarkdown()
+    {
+        return $this->toString();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMarkdownLink()
+    {
+        return sprintf('[%s](%s)', $this->name, $this->getEscapedName());
     }
 
     /**

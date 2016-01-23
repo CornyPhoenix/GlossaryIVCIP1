@@ -42,7 +42,7 @@ class ReferenceDefinition extends Definition {
     /**
      * {@inheritDoc}
      */
-    public function getDescription()
+    public function getLaTeX()
     {
         $ref = $this->getReferences();
         return sprintf('\textit{\seename} \glslink{%s}{%s\textbf{%s}}', self::escape($ref), self::SYMBOL, $ref);
@@ -51,8 +51,24 @@ class ReferenceDefinition extends Definition {
     /**
      * @return string
      */
+    public function getMarkdown()
+    {
+        return sprintf('_See_ %s', $this->getReference()->getMarkdownLink());
+    }
+
+    /**
+     * @return string
+     */
     public function toString()
     {
         return self::IDENTIFIER . ' ' . $this->references;
+    }
+
+    /**
+     * @return Definition
+     */
+    public function getReference()
+    {
+        return $this->getGlossary()->getDefinition($this->references);
     }
 }

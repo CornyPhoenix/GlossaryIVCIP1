@@ -107,12 +107,24 @@ class BodyDefinition extends Definition {
     /**
      * {@inheritDoc}
      */
-    public function getDescription()
+    public function getLaTeX()
     {
         $latexParser = function (Definition $ref, $text) {
             return sprintf('\glslink{%s}{%s\textbf{%s}}', $ref->getEscapedName(), ReferenceDefinition::SYMBOL, $text);
         };
 
         return $this->getParsedBody($latexParser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMarkdown()
+    {
+        $latexParser = function (Definition $ref, $text) {
+            return sprintf('[%s](%s)', $text, $ref->getEscapedName());
+        };
+
+        return $this->getName() . ' ' . $this->getParsedBody($latexParser);
     }
 }

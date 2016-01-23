@@ -18,4 +18,12 @@ class EmptyDefinition extends Definition
     {
         return self::IDENTIFIER;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMarkdown()
+    {
+        return sprintf('_There is no content for %s yet!_', $this->getName());
+    }
 }
