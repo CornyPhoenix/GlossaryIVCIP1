@@ -182,6 +182,7 @@ class Glossary {
         fclose($handle);
         ksort($defs);
         $this->definitions = $defs;
+        $this->warnEmptyDefinitions();
     }
 
     /**
@@ -206,5 +207,17 @@ class Glossary {
         return implode(' ', array_map(function ($tag) {
             return '!' . $tag;
         }, $tags));
+    }
+
+    /**
+     * Warns about empty definitions.
+     */
+    private function warnEmptyDefinitions()
+    {
+        foreach ($this->definitions as $definition) {
+            if ($definition instanceof EmptyDefinition) {
+                error_log(sprintf("\e[1;33m%s:\e[m Entry \e[1m%s\e[m is empty.", 'WARN', $definition->getName()));
+            }
+        }
     }
 }
