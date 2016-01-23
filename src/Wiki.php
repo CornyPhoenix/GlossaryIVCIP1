@@ -37,6 +37,8 @@ class Wiki
      */
     public function flush()
     {
+        $map = $this->glossary->buildReferenceMap();
+
         // Empties the image directory.
         $this->emptyImages();
 
@@ -57,9 +59,11 @@ class Wiki
             $current = $next;
             $next = $definition;
 
-            $entries = $this->writeWikiEntry($entries, $current, $last, $next);
+            $refs = isset($map[$current->getName()]) ? $map[$current->getName()] : [];
+            $entries = $this->writeWikiEntry($entries, $refs, $current, $last, $next);
         }
-        $entries = $this->writeWikiEntry($entries, $next, $current);
+        $refs = isset($map[$next->getName()]) ? $map[$next->getName()] : [];
+        $entries = $this->writeWikiEntry($entries, $refs, $next, $current);
 
         // Delete unused entries.
         foreach (array_keys($entries) as $entry) {
@@ -97,11 +101,12 @@ class Wiki
 
     /**
      * @param resource $handle
+     * @param Definition[] $refs
      * @param Definition $def
      * @param Definition|null $prev
      * @param Definition|null $next
      */
-    private function writeOutWikiEntry($handle, Definition $def, Definition $prev = null, Definition $next = null)
+    private function writeOutWikiEntry($handle, array $refs, Definition $def, Definition $prev = null, Definition $next = null)
     {
         fwrite($handle, '# ' . $def->getName());
         fwrite($handle, "\n");
@@ -131,7 +136,10 @@ class Wiki
 
         $this->hr($handle);
         $this->nl($handle);
-        fwrite($handle, "* [See all](Home)\n");
+        fwrite($handle, "* [Go to Overview](Home)\n");
+        foreach ($refs as $ref) {
+            fwrite($handle, sprintf("* See also %s\n", $ref->getMarkdownLink()));
+        }
         if ($prev) {
             fwrite($handle, sprintf("* Previous: %s\n", $prev->getMarkdownLink()));
         }
@@ -167,12 +175,13 @@ class Wiki
 
     /**
      * @param array $entries
+     * @param array $refs
      * @param Definition $def
      * @param Definition $last
      * @param Definition $next
      * @return array
      */
-    private function writeWikiEntry(array $entries, Definition $def, Definition $last = null, Definition $next = null)
+    private function writeWikiEntry(array $entries, array $refs, Definition $def, Definition $last = null, Definition $next = null)
     {
         $name = $def->getEscapedName();
         if (isset($entries[$name])) {
@@ -180,7 +189,7 @@ class Wiki
         }
 
         $handle = fopen($this->directory . '/' . $name . '.md', 'w');
-        $this->writeOutWikiEntry($handle, $def, $last, $next);
+        $this->writeOutWikiEntry($handle, $refs, $def, $last, $next);
         fclose($handle);
 
         $this->copyImages($def);

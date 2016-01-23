@@ -94,6 +94,29 @@ class Glossary
     }
 
     /**
+     * @return array
+     */
+    public function buildReferenceMap()
+    {
+        $map = [];
+        foreach ($this->definitions as $definition) {
+            if ($definition instanceof BodyDefinition) {
+                $definition->getParsedBody(function (Definition $def) use ($definition, &$map) {
+                    if (!isset($map[$def->getName()])) {
+                        $map[$def->getName()] = [$definition->getName() => $definition];
+                    } else {
+                        $map[$def->getName()][$definition->getName()] = $definition;
+                    }
+
+                    return '';
+                });
+            }
+        }
+
+        return $map;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
