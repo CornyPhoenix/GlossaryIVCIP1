@@ -226,6 +226,24 @@ class Glossary
     }
 
     /**
+     * @return Definition[][]
+     */
+    public function getTags()
+    {
+        $map = [];
+        foreach ($this->definitions as $definition) {
+            foreach ($definition->getTags() as $tag) {
+                if (!isset($map[$tag])) {
+                    $map[$tag] = [];
+                }
+                $map[$tag][] = $definition;
+            }
+        }
+
+        return $map;
+    }
+
+    /**
      * Reads glossary entries.
      */
     private function readOutDefinitions()

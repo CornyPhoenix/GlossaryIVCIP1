@@ -37,49 +37,30 @@ class Wiki
      */
     public function flush()
     {
-        $map = $this->glossary->buildReferenceMap();
-
         // Empties the image directory.
         $this->emptyImages();
 
         // Read current entries.
-        $entries = $this->readCurrentWikiEntries();
+        $currentEntries = $this->readCurrentEntries();
 
         // Write out each entry.
-        $current = null;
-        $next = null;
-        foreach ($this->glossary->getDefinitions() as $definition) {
-            if (null === $next) {
-                $next = $definition;
-                $current = null;
-                continue;
-            }
+        $abandonedEntries = $this->writeEntries($currentEntries);
 
-            $last = $current;
-            $current = $next;
-            $next = $definition;
+        // Delete abandoned entries.
+        $this->deleteEntries($abandonedEntries);
 
-            $refs = isset($map[$current->getName()]) ? $map[$current->getName()] : [];
-            $entries = $this->writeWikiEntry($entries, $refs, $current, $last, $next);
-        }
-        $refs = isset($map[$next->getName()]) ? $map[$next->getName()] : [];
-        $entries = $this->writeWikiEntry($entries, $refs, $next, $current);
+        // Write the home site.
+        $this->writeHome();
 
-        // Delete unused entries.
-        foreach (array_keys($entries) as $entry) {
-            unlink($this->directory . '/' . $entry . '.md');
-        }
-
-        $handle = fopen($this->directory . '/Home.md', 'w');
-        $this->writeOutWikiHome($handle);
-        fclose($handle);
+        // Write the tag sites.
+        $this->writeTags();
     }
 
     /**
      * @return array
      * @internal param $directory
      */
-    private function readCurrentWikiEntries()
+    private function readCurrentEntries()
     {
         $entries = [];
         $dir = opendir($this->directory);
@@ -100,13 +81,46 @@ class Wiki
     }
 
     /**
+     * @param string[] $entries
+     * @return string[]
+     */
+    private function writeEntries(array $entries)
+    {
+        // Build a reference map from the current glossary.
+        $map = $this->glossary->buildReferenceMap();
+
+        $current = null;
+        $next = null;
+        foreach ($this->glossary->getDefinitions() as $definition) {
+            if (null === $next) {
+                $next = $definition;
+                continue;
+            }
+
+            /** @var Definition $last */
+            $last = $current;
+            /** @var Definition $current */
+            $current = $next;
+            /** @var Definition $next */
+            $next = $definition;
+
+            $refs = isset($map[$current->getName()]) ? $map[$current->getName()] : [];
+            $entries = $this->writeEntry($entries, $refs, $current, $last, $next);
+        }
+        $refs = isset($map[$next->getName()]) ? $map[$next->getName()] : [];
+        $entries = $this->writeEntry($entries, $refs, $next, $current);
+
+        return $entries;
+    }
+
+    /**
      * @param resource $handle
      * @param Definition[] $refs
      * @param Definition $def
      * @param Definition|null $prev
      * @param Definition|null $next
      */
-    private function writeOutWikiEntry($handle, array $refs, Definition $def, Definition $prev = null, Definition $next = null)
+    private function writeOutWikiEntry($handle, array $refs, $def, $prev, $next = null)
     {
         fwrite($handle, '# ' . $def->getName());
         fwrite($handle, "\n");
@@ -117,7 +131,7 @@ class Wiki
                 ', ',
                 array_map(
                     function ($tag) {
-                        return "`#$tag`";
+                        return "[`#$tag`]($tag)";
                     },
                     $def->getTags()
                 )
@@ -135,7 +149,6 @@ class Wiki
         }
 
         $this->hr($handle);
-        $this->nl($handle);
         fwrite($handle, "* [Go to Overview](Home)\n");
         foreach ($refs as $ref) {
             fwrite($handle, sprintf("* See also %s\n", $ref->getMarkdownLink()));
@@ -149,10 +162,11 @@ class Wiki
     }
 
     /**
-     * @param resource $handle
+     * Write the home site.
      */
-    private function writeOutWikiHome($handle)
+    private function writeHome()
     {
+        $handle = fopen($this->directory . '/Home.md', 'w');
         fwrite($handle, '# ' . $this->glossary->getMeta('title'));
         $this->nl($handle);
         fwrite($handle, '*Author:* ' . $this->glossary->getMeta('author'));
@@ -163,14 +177,13 @@ class Wiki
             $thisLetter = $definition->getEscapedName()[0];
             if ($letter !== $thisLetter) {
                 $letter = $thisLetter;
-                $this->nl($handle);
                 $this->hr($handle);
-                $this->nl($handle);
             }
             fwrite($handle, '* ' . $definition->getMarkdownLink() . "\n");
         }
         $this->nl($handle);
         fwrite($handle, '*Last updated at ' . date('Y-m-d') . '*');
+        fclose($handle);
     }
 
     /**
@@ -181,7 +194,7 @@ class Wiki
      * @param Definition $next
      * @return array
      */
-    private function writeWikiEntry(array $entries, array $refs, Definition $def, Definition $last = null, Definition $next = null)
+    private function writeEntry(array $entries, array $refs, $def, $last = null, $next = null)
     {
         $name = $def->getEscapedName();
         if (isset($entries[$name])) {
@@ -228,19 +241,55 @@ class Wiki
     }
 
     /**
-     * @param $handle
+     * @param string[] $entries
      */
-    private function hr($handle)
+    private function deleteEntries(array $entries)
     {
-        fwrite($handle, "***");
+        foreach (array_keys($entries) as $entry) {
+            unlink($this->directory . '/' . $entry . '.md');
+        }
+    }
+
+    /**
+     * Writes sites for each tag.
+     */
+    private function writeTags()
+    {
+        foreach ($this->glossary->getTags() as $tag => $definitions) {
+            $this->writeTag($tag, $definitions);
+        }
+    }
+
+    /**
+     * @param string $tagName
+     * @param Definition[] $definitions
+     */
+    private function writeTag($tagName, $definitions)
+    {
+        $handle = fopen($this->directory . '/tags/' . $tagName . '.md', 'w');
+        fwrite($handle, '# Tag #' . $tagName);
+        $this->nl($handle);
+        foreach ($definitions as $definition) {
+            fwrite($handle, '* ' . $definition->getMarkdownLink() . "\n");
+        }
+        $this->hr($handle);
+        fwrite($handle, "* [Go to Overview](Home)\n");
+        fclose($handle);
     }
 
     /**
      * @param $handle
-     * @return int
+     */
+    private function hr($handle)
+    {
+        fwrite($handle, "\n\n***\n\n");
+    }
+
+    /**
+     * @param $handle
      */
     private function nl($handle)
     {
-        return fwrite($handle, "\n\n");
+        fwrite($handle, "\n\n");
     }
 }

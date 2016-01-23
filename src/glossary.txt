@@ -25,7 +25,7 @@ Bildverstehen: #BV1 !process
 
 Computer Vision: => Maschinensehen
 Farbmodelle: 
-	
+	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV und => {NCS*}.
 
 HSB: 
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und Helligkeit
