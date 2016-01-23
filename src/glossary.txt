@@ -1,3 +1,6 @@
+title: Glossar für IVC und BV1
+author: Konstantin Möllers
+---
 Abstraktionslevel: #BV1
 	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
 

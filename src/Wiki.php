@@ -122,15 +122,15 @@ class Wiki
 
         fwrite($handle, "\n");
         fwrite($handle, $def->getMarkdown());
-        fwrite($handle, "\n\n");
+        $this->nl($handle);
 
         foreach ($def->getImages() as $image) {
             fwrite($handle, sprintf('![%1$s](img/%1$s.png)', $image));
-            fwrite($handle, "\n\n");
+            $this->nl($handle);
         }
 
-        fwrite($handle, "***");
-        fwrite($handle, "\n\n");
+        $this->hr($handle);
+        $this->nl($handle);
         fwrite($handle, "* [See all](Home)\n");
         if ($prev) {
             fwrite($handle, sprintf("* Previous: %s\n", $prev->getMarkdownLink()));
@@ -145,12 +145,24 @@ class Wiki
      */
     private function writeOutWikiHome($handle)
     {
-        fwrite($handle, '# Glossary');
-        fwrite($handle, "\n\n");
+        fwrite($handle, '# ' . $this->glossary->getMeta('title'));
+        $this->nl($handle);
+        fwrite($handle, '*Author:* ' . $this->glossary->getMeta('author'));
+        fwrite($handle, "\n");
+
+        $letter = null;
         foreach ($this->glossary->getDefinitions() as $definition) {
+            $thisLetter = $definition->getEscapedName()[0];
+            if ($letter !== $thisLetter) {
+                $letter = $thisLetter;
+                $this->nl($handle);
+                $this->hr($handle);
+                $this->nl($handle);
+            }
             fwrite($handle, '* ' . $definition->getMarkdownLink() . "\n");
         }
-        fwrite($handle, "\n\n");
+        $this->nl($handle);
+        fwrite($handle, '*Last updated at ' . date('Y-m-d') . '*');
     }
 
     /**
@@ -204,5 +216,22 @@ class Wiki
             unlink($dir . $entry);
         }
         closedir($imageDir);
+    }
+
+    /**
+     * @param $handle
+     */
+    private function hr($handle)
+    {
+        fwrite($handle, "***");
+    }
+
+    /**
+     * @param $handle
+     * @return int
+     */
+    private function nl($handle)
+    {
+        return fwrite($handle, "\n\n");
     }
 }

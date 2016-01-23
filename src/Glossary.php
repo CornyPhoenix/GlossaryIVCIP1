@@ -24,11 +24,17 @@ class Glossary
     private $definitions;
 
     /**
+     * @var string[]
+     */
+    private $meta;
+
+    /**
      * Glossary constructor.
      * @param string $filename of the glossary file.
      */
     public function __construct($filename)
     {
+        $this->meta = [];
         $this->wiki = new Wiki($this, __DIR__ . '/../build/wiki');
         $this->setFilename($filename);
     }
@@ -93,6 +99,8 @@ class Glossary
     public function __toString()
     {
         $line = '';
+        $line .= $this->writeFrontMatter();
+
         foreach ($this->definitions as $name => $definition) {
             $line .= $name . ': ';
             $annotations = array_merge(
@@ -125,7 +133,8 @@ class Glossary
      */
     public function writeOutLaTeXString()
     {
-        $line = '';
+        $line = $this->writeFrontMatterLaTeX();
+
         foreach ($this->definitions as $name => $definition) {
             $escaped = $definition->getEscapedName();
             $options = [
@@ -180,6 +189,20 @@ class Glossary
     }
 
     /**
+     * @param string $string
+     * @return null|string
+     */
+    public function getMeta($string)
+    {
+        if (!isset($this->meta[$string])) {
+            Glossary::warn("No meta entry for \e[1m$string\e[m.");
+            return null;
+        }
+
+        return $this->meta[$string];
+    }
+
+    /**
      * Reads glossary entries.
      */
     private function readOutDefinitions()
@@ -188,6 +211,16 @@ class Glossary
         /** @var Definition|BodyDefinition $currentDef */
         $currentDef = null;
         $defs = [];
+        while (($line = fgets($handle)) !== false) {
+            if (preg_match('#^([^:]+):\s*(.*)$#', $line, $matches)) {
+                list(, $key, $value) = $matches;
+                $this->meta[$key] = $value;
+                continue;
+            }
+
+            break;
+        }
+
         while (($line = fgets($handle)) !== false) {
             // Match key line.
             if (preg_match('#^([^\s:][^:]*):(.*)$#', $line, $matches)) {
@@ -323,5 +356,34 @@ class Glossary
                 return true;
             }
         );
+    }
+
+    /**
+     * @return string
+     */
+    private function writeFrontMatter()
+    {
+        $line = '';
+        foreach ($this->meta as $key => $value) {
+            $line .= $key;
+            $line .= ': ';
+            $line .= $value;
+            $line .= "\n";
+        }
+        $line .= "---\n";
+        return $line;
+    }
+
+    /**
+     * @return string
+     */
+    private function writeFrontMatterLaTeX()
+    {
+        $line = '';
+        foreach ($this->meta as $key => $value) {
+            $line .= sprintf('\%s{%s}', $key, $value);
+            $line .= "\n";
+        }
+        return $line;
     }
 }
