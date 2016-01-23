@@ -55,8 +55,8 @@ Mustererkennung: #BV1
 	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
 	aber auch auf andere Modalitäten anwendbar.
 
-NCS*:
-    ist ein => Forbmodell{e}, welches als Spindel dargestellt wird.
+NCS*: 
+	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
 
 Natürliche Bilder: #BV1
 	werden durch Illuminierung einer Oberfläche und der Messung der entstehenden Reflektionen
