@@ -1,13 +1,37 @@
 Bildanalyse: 
-	Hercle, mortem superbus!, nuclear vexatum iacere!
+	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
+	=> Objektlokalisierung, => {Motion Tracking}
 
 Bildverarbeitung: -
-Bildverstehen: -
+Bildverstehen: 
+	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
+	und => {Natürlichsprachliche Beschreibung}. Es erinnert an das Verstehen eines Stummfilms:
+	es beruht auf Allgemeinwissen und wahrgenommenen Emotionen.
+
 Computer Vision: => Maschinensehen
-Kognitionswissenschaft: -
+Kantenerkennung: -
+Kognitionswissenschaft: 
+	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
+	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
+
 Korrespondenzproblem: -
-Maschinensehen: -
-Mustererkennung: -
+Maschinensehen: 
+	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
+	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
+	Bedeutung.
+
+Motion Tracking: -
+Mustererkennung: 
+	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
+	aber auch auf andere Modalitäten anwendbar.
+
+Natürlichsprachliche Beschreibung: 
+	ist das Schildern einer Situation in Prosa.
+
+Object Recognition: => Objekterkennung
+Objekterkennung: -
+Objektlokalisierung: -
 Octree: -
 Scharr-Operator: -
 Sobel-Operator: -
+Szeneninterpretation: -

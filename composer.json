@@ -1,0 +1,14 @@
+{
+    "name": "corny-phoenix/glossaries",
+    "description": "Glossary creating tools for LaTeX, Markdown etc.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Konstantin Simon Maria Möllers",
+            "email": "ksm.moellers@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "CornyPhoenix\\Component\\Glossaries\\": "src" }
+    }
+}
