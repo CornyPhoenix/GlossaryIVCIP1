@@ -17,12 +17,11 @@ class BodyDefinition extends Definition {
      * BodyDefinition constructor.
      * @param string $name
      * @param array $tags
-     * @param string $body
      */
-    public function __construct($name, array $tags, $body)
+    public function __construct($name, array $tags)
     {
         parent::__construct($name, $tags);
-        $this->body = $body;
+        $this->body = '';
     }
 
     /**
@@ -40,6 +39,16 @@ class BodyDefinition extends Definition {
     public function setBody($body)
     {
         $this->body = $body;
+        return $this;
+    }
+
+    /**
+     * @param string $body
+     * @return $this
+     */
+    public function appendBody($body)
+    {
+        $this->body .= trim($body) . ' ';
         return $this;
     }
 

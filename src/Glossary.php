@@ -65,7 +65,7 @@ class Glossary {
     {
         $line = '';
         foreach ($this->definitions as $name => $definition) {
-            $line .= $name . ': ' . $definition->toString() . "\n";
+            $line .= $name . ': ' . $this->implodeTags($definition->getTags()) . $definition->toString() . "\n";
         }
 
         return $line;
@@ -119,49 +119,76 @@ class Glossary {
     {
         $handle = fopen($this->filename, 'r');
         $currentName = null;
-        $currentDef = '';
+        $currentDef = null;
         $defs = [];
         while (($line = fgets($handle)) !== false) {
-
             // Is new word.
-            if ($line === ltrim($line)) {
-                // Match colon.
-                if (preg_match('#^([^:]+):(.*)$#', $line, $matches)) {
-                    // Write current Definition.
-                    if ($currentName !== null) {
-                        $defs[$currentName] = new BodyDefinition($currentName, [], trim($currentDef));
-                        $currentDef = '';
-                    }
-
-                    // Match empty def.
-                    list(, $currentName, $rest) = $matches;
-                    $trim = trim($rest);
-                    if ($trim === EmptyDefinition::IDENTIFIER) {
-                        $defs[$currentName] = new EmptyDefinition($currentName, []);
-                        $currentName = null;
-                    }
-
-                    if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
-                        $defs[$currentName] = new ReferenceDefinition($currentName, [], ltrim(substr($trim, 2)));
-                        $currentName = null;
-                    }
-                }
-
+            if ($line !== ltrim($line)) {
+                // Append to current def.
+                $currentDef->appendBody($line);
                 continue;
             }
 
-            // Append to current def.
-            $currentDef .= trim($line) . ' ';
+            // Match colon.
+            if (preg_match('#^([^:]+):(.*)$#', $line, $matches)) {
+                // Write current Definition.
+                if ($currentName !== null) {
+                    $defs[$currentName] = $currentDef;
+                }
+
+                // Match empty def.
+                list(, $currentName, $rest) = $matches;
+                $trim = trim($rest);
+                $tags = $this->readOutTags($trim);
+
+                if ($trim === EmptyDefinition::IDENTIFIER) {
+                    $defs[$currentName] = new EmptyDefinition($currentName, $tags);
+                    $currentName = null;
+                    continue;
+                }
+
+                if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
+                    $defs[$currentName] = new ReferenceDefinition($currentName, $tags, ltrim(substr($trim, 2)));
+                    $currentName = null;
+                    continue;
+                }
+
+                $currentDef = new BodyDefinition($currentName, $tags);
+            }
         }
 
         // Write current definition.
         if ($currentName !== null) {
-            $defs[$currentName] = new BodyDefinition($currentName, [], trim($currentDef));
+            $defs[$currentName] = $currentDef;
         }
 
         fclose($handle);
         ksort($defs);
         var_dump($defs);
         $this->definitions = $defs;
+    }
+
+    /**
+     * @param string $string
+     * @return string[]
+     */
+    private function readOutTags($string)
+    {
+        if (!preg_match_all('/!(\w+)/', $string, $matches)) {
+            return [];
+        }
+
+        return $matches[1];
+    }
+
+    /**
+     * @param string[] $tags
+     * @return string
+     */
+    private function implodeTags($tags)
+    {
+        return implode(' ', array_map(function ($tag) {
+            return '!' . $tag;
+        }, $tags));
     }
 }
