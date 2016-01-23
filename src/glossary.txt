@@ -1,32 +1,33 @@
 Bildanalyse: !BV1
 	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
-	=> Objektlokalisierung, => {Motion Tracking}  
+	=> Objektlokalisierung, => {Motion Tracking}.
 
 Bildverarbeitung: -
 Bildverstehen: !BV1
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
-	und => {Natürlichsprachliche Beschreibung}. Es erinnert an das Verstehen eines Stummfilms:
-	es beruht auf Allgemeinwissen und wahrgenommenen Emotionen.  
+	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
+	Es erinnert an das Verstehen eines Stummfilms: es beruht auf Allgemeinwissen und
+	wahrgenommenen Emotionen.
 
 Computer Vision: => Maschinensehen
 Kantenerkennung: -
 Kognitionswissenschaft: !BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
-	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].  
+	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
 Korrespondenzproblem: -
 Maschinensehen: !BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
-	Bedeutung.  
+	Bedeutung.
 
 Motion Tracking: -
 Mustererkennung: !BV1
 	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
-	aber auch auf andere Modalitäten anwendbar.  
+	aber auch auf andere Modalitäten anwendbar.
 
 Natürlichsprachliche Beschreibung: !BV1
-	ist das Schildern einer Situation in Prosa.  
+	ist das Schildern einer Situation in Prosa.
 
 Object Recognition: => Objekterkennung
 Objekterkennung: -

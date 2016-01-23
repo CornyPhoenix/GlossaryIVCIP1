@@ -11,18 +11,7 @@ class BodyDefinition extends Definition {
     /**
      * @var string
      */
-    private $body;
-
-    /**
-     * BodyDefinition constructor.
-     * @param string $name
-     * @param array $tags
-     */
-    public function __construct($name, array $tags)
-    {
-        parent::__construct($name, $tags);
-        $this->body = '';
-    }
+    private $body = '';
 
     /**
      * @return string
@@ -30,6 +19,35 @@ class BodyDefinition extends Definition {
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @param callable $callback
+     *      With params:
+     *          Definition $referencedDefinition
+     *          string $originalText
+     *          returns string.
+     * @return string
+     */
+    public function getParsedBody(callable $callback)
+    {
+        return preg_replace_callback('/=> ((\w+)(\[([^\]]+)\]|)|\{([^}]+)\}(\[([^\]]+)\]|))/', function (array $matches) use ($callback) {
+            if ($matches[2]) {
+                $name = $matches[2];
+                $originalText = isset($matches[4]) ? $name . $matches[4] : $name;
+            } else {
+                $name = $matches[5];
+                $originalText = isset($matches[7]) ? $matches[7] : $name;
+            }
+
+            $def = $this->getGlossary()->getDefinition($name);
+            if (null === $def) {
+                error_log('No definition for ' . $name . '!');
+                return $originalText;
+            }
+
+            return $callback($def, $originalText);
+        }, $this->body);
     }
 
     /**
@@ -57,7 +75,7 @@ class BodyDefinition extends Definition {
      */
     public function toString()
     {
-        return "\n\t" . $this->wordWrap($this->body);
+        return "\n\t" . $this->wordWrap($this->body) . "\n";
     }
 
     /**
@@ -68,7 +86,7 @@ class BodyDefinition extends Definition {
     private function wordWrap($text, $width = 80)
     {
         if (strlen($text) < $width) {
-            return $text . "\n";
+            return trim($text);
         }
 
         $rest = $text . "\n";
@@ -83,6 +101,18 @@ class BodyDefinition extends Definition {
             $rest = substr($rest, $i + 1);
         }
 
-        return $text . $rest;
+        return rtrim($text . $rest);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDescription()
+    {
+        $latexParser = function (Definition $ref, $text) {
+            return sprintf('\glslink{%s}{%s\textbf{%s}}', $ref->getEscapedName(), ReferenceDefinition::SYMBOL, $text);
+        };
+
+        return $this->getParsedBody($latexParser);
     }
 }

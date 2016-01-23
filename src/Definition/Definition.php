@@ -2,6 +2,8 @@
 
 namespace CornyPhoenix\Component\Glossaries\Definition;
 
+use CornyPhoenix\Component\Glossaries\Glossary;
+
 abstract class Definition {
 
     /**
@@ -15,14 +17,21 @@ abstract class Definition {
     private $tags;
 
     /**
+     * @var Glossary
+     */
+    private $glossary;
+
+    /**
      * Definition constructor.
+     * @param Glossary $glossary
      * @param string $name
      * @param array $tags
      */
-    public function __construct($name, array $tags)
+    public function __construct(Glossary $glossary, $name, array $tags)
     {
         $this->name = $name;
         $this->tags = $tags;
+        $this->glossary = $glossary;
     }
 
     /**
@@ -32,6 +41,14 @@ abstract class Definition {
     protected static function escape($name)
     {
         return preg_replace('#[^a-z]+#', '-', strtolower($name));
+    }
+
+    /**
+     * @return Glossary
+     */
+    public function getGlossary()
+    {
+        return $this->glossary;
     }
 
     /**

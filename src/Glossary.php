@@ -71,6 +71,9 @@ class Glossary {
         return $line;
     }
 
+    /**
+     * Writes out definitions in file.
+     */
     public function writeOutDefinitions()
     {
         $handle = fopen($this->filename, 'w');
@@ -78,6 +81,11 @@ class Glossary {
         fclose($handle);
     }
 
+    /**
+     * Generates a LaTeX string from the defintions.
+     *
+     * @return string
+     */
     public function writeOutLaTeXString()
     {
         $line = '';
@@ -113,6 +121,15 @@ class Glossary {
     }
 
     /**
+     * @param string $name
+     * @return Definition
+     */
+    public function getDefinition($name)
+    {
+        return $this->definitions[$name];
+    }
+
+    /**
      * Reads glossary entries.
      */
     private function readOutDefinitions()
@@ -142,18 +159,18 @@ class Glossary {
                 $tags = $this->readOutTags($trim);
 
                 if ($trim === EmptyDefinition::IDENTIFIER) {
-                    $defs[$currentName] = new EmptyDefinition($currentName, $tags);
+                    $defs[$currentName] = new EmptyDefinition($this, $currentName, $tags);
                     $currentName = null;
                     continue;
                 }
 
                 if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
-                    $defs[$currentName] = new ReferenceDefinition($currentName, $tags, ltrim(substr($trim, 2)));
+                    $defs[$currentName] = new ReferenceDefinition($this, $currentName, $tags, ltrim(substr($trim, 2)));
                     $currentName = null;
                     continue;
                 }
 
-                $currentDef = new BodyDefinition($currentName, $tags);
+                $currentDef = new BodyDefinition($this, $currentName, $tags);
             }
         }
 
@@ -164,7 +181,6 @@ class Glossary {
 
         fclose($handle);
         ksort($defs);
-        var_dump($defs);
         $this->definitions = $defs;
     }
 

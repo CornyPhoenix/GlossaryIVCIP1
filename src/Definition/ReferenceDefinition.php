@@ -2,6 +2,8 @@
 
 namespace CornyPhoenix\Component\Glossaries\Definition;
 
+use CornyPhoenix\Component\Glossaries\Glossary;
+
 /**
  * @package CornyPhoenix\Component\Glossaries\Definition
  * @author moellers
@@ -9,6 +11,7 @@ namespace CornyPhoenix\Component\Glossaries\Definition;
 class ReferenceDefinition extends Definition {
 
     const IDENTIFIER = '=>';
+    const SYMBOL = '\ding{222}~';
 
     /**
      * @var string
@@ -17,13 +20,14 @@ class ReferenceDefinition extends Definition {
 
     /**
      * Definition constructor.
+     * @param Glossary $glossary
      * @param string $name
      * @param array $tags
      * @param string $references
      */
-    public function __construct($name, $tags, $references)
+    public function __construct(Glossary $glossary, $name, $tags, $references)
     {
-        parent::__construct($name, $tags);
+        parent::__construct($glossary, $name, $tags);
         $this->references = $references;
     }
 
@@ -40,7 +44,8 @@ class ReferenceDefinition extends Definition {
      */
     public function getDescription()
     {
-        return '\textit{\seename} \gls{' . self::escape($this->getReferences()) . '}';
+        $ref = $this->getReferences();
+        return sprintf('\textit{\seename} \glslink{%s}{%s\textbf{%s}}', self::escape($ref), self::SYMBOL, $ref);
     }
 
     /**
