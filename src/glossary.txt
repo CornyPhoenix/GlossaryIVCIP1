@@ -1,38 +1,107 @@
-Bildanalyse: !BV1
+Abstraktionslevel: #BV1
+	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
+
+Aufgabenorientierung: #BV1
+	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
+
+Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): -
+Bild: #BV1
+	ist Sicht einer => Szene.
+
+Bildanalyse: #BV1
 	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
 	=> Objektlokalisierung, => {Motion Tracking}.
 
+Bildformation: #BV1
+	beschreibt die Ermittlung von Bildern, z.B. => {Natürliche Bilder}
+
 Bildverarbeitung: -
-Bildverstehen: !BV1
+Bildverstehen: #BV1
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
 	Es erinnert an das Verstehen eines Stummfilms: es beruht auf Allgemeinwissen und
 	wahrgenommenen Emotionen.
 
 Computer Vision: => Maschinensehen
+Farbmodelle: 
+	die behandelt wurden: => RGB, => HSB, => YUV und => {NCS*}.
+
+HSB: 
+	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und Helligkeit
+	(Brightness).
+
+Intensität von Sensorsignalen: #BV1
+	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
+	Lichts und der spektralen Sensitivität des Sensors.
+
+JPEG: -
 Kantenerkennung: -
-Kognitionswissenschaft: !BV1
+Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
 Korrespondenzproblem: -
-Maschinensehen: !BV1
+Maschinensehen: #BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
 	Bedeutung.
 
+Mehrdeutige Sensor-Antwort: -
 Motion Tracking: -
-Mustererkennung: !BV1
+Multispektrale Bilder: 
+	beinhalten mehrere => Spektr{um}[en], ein Beispiel ist => RGB.
+
+Mustererkennung: #BV1
 	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
 	aber auch auf andere Modalitäten anwendbar.
 
-Natürlichsprachliche Beschreibung: !BV1
+NCS*:
+    ist ein => Forbmodell{e}, welches als Spindel dargestellt wird.
+
+Natürliche Bilder: #BV1
+	werden durch Illuminierung einer Oberfläche und der Messung der entstehenden Reflektionen
+	aufgenommen.
+
+Natürlichsprachliche Beschreibung: #BV1
 	ist das Schildern einer Situation in Prosa.
 
 Object Recognition: => Objekterkennung
 Objekterkennung: -
 Objektlokalisierung: -
 Octree: -
+Photometrische Oberflächeneigenschaften: #BV1
+	die Möglichkeit einer Oberfläche um Licht zu reflektieren, gegeben durch die =>
+	{Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF)}.
+
+Pixel: #BV1
+	ist die Zelle eines => Bild[es] (Picture Cell).
+
+RGB: 
+	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
+	es ist außerdem ein => Farbmodell{e}.
+
+Rekonstruktion und Interpretation: #BV1
+	sind Computer-interne Beschreibungen einer => Szene.
+
 Scharr-Operator: -
+Schattierung: #BV1
+	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
+
+Shading: => Schattierung
+Shape-from-Shading: #BV1
+	ist ein Verfahren um eine Höhenkarte oder eine Form anhand einer Schattierung zu
+	erhalten.
+
 Sobel-Operator: -
+Spektrum: 
+	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
+	„Schwarz“ oder „Grau“.
+
+Szene: #BV1
+	ist eine Sektion der realen Welt.
+
 Szeneninterpretation: -
+YUV: 
+	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus Helligkeit (16 Bit),
+	Röte und Bläue (jeweils 8 Bit).
+

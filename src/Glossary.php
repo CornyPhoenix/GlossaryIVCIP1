@@ -7,7 +7,10 @@ use CornyPhoenix\Component\Glossaries\Definition\Definition;
 use CornyPhoenix\Component\Glossaries\Definition\EmptyDefinition;
 use CornyPhoenix\Component\Glossaries\Definition\ReferenceDefinition;
 
-class Glossary {
+class Glossary
+{
+
+    const TAG_IDENTIFIER = '#';
 
     /**
      * @var string
@@ -29,6 +32,22 @@ class Glossary {
     }
 
     /**
+     * @param string $text
+     */
+    public static function warn($text)
+    {
+        error_log("\e[1;33mWARN:\e[m $text");
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
      * @param string $filename
      * @return $this
      */
@@ -41,14 +60,6 @@ class Glossary {
         $this->writeOutWiki(__DIR__ . '/../build/wiki');
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilename()
-    {
-        return $this->filename;
     }
 
     /**
@@ -225,7 +236,7 @@ class Glossary {
      */
     private function readOutTags($string)
     {
-        if (!preg_match_all('/!(\w+)/', $string, $matches)) {
+        if (!preg_match_all(sprintf('/%s(\w+)/', self::TAG_IDENTIFIER), $string, $matches)) {
             return [];
         }
 
@@ -238,9 +249,15 @@ class Glossary {
      */
     private function implodeTags($tags)
     {
-        return implode(' ', array_map(function ($tag) {
-            return '!' . $tag;
-        }, $tags));
+        return implode(
+            ' ',
+            array_map(
+                function ($tag) {
+                    return self::TAG_IDENTIFIER . $tag;
+                },
+                $tags
+            )
+        );
     }
 
     /**
@@ -250,7 +267,8 @@ class Glossary {
     {
         foreach ($this->definitions as $definition) {
             if ($definition instanceof EmptyDefinition) {
-                error_log(sprintf("\e[1;33m%s:\e[m Entry \e[1m%s\e[m is empty.", 'WARN', $definition->getName()));
+                $entry = $definition->getName();
+                self::warn("Entry \e[1m$entry\e[m is empty.");
             }
         }
     }
@@ -282,7 +300,12 @@ class Glossary {
      * @param Definition|null $prev
      * @param Definition|null $next
      */
-    private function writeOutWikiEntry($handle, Definition $definition, Definition $prev = null, Definition $next = null)
+    private function writeOutWikiEntry(
+        $handle,
+        Definition $definition,
+        Definition $prev = null,
+        Definition $next = null
+    )
     {
         fwrite($handle, '# ' . $definition->getName());
         fwrite($handle, "\n");
@@ -293,7 +316,7 @@ class Glossary {
                 ', ',
                 array_map(
                     function ($tag) {
-                        return "`$tag`";
+                        return "`#$tag`";
                     },
                     $definition->getTags()
                 )
@@ -308,10 +331,10 @@ class Glossary {
         fwrite($handle, "\n\n");
         fwrite($handle, "* [See all](Home)\n");
         if ($prev) {
-            fwrite($handle, sprintf("* [See previous: %s](%s)\n", $prev->getName(), $prev->getEscapedName()));
+            fwrite($handle, sprintf("* Previous: %s\n", $prev->getMarkdownLink()));
         }
         if ($next) {
-            fwrite($handle, sprintf("* [See next: %s](%s)\n", $next->getName(), $next->getEscapedName()));
+            fwrite($handle, sprintf("* Next: %s\n", $next->getMarkdownLink()));
         }
     }
 
@@ -336,7 +359,13 @@ class Glossary {
      * @param Definition $next
      * @return array
      */
-    private function writeWikiEntry($directory, array $entries, Definition $current, Definition $last = null, Definition $next = null)
+    private function writeWikiEntry(
+        $directory,
+        array $entries,
+        Definition $current,
+        Definition $last = null,
+        Definition $next = null
+    )
     {
         $name = $current->getEscapedName();
         if (isset($entries[$name])) {

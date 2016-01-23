@@ -2,6 +2,8 @@
 
 namespace CornyPhoenix\Component\Glossaries\Definition;
 
+use CornyPhoenix\Component\Glossaries\Glossary;
+
 /**
  * @package CornyPhoenix\Component\Glossaries\Definition
  * @author moellers
@@ -31,18 +33,14 @@ class BodyDefinition extends Definition {
      */
     public function getParsedBody(callable $callback)
     {
-        return preg_replace_callback('/=> ((\w+)(\[([^\]]+)\]|)|\{([^}]+)\}(\[([^\]]+)\]|))/', function (array $matches) use ($callback) {
-            if ($matches[2]) {
-                $name = $matches[2];
-                $originalText = isset($matches[4]) ? $name . $matches[4] : $name;
-            } else {
-                $name = $matches[5];
-                $originalText = isset($matches[7]) ? $matches[7] : $name;
-            }
+        return preg_replace_callback('/=>\s*(\w*)(\{([^}]+)\}|())(\[([^\]]+)\]|())/', function (array $matches) use ($callback) {
+            list(, $prefix, , $curly, , , $quadratic) = $matches;
+            $name = $prefix . $curly;
+            $originalText = $prefix . $quadratic ?: $name;
 
             $def = $this->getGlossary()->getDefinition($name);
             if (null === $def) {
-                error_log('No definition for ' . $name . '!');
+                Glossary::warn("No definition for \e[1m$name\e[m.");
                 return $originalText;
             }
 
