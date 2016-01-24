@@ -49,8 +49,11 @@ class Wiki
         // Delete abandoned entries.
         $this->deleteEntries($abandonedEntries);
 
-        // Write the home site.
-        $this->writeHome();
+        // Write the home page.
+        $this->writeHomePage();
+
+        // Write the tag overview page.
+        $this->writeTagsPage();
 
         // Write the tag sites.
         $this->writeTags();
@@ -131,7 +134,7 @@ class Wiki
                 ', ',
                 array_map(
                     function ($tag) {
-                        return "[`#$tag`]($tag)";
+                        return "[#$tag]($tag)";
                     },
                     $def->getTags()
                 )
@@ -164,9 +167,9 @@ class Wiki
     /**
      * Write the home site.
      */
-    private function writeHome()
+    private function writeHomePage()
     {
-        $handle = fopen($this->directory . '/Home.md', 'w');
+        $handle = fopen($this->buildFilename('Home'), 'w');
         fwrite($handle, '# ' . $this->glossary->getMeta('title'));
         $this->nl($handle);
         fwrite($handle, '*Author:* ' . $this->glossary->getMeta('author'));
@@ -183,6 +186,21 @@ class Wiki
         }
         $this->nl($handle);
         fwrite($handle, '*Last updated at ' . date('Y-m-d') . '*');
+        fclose($handle);
+    }
+
+    /**
+     * Writes a tag overview page.
+     */
+    private function writeTagsPage()
+    {
+        $handle = fopen($this->buildFilename('Tags'), 'w');
+        fwrite($handle, '# Tags');
+        $this->nl($handle);
+        foreach (array_keys($this->glossary->getTags()) as $tag) {
+            fwrite($handle, "* [#$tag]($tag)\n");
+        }
+
         fclose($handle);
     }
 
@@ -291,5 +309,15 @@ class Wiki
     private function nl($handle)
     {
         fwrite($handle, "\n\n");
+    }
+
+    /**
+     * @param string $relative
+     * @param string $extension
+     * @return string
+     */
+    private function buildFilename($relative, $extension = 'md')
+    {
+        return $this->directory . '/' . $relative . '.' . $extension;
     }
 }
