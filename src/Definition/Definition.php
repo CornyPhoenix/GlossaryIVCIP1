@@ -58,7 +58,7 @@ abstract class Definition {
             $subject = str_replace($search, $replace, $subject);
         }
         $subject = strtolower($subject);
-        return trim(preg_replace('#[^a-z]+#', '-', $subject), '-');
+        return trim(preg_replace('#[^0-9a-z]+#', '-', $subject), '-');
     }
 
     /**

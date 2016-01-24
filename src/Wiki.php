@@ -180,7 +180,7 @@ class Wiki
 
         $letter = null;
         foreach ($this->glossary->getDefinitions() as $definition) {
-            $thisLetter = $definition->getEscapedName()[0];
+            $thisLetter = preg_replace('/[^a-z]/', '#', $definition->getEscapedName()[0]);
             if ($letter !== $thisLetter) {
                 $letter = $thisLetter;
                 $this->hr($handle);

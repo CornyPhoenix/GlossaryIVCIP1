@@ -1,10 +1,21 @@
 title: Glossar für IVC und BV1
 author: Konstantin Möllers
 ---
+4-Nachbarschaft: #BV1 !4nei
+	umfasst alle vier direkt anschließenden => Pixel.
+
+8-Nachbarschaft: #BV1 !8nei
+	umfasst alle vier direkt anschließenden => Pixel sowie die diagonal anliegenden.
+
+Abstand: #Math #BV1
+	ist die Entfernung zwischen zwei Punkten mit Koordinaten $(i,j)$ und $(h,k)$. Es
+	gibt den => {Euklidischen Abstand}, die => Manhattan-Distanz und die => Schachbrett-Distanz.
+
 Abstraktionslevel: #BV1
 	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
 
 Abtasten: - #BV1
+Affine Koordinaten-Transformationen: - #IVC
 Aliasing: => Treppeneffekt
 Approximation: #BV1 #Math
 	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die alle gegebenen
@@ -14,7 +25,16 @@ Approximation: #BV1 #Math
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
+Beidäugiges Stereo: #BV1 !binocular
+	ist ein Prinzip, bei welchem zwei Kameras eine => Szene aufnehmen. Damit können
+	wir es erreichen, dass wir eine => {Inverse Perspektivische Gleichungen}[inverse
+	perspektivische Gleichung] aufstellen können.
+
 Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
+Bikubische Interpolation: #BV1 !bicubic
+	jeder Grauwert an einem Rasterpunkt wird genommen um den Wert des Zentrums einer
+	lokalen bikubischen Interpolationsoberfläche mit Krosssektion $h_3$ zu repräsentieren.
+
 Bild: #BV1
 	ist Sicht einer => Szene.
 
@@ -26,7 +46,7 @@ Bilder pro Sekunde: #BV1
 	ist ein Maß für die Bildrate eines Films oder einer Fernsehübertragung.
 
 Bildformate: 
-	aus der Vorlesung: binär, graustufig und farbig (also multi=> {Spektrum}[spektral]).
+	aus der Vorlesung: => {Binärbild}[binär], graustufig und farbig (also multi=> {Spektrum}[spektral]).
 
 Bildformation: #BV1 !formation
 	beschreibt die Ermittlung von Bildern, z.B. => {Natürliche Bilder}
@@ -36,6 +56,13 @@ Bildverarbeitung: -
 Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
+
+Binärbild: - #BV1
+Binarisierung: #BV1
+	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines Schwarz-Weiß-Bild
+	(=> {Binärbild}) gewonnen wird. Beispielsweise wird ein Objekt von einem Hintergrund
+	getrennt. Um das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte
+	unter diesem weden zu 0 und alle anderen zu 1 ausgewertet.
 
 CMYK: 
 	ist ein => Druck-Farbmodell{e}, bestehend aus den => Spektr{um}[en] Cyan (C), Magenta
@@ -49,6 +76,10 @@ Diskretisierung: #Math
 Druck-Farbmodelle: 
 	sind => Farbmodelle, die extra für Druckmedien geschaffen wurden. Dies ist durch
 	den weißen Hintergrund erforderlich. Das bekannteste Modell ist => CMYK.
+
+Euklidischen Abstand: #Math #BV1
+	$D_E((i,j),(h,k)) = \sqrt{(i - h)^2 + (j - k)^2}$, ist kostenaufwändig wegen der
+	Wurzel. Kann bei Entfernungsbestimmungen vermieden werden.
 
 Farbmodelle: 
 	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV, => {NCS*} und => HSI.
@@ -65,6 +96,11 @@ Helligkeit: #BV1 #IVC
 	Stärke einer visuellen Wahrnehmung von sichtbarem Licht.
 
 Hexagonale Raster: - !hexag
+Homogene Koordinaten: #BV1 #IVC
+	ergänzen in 3D die Vektoren um eine vierte, bei 2D um eine dritte $w$-Koordinate.
+	Mit diesen können sowohl die => {Perspektische Projektionstransformation} als auch
+	=> {Affine }[affine ]Koordinaten-Transformationen umgesetzt werden.
+
 HSB: #BV1 !hsb
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und => Helligkeit
 	(Brightness); siehe auch => HSI.
@@ -82,19 +118,36 @@ Interpolation: #BV1 #Math
 	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die durch alle
 	gegebenen Punkte verläuft. Es ist eine Alternative zu => Approximation.
 
+Inverse Perspektivische Gleichungen: 
+	sollen die Frage lösen, ob aus Bildkoordinaten wieder Weltkoordinaten gewonnen werden
+	können.
+
 JPEG: -
 Kantenerkennung: -
 Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
+Konnektivität: #BV1
+	beschreibt, ob => Pixel zusammenhängen. Primär gibt es => 4-Nachbarschaft und =>
+	8-Nachbarschaft.
+
+Koordinaten-Transformationen: #BV1 #IVC
+	aus IVC und BV1: => Rotation, => Skalierung, => Translation und => Scherung. Diese
+	sind auch alle => {Affine Koordinaten-Transformationen}[affin].
+
 Korrespondenzproblem: -
+Manhattan-Distanz: #Math #BV1
+	$D_4((i,j),(h,k)) = |i - h| + |j - k|$, wie viele horizontale und vertikale Blöcke
+	muss ich laufen? Siehe => 4-Nachbarschaft.
+
 Maschinensehen: #BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
 	Bedeutung.
 
 Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
+Mexican Hat: => Bikubische Interpolation
 Motion Tracking: -
 MSE: #Math
 	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
@@ -121,7 +174,7 @@ Object Recognition: => Objekterkennung
 Objekterkennung: -
 Objektlokalisierung: -
 Octree: -
-Optimale Quantisierung: !optquanti
+Optimale Quantisierung: #BV1 !optquanti
 	*Annahme:* Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern der
 	Quantisierungsstufen N sind bekannt. <p/> *Ziel:* Minimiere den => MSE für die Quantisierung
 	$d_q$ durch Wahl der optimalen Intervalgrenzen $z_n$ und optimalen diskreten Repräsentativen
@@ -132,6 +185,15 @@ PAL-Standard: #BV1
 	ist ein TV-Signal mit Seitenverhältnis 3:4, 25 vollen => Bilder{ pro }[n pro ]Sekunde
 	sowie 625 Reihen pro Bild, von denen nur 576 sichtbar sind. Die => Bandbreite beträgt
 	5 MHz.
+
+Perspektische Projektionstransformation: #BV1 #IVC !persptrans !projtrans
+	ist eine Transformation in drei Schritten: Umwandlung der Weltkoordinaten in Kamerakoordinaten.
+	Projektion der Kamerakoordinaten auf eine Bildebene. Umwandlung der Kamerakoordinaten
+	auf Bildkoordinaten.
+
+Perspektivische Projektionsgeometrie: !persprojgeo
+	bewegt ein Element auf einer Bildebene entsprechend den Transformationen in einer
+	Szene.
 
 Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 	die Möglichkeit einer Oberfläche um Licht zu reflektieren, gegeben durch die =>
@@ -170,11 +232,25 @@ RGB:
 	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
 	es ist außerdem ein => Farbmodell{e}.
 
+Rotation: !rot
+	Rotation über Z-Achse: *kippen* (tilt), mit *Roll*-Winkel (roll). <p/> Rotation
+	über Y-Achse: *schwenken* (pan), mit *Nick*-Winkel (pitch). <p/> Rotation über
+	X-Achse: *neigen* (nick), mit *Gier*-Winkel (yaw).
+
 Sampling: => Abtasten
+Schachbrett-Distanz: #Math #BV1
+	$D_8((i,j),(h,k)) = \max\{|i - h|, |j - k|\}$, => Manhattan-Distanz wenn diagonale
+	Schritte erlaubt sind. Siehe => 8-Nachbarschaft.
+
 Scharr-Operator: -
 Schattierung: #BV1
 	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
 
+Scherung: #BV1 #IVC !skewing
+	ist eine => Koordinaten-Transformation{en} für das Verziehen eines Objekts in eine
+	X-, Y- oder Z-Richtung.
+
+Schwellwert: - #Math
 Shading: => Schattierung
 Shannons Abtasttheorem: #BV1
 	„Eine bandlimitierte Funktion mit => Bandbreite $W$ kann genau dann exakt rekonstruiert
@@ -187,7 +263,18 @@ Shape-from-Shading: #BV1
 	erhalten.
 
 Shape-preserving Sampling Theorem: => Form-konservierendes Abtasttheorem
+Skalierung: #BV1 #IVC
+	ist eine => Koordinaten-Transformation{en} für das Vergrößern oder Verkleinern
+	eines Objekts in X-, Y- und Z-Richtung.
+
+Skewing: => Scherung
+Slit Illumination: #BV1 #IVC !slitillu
+	ist ein Verfahren zur => Binarisierung bei welchem auf einem Förderband sich ein
+	zu scannendes Objekt befindet. Dieses wird von einer Spaltlampe beleuchtet. Die Reflektionen
+	werden von einer Kamera aufgezeichnet und ausgewertet.
+
 Sobel-Operator: -
+Spaltlampenverfahren: => Slit Illumination
 Spektrum: !spektrum
 	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
 	„Schwarz“ oder „Grau“.
@@ -196,6 +283,11 @@ Szene: #BV1
 	ist eine Sektion der realen Welt.
 
 Szeneninterpretation: -
+Threshold: => Schwellwert
+Translation: #BV1 #IVC
+	ist eine => Koordinaten-Transformation{en} für das Verschieben eines Objekts in
+	X-, Y- und Z-Richtung.
+
 Treppeneffekt: #BV1 #IVC !aliasing
 	tritt auf, wenn ein Bild mit zu wenig Aufnahmen rekonstruiert wird. Dies ist dann
 	der Fall, wenn => {Shannons Abtasttheorem} verletzt wird.

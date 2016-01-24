@@ -485,6 +485,6 @@ class Glossary
             $subject = str_replace($search, $replace, $subject);
         }
         $subject = strtolower($subject);
-        return preg_replace('#[^a-z]+#', '', $subject);
+        return preg_replace('/[^0-9a-z]+/', '', $subject);
     }
 }
