@@ -49,6 +49,9 @@ abstract class Definition {
             'ä' => 'ae',
             'ö' => 'oe',
             'ü' => 'ue',
+            'Ä' => 'Ae',
+            'Ö' => 'Oe',
+            'Ü' => 'Ue',
             'ß' => 'ss',
         ];
         foreach ($map as $search => $replace) {
