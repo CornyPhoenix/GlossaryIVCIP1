@@ -4,8 +4,9 @@ author: Konstantin Möllers
 Abstraktionslevel: #BV1
 	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
 
+Abtasten: - #BV1
 Aliasing: => Treppeneffekt
-Approximation: #BV1
+Approximation: #BV1 #Math
 	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die alle gegebenen
 	Punkte annähernd verbindet. Die Funktion wird mithilfe eines => MSE berechnet. Es
 	ist eine Alternative zu => Interpolation.
@@ -21,9 +22,16 @@ Bildanalyse: #BV1
 	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
 	=> Objektlokalisierung, => {Motion Tracking}.
 
+Bilder pro Sekunde: #BV1
+	ist ein Maß für die Bildrate eines Films oder einer Fernsehübertragung.
+
+Bildformate: 
+	aus der Vorlesung: binär, graustufig und farbig (also multi=> {Spektrum}[spektral]).
+
 Bildformation: #BV1 !formation
 	beschreibt die Ermittlung von Bildern, z.B. => {Natürliche Bilder}
 
+Bildrate: => Bilder pro Sekunde
 Bildverarbeitung: -
 Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
@@ -34,7 +42,7 @@ CMYK:
 	(M), Gelb (Y) und Schwarz (K).
 
 Computer Vision: => Maschinensehen
-Diskretisierung: 
+Diskretisierung: #Math
 	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
 	in diskrete (endliche, abzählbare) Bereiche.
 
@@ -45,9 +53,16 @@ Druck-Farbmodelle:
 Farbmodelle: 
 	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV, => {NCS*} und => HSI.
 
-Grauwert-Quantisierung: #BV1
-	ist die => Quantisierung, bei der Grauwerte aus einem => {Diskretisierung}[diskreten]
-	Wrtebereich entnommen werden.
+Form-konservierendes Abtasttheorem: #BV1 !shapepreserving !arbitraryrshape
+	(Shape-preserving Sampling of Binary Images) kann durch das Anlegen von Kreisen mit
+	Radius $r$ auf binäre Bilder erreicht werden. One shape can be mapped onto the other
+	by twisting the whole plane, such that the displacement of each point is smaller
+	than r. Dieses Theorem kann auch auf graustufige Bilder erweitert werden, wie die
+	untenstehende Grafik zeigt. Siehe auch => {Shannons Abtasttheorem}.
+
+Helligkeit: #BV1 #IVC
+	ist ein Überbegriff subjektiver Eindrücke und objektiver Messgrößen für die
+	Stärke einer visuellen Wahrnehmung von sichtbarem Licht.
 
 Hexagonale Raster: - !hexag
 HSB: #BV1 !hsb
@@ -63,7 +78,7 @@ Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
 	Lichts und der spektralen Sensitivität des Sensors.
 
-Interpolation: #BV1
+Interpolation: #BV1 #Math
 	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die durch alle
 	gegebenen Punkte verläuft. Es ist eine Alternative zu => Approximation.
 
@@ -81,7 +96,7 @@ Maschinensehen: #BV1
 
 Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
 Motion Tracking: -
-MSE: 
+MSE: #Math
 	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
 	statistisches Hilfsmittel eingesetzt.
 
@@ -106,6 +121,18 @@ Object Recognition: => Objekterkennung
 Objekterkennung: -
 Objektlokalisierung: -
 Octree: -
+Optimale Quantisierung: !optquanti
+	*Annahme:* Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern der
+	Quantisierungsstufen N sind bekannt. <p/> *Ziel:* Minimiere den => MSE für die Quantisierung
+	$d_q$ durch Wahl der optimalen Intervalgrenzen $z_n$ und optimalen diskreten Repräsentativen
+	$q_n$. <p/> Lösung für optimale Quantisierung: $z_n = \frac12(q_{n-1} + q_n)\;\text{for
+	} n = 1 \dots N - 1 \text{ when } p(z_n) > 0$.
+
+PAL-Standard: #BV1
+	ist ein TV-Signal mit Seitenverhältnis 3:4, 25 vollen => Bilder{ pro }[n pro ]Sekunde
+	sowie 625 Reihen pro Bild, von denen nur 576 sichtbar sind. Die => Bandbreite beträgt
+	5 MHz.
+
 Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 	die Möglichkeit einer Oberfläche um Licht zu reflektieren, gegeben durch die =>
 	{Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF)}.
@@ -117,6 +144,14 @@ Quantisierung: #BV1
 	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
 	wird.
 
+Quantisierung von Grauwerten: #BV1 !quantigray
+	ist die => Quantisierung, bei der Grauwerte aus einem => {Diskretisierung}[diskreten]
+	Wertebereich entnommen werden. Es werden typischerweise $2^x$ Quantisierungsstufen
+	verwendet. Die Stufen können uniform verteilt werden, das heißt in linearen Abständen,
+	oder auch in nichtlinearen Kurven, um z.B. niedrige Grauwerte besser unterscheiden
+	zu können. Eine Logarithmische Kurve kommt der menschlichen => Helligkeit[swahrnehmung]
+	recht nahe.
+
 Raster: 
 	sind Einteilungen des Raums. Es gibt => {Rechteckige Raster}, => {Hexagonale Raster}
 	und => {Trianguläre Raster}.
@@ -125,6 +160,9 @@ Räumliche Quantisierung: #BV1
 	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
 
 Rechteckige Raster: - !rect
+Rekonstruktion einer Bildfunktion von Aufnahmen: #BV1 !sitfunc
+	kann mithilfe einer Abtastfunktion $s_i(t)$ durchgeführt werden.
+
 Rekonstruktion und Interpretation: #BV1
 	sind Computer-interne Beschreibungen einer => Szene.
 
@@ -132,6 +170,7 @@ RGB:
 	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
 	es ist außerdem ein => Farbmodell{e}.
 
+Sampling: => Abtasten
 Scharr-Operator: -
 Schattierung: #BV1
 	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
@@ -147,6 +186,7 @@ Shape-from-Shading: #BV1
 	ist ein Verfahren um eine Höhenkarte oder eine Form anhand einer Schattierung zu
 	erhalten.
 
+Shape-preserving Sampling Theorem: => Form-konservierendes Abtasttheorem
 Sobel-Operator: -
 Spektrum: !spektrum
 	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
@@ -156,7 +196,10 @@ Szene: #BV1
 	ist eine Sektion der realen Welt.
 
 Szeneninterpretation: -
-Treppeneffekt: -
+Treppeneffekt: #BV1 #IVC !aliasing
+	tritt auf, wenn ein Bild mit zu wenig Aufnahmen rekonstruiert wird. Dies ist dann
+	der Fall, wenn => {Shannons Abtasttheorem} verletzt wird.
+
 Trianguläre Raster: - !triang
 YUV: #BV1
 	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus => Helligkeit (16

@@ -43,11 +43,11 @@ class BodyDefinition extends Definition
     public function getParsedBody(callable $callback)
     {
         return preg_replace_callback(
-            '/=>\s*([\w-]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())/',
+            '/=>\s*([\w-]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())([\w-]*)/',
             function (array $matches) use ($callback) {
-                list(, $prefix, , $curly, , , $quadratic) = $matches;
-                $name = $prefix . $curly;
-                $originalText = $prefix . $quadratic ?: $name;
+                list(, $prefix, , $curly, , , $quadratic, , $suffix) = $matches;
+                $name = $prefix . $curly . $suffix;
+                $originalText = $prefix . $quadratic . $suffix ?: $name;
 
                 $def = $this->getGlossary()->getDefinition($name);
                 if (null === $def) {
@@ -87,7 +87,12 @@ class BodyDefinition extends Definition
             return sprintf('\glslink{%s}{%s\textbf{%s}}', $ref->getEscapedName(), ReferenceDefinition::SYMBOL, $text);
         };
 
-        return $this->getParsedBody($latexParser);
+        $body = $this->getParsedBody($latexParser);
+
+        // Format paragraphs.
+        $body = str_replace('<p/>', '\\\\', $body);
+
+        return preg_replace('/\*([^\*]+)\*/', '\textbf{$1}', $body);
     }
 
     /**
@@ -99,7 +104,18 @@ class BodyDefinition extends Definition
             return sprintf('[%s](%s)', $text, $ref->getEscapedName());
         };
 
-        return $this->getName() . ' ' . $this->getParsedBody($latexParser);
+        $body = $this->getParsedBody($latexParser);
+
+        // Format equations.
+        $body = preg_replace_callback('/\$([^\$]+)\$/', function (array $matches) {
+            $equation = $matches[1];
+            return '![' . $equation . '](https://latex.codecogs.com/gif.latex?' . urlencode($equation) . ')';
+        }, $body);
+
+        // Format paragraphs.
+        $body = str_replace('<p/>', "\n\n", $body);
+
+        return $this->getName() . ' ' . $body;
     }
 
     /**

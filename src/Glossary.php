@@ -290,7 +290,7 @@ class Glossary
                 $currentDef->setTags($this->readOutTags($rest));
                 $currentDef->setImages($this->readOutImages($rest));
 
-                $tags = array_replace($tags, $currentDef->getTags());
+                $tags = array_merge($tags, $currentDef->getTags());
 
                 continue;
             }
@@ -309,7 +309,7 @@ class Glossary
 
         fclose($handle);
         $this->definitions = $this->sortDefinitions($defs);
-        $this->tags = $this->sortDefinitions($tags);
+        $this->tags = $this->sortDefinitions(array_values(array_unique($tags)));
         $this->warnEmptyDefinitions();
     }
 
