@@ -55,6 +55,9 @@ class Wiki
         // Write the tag overview page.
         $this->writeTagsPage();
 
+        // Write the wiki sidebar.
+        $this->writeSidebar();
+
         // Write the tag sites.
         $this->writeTags();
     }
@@ -196,6 +199,23 @@ class Wiki
     {
         $handle = fopen($this->buildFilename('Tags'), 'w');
         fwrite($handle, '# Tags');
+        $this->nl($handle);
+        foreach (array_keys($this->glossary->getTags()) as $tag) {
+            fwrite($handle, "* [#$tag]($tag)\n");
+        }
+
+        fclose($handle);
+    }
+
+    /**
+     * Writes a sidebar.
+     */
+    private function writeSidebar()
+    {
+        $handle = fopen($this->buildFilename('_Sidebar'), 'w');
+        fwrite($handle, '[**Overview**](Home)');
+        $this->nl($handle);
+        fwrite($handle, '[**Tags**](Tags)');
         $this->nl($handle);
         foreach (array_keys($this->glossary->getTags()) as $tag) {
             fwrite($handle, "* [#$tag]($tag)\n");
