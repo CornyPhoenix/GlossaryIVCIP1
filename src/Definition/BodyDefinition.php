@@ -109,7 +109,7 @@ class BodyDefinition extends Definition
         // Format equations.
         $body = preg_replace_callback('/\$([^\$]+)\$/', function (array $matches) {
             $equation = $matches[1];
-            return '![' . $equation . '](https://latex.codecogs.com/gif.latex?' . urlencode($equation) . ')';
+            return '![' . $equation . '](https://latex.codecogs.com/gif.latex?' . rawurlencode($equation) . ')';
         }, $body);
 
         // Format paragraphs.
