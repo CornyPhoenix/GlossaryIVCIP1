@@ -26,6 +26,11 @@ class Glossary
     /**
      * @var string[]
      */
+    private $tags;
+
+    /**
+     * @var string[]
+     */
     private $meta;
 
     /**
@@ -91,6 +96,14 @@ class Glossary
     public function getDefinitions()
     {
         return $this->definitions;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 
     /**
@@ -228,7 +241,7 @@ class Glossary
     /**
      * @return Definition[][]
      */
-    public function getTags()
+    public function getTaggedDefinitions()
     {
         $map = [];
         foreach ($this->definitions as $definition) {
@@ -252,6 +265,7 @@ class Glossary
         /** @var Definition|BodyDefinition $currentDef */
         $currentDef = null;
         $defs = [];
+        $tags = [];
         while (($line = fgets($handle)) !== false) {
             if (preg_match('#^([^:]+):\s*(.*)$#', $line, $matches)) {
                 list(, $key, $value) = $matches;
@@ -276,6 +290,8 @@ class Glossary
                 $currentDef->setTags($this->readOutTags($rest));
                 $currentDef->setImages($this->readOutImages($rest));
 
+                $tags = array_replace($tags, $currentDef->getTags());
+
                 continue;
             }
 
@@ -292,8 +308,8 @@ class Glossary
         }
 
         fclose($handle);
-        ksort($defs);
-        $this->definitions = $defs;
+        $this->definitions = $this->sortDefinitions($defs);
+        $this->tags = $this->sortDefinitions($tags);
         $this->warnEmptyDefinitions();
     }
 
@@ -430,5 +446,45 @@ class Glossary
             $line .= "\n";
         }
         return $line;
+    }
+
+    /**
+     * Sorts given definitions.
+     *
+     * @param Definition[] $defs
+     * @return Definition[]
+     */
+    private function sortDefinitions(array $defs)
+    {
+        uksort($defs, function ($subject1, $subject2) {
+            $subject1 = $this->escapeSort($subject1);
+            $subject2 = $this->escapeSort($subject2);
+
+            return $subject1 <=> $subject2;
+        });
+
+        return $defs;
+    }
+
+    /**
+     * @param string $subject
+     * @return string
+     */
+    private function escapeSort(string $subject)
+    {
+        $map = [
+            'ä' => 'a',
+            'ö' => 'o',
+            'ü' => 'u',
+            'Ä' => 'a',
+            'Ö' => 'o',
+            'Ü' => 'u',
+            'ß' => 's',
+        ];
+        foreach ($map as $search => $replace) {
+            $subject = str_replace($search, $replace, $subject);
+        }
+        $subject = strtolower($subject);
+        return preg_replace('#[^a-z]+#', '', $subject);
     }
 }

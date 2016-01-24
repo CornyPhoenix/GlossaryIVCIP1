@@ -49,6 +49,7 @@ Grauwert-Quantisierung: #BV1
 	ist die => Quantisierung, bei der Grauwerte aus einem => {Diskretisierung}[diskreten]
 	Wrtebereich entnommen werden.
 
+Hexagonale Raster: - !hexag
 HSB: #BV1 !hsb
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und => Helligkeit
 	(Brightness); siehe auch => HSI.
@@ -58,7 +59,6 @@ HSI: #BV1
 	(Intensity); siehe auch => HSB.
 
 HSV: => HSI
-Hexagonale Raster: - !hexag
 Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
 	Lichts und der spektralen Sensitivität des Sensors.
@@ -74,10 +74,6 @@ Kognitionswissenschaft: #BV1
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
 Korrespondenzproblem: -
-MSE: 
-	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
-	statistisches Hilfsmittel eingesetzt.
-
 Maschinensehen: #BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
@@ -85,6 +81,10 @@ Maschinensehen: #BV1
 
 Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
 Motion Tracking: -
+MSE: 
+	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
+	statistisches Hilfsmittel eingesetzt.
+
 Multispektrale Bilder: 
 	beinhalten mehrere => Spektr{um}[en], ein Beispiel ist => RGB.
 
@@ -92,15 +92,15 @@ Mustererkennung: #BV1
 	beschreibt Objektklassifizierung basierend auf Vektoren. Es ist ähnlich zu => Bildanalyse,
 	aber auch auf andere Modalitäten anwendbar.
 
-NCS*: !ncs
-	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
-
 Natürliche Bilder: #BV1 !natural
 	werden durch Illuminierung einer Oberfläche und der Messung der entstehenden Reflektionen
 	aufgenommen.
 
 Natürlichsprachliche Beschreibung: #BV1
 	ist das Schildern einer Situation in Prosa.
+
+NCS*: !ncs
+	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
 
 Object Recognition: => Objekterkennung
 Objekterkennung: -
@@ -117,20 +117,20 @@ Quantisierung: #BV1
 	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
 	wird.
 
-RGB: 
-	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
-	es ist außerdem ein => Farbmodell{e}.
-
 Raster: 
 	sind Einteilungen des Raums. Es gibt => {Rechteckige Raster}, => {Hexagonale Raster}
 	und => {Trianguläre Raster}.
+
+Räumliche Quantisierung: #BV1
+	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
 
 Rechteckige Raster: - !rect
 Rekonstruktion und Interpretation: #BV1
 	sind Computer-interne Beschreibungen einer => Szene.
 
-Räumliche Quantisierung: #BV1
-	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
+RGB: 
+	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
+	es ist außerdem ein => Farbmodell{e}.
 
 Scharr-Operator: -
 Schattierung: #BV1
