@@ -2,13 +2,12 @@
 
 namespace CornyPhoenix\Component\Glossaries\Definition;
 
-use CornyPhoenix\Component\Glossaries\Glossary;
-
 /**
  * @package CornyPhoenix\Component\Glossaries\Definition
  * @author moellers
  */
-class BodyDefinition extends Definition {
+class BodyDefinition extends Definition
+{
 
     /**
      * @var string
@@ -24,6 +23,16 @@ class BodyDefinition extends Definition {
     }
 
     /**
+     * @param string $body
+     * @return $this
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    /**
      * @param callable $callback
      *      With params:
      *          Definition $referencedDefinition
@@ -33,28 +42,22 @@ class BodyDefinition extends Definition {
      */
     public function getParsedBody(callable $callback)
     {
-        return preg_replace_callback('/=>\s*(\w*)(\{([^}]+)\}|())(\[([^\]]+)\]|())/', function (array $matches) use ($callback) {
-            list(, $prefix, , $curly, , , $quadratic) = $matches;
-            $name = $prefix . $curly;
-            $originalText = $prefix . $quadratic ?: $name;
+        return preg_replace_callback(
+            '/=>\s*([\w-]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())/',
+            function (array $matches) use ($callback) {
+                list(, $prefix, , $curly, , , $quadratic) = $matches;
+                $name = $prefix . $curly;
+                $originalText = $prefix . $quadratic ?: $name;
 
-            $def = $this->getGlossary()->getDefinition($name);
-            if (null === $def) {
-                return $originalText;
-            }
+                $def = $this->getGlossary()->getDefinition($name);
+                if (null === $def) {
+                    return $originalText;
+                }
 
-            return $callback($def, $originalText);
-        }, $this->body);
-    }
-
-    /**
-     * @param string $body
-     * @return $this
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-        return $this;
+                return $callback($def, $originalText);
+            },
+            $this->body
+        );
     }
 
     /**
@@ -73,6 +76,30 @@ class BodyDefinition extends Definition {
     public function toString()
     {
         return "\n\t" . $this->wordWrap($this->body) . "\n";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLaTeX()
+    {
+        $latexParser = function (Definition $ref, $text) {
+            return sprintf('\glslink{%s}{%s\textbf{%s}}', $ref->getEscapedName(), ReferenceDefinition::SYMBOL, $text);
+        };
+
+        return $this->getParsedBody($latexParser);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMarkdown()
+    {
+        $latexParser = function (Definition $ref, $text) {
+            return sprintf('[%s](%s)', $text, $ref->getEscapedName());
+        };
+
+        return $this->getName() . ' ' . $this->getParsedBody($latexParser);
     }
 
     /**
@@ -99,29 +126,5 @@ class BodyDefinition extends Definition {
         }
 
         return rtrim($text . $rest);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getLaTeX()
-    {
-        $latexParser = function (Definition $ref, $text) {
-            return sprintf('\glslink{%s}{%s\textbf{%s}}', $ref->getEscapedName(), ReferenceDefinition::SYMBOL, $text);
-        };
-
-        return $this->getParsedBody($latexParser);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getMarkdown()
-    {
-        $latexParser = function (Definition $ref, $text) {
-            return sprintf('[%s](%s)', $text, $ref->getEscapedName());
-        };
-
-        return $this->getName() . ' ' . $this->getParsedBody($latexParser);
     }
 }

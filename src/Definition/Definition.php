@@ -141,18 +141,17 @@ abstract class Definition {
     /**
      * @return string
      */
-    public function getLaTeX()
-    {
-        return $this->toString();
-    }
+    public abstract function getLaTeX();
 
     /**
      * @return string
      */
-    public function getMarkdown()
-    {
-        return $this->toString();
-    }
+    public abstract function getMarkdown();
+
+    /**
+     * @return string
+     */
+    public abstract function toString();
 
     /**
      * @return string
@@ -166,14 +165,6 @@ abstract class Definition {
      * @return string
      */
     public function getPrefix()
-    {
-        return '';
-    }
-
-    /**
-     * @return string
-     */
-    public function toString()
     {
         return '';
     }

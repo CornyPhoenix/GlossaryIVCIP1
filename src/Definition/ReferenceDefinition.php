@@ -58,6 +58,14 @@ class ReferenceDefinition extends Definition {
     /**
      * @return string
      */
+    public function toString()
+    {
+        return '';
+    }
+
+    /**
+     * @return string
+     */
     public function getPrefix()
     {
         return self::IDENTIFIER . ' ' . $this->references;

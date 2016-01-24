@@ -12,7 +12,7 @@ class EmptyDefinition extends Definition
     const IDENTIFIER = '-';
 
     /**
-     * {@inheritDoc}
+     * @return string
      */
     public function toString()
     {
@@ -20,11 +20,19 @@ class EmptyDefinition extends Definition
     }
 
     /**
-     * {@inheritDoc}
+     * @return string
      */
     public function getMarkdown()
     {
         return sprintf('_There is no content for %s yet!_', $this->getName());
+    }
+
+    /**
+     * @return string
+     */
+    public function getLaTeX()
+    {
+        return '\ding{55}';
     }
 
     /**

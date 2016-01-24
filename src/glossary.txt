@@ -4,6 +4,12 @@ author: Konstantin Möllers
 Abstraktionslevel: #BV1
 	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
 
+Aliasing: => Treppeneffekt
+Approximation: #BV1
+	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die alle gegebenen
+	Punkte annähernd verbindet. Die Funktion wird mithilfe eines => MSE berechnet. Es
+	ist eine Alternative zu => Interpolation.
+
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
@@ -23,17 +29,43 @@ Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
 
+CMYK: 
+	ist ein => Druck-Farbmodell{e}, bestehend aus den => Spektr{um}[en] Cyan (C), Magenta
+	(M), Gelb (Y) und Schwarz (K).
+
 Computer Vision: => Maschinensehen
+Diskretisierung: 
+	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
+	in diskrete (endliche, abzählbare) Bereiche.
+
+Druck-Farbmodelle: 
+	sind => Farbmodelle, die extra für Druckmedien geschaffen wurden. Dies ist durch
+	den weißen Hintergrund erforderlich. Das bekannteste Modell ist => CMYK.
+
 Farbmodelle: 
-	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV und => {NCS*}.
+	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV, => {NCS*} und => HSI.
 
-HSB: 
-	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und Helligkeit
-	(Brightness).
+Grauwert-Quantisierung: #BV1
+	ist die => Quantisierung, bei der Grauwerte aus einem => {Diskretisierung}[diskreten]
+	Wrtebereich entnommen werden.
 
+HSB: #BV1 !hsb
+	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und => Helligkeit
+	(Brightness); siehe auch => HSI.
+
+HSI: #BV1
+	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und Intensität
+	(Intensity); siehe auch => HSB.
+
+HSV: => HSI
+Hexagonale Raster: - !hexag
 Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
 	Lichts und der spektralen Sensitivität des Sensors.
+
+Interpolation: #BV1
+	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die durch alle
+	gegebenen Punkte verläuft. Es ist eine Alternative zu => Approximation.
 
 JPEG: -
 Kantenerkennung: -
@@ -42,6 +74,10 @@ Kognitionswissenschaft: #BV1
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
 Korrespondenzproblem: -
+MSE: 
+	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
+	statistisches Hilfsmittel eingesetzt.
+
 Maschinensehen: #BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
@@ -77,18 +113,36 @@ Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 Pixel: #BV1
 	ist die Zelle eines => Bild[es] (Picture Cell).
 
+Quantisierung: #BV1
+	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
+	wird.
+
 RGB: 
 	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
 	es ist außerdem ein => Farbmodell{e}.
 
+Raster: 
+	sind Einteilungen des Raums. Es gibt => {Rechteckige Raster}, => {Hexagonale Raster}
+	und => {Trianguläre Raster}.
+
+Rechteckige Raster: - !rect
 Rekonstruktion und Interpretation: #BV1
 	sind Computer-interne Beschreibungen einer => Szene.
+
+Räumliche Quantisierung: #BV1
+	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
 
 Scharr-Operator: -
 Schattierung: #BV1
 	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
 
 Shading: => Schattierung
+Shannons Abtasttheorem: #BV1
+	„Eine bandlimitierte Funktion mit => Bandbreite $W$ kann genau dann exakt rekonstruiert
+	werden, wenn die Abtastdistanz nicht größer ist als $1/(2W)$.“; siehe => Fourier-Dekomposition
+	eines Signals. Das Theorem kann auf 2D erweitert werden (mit Bandbreite $W_x$ und
+	$W_y$).
+
 Shape-from-Shading: #BV1
 	ist ein Verfahren um eine Höhenkarte oder eine Form anhand einer Schattierung zu
 	erhalten.
@@ -102,7 +156,13 @@ Szene: #BV1
 	ist eine Sektion der realen Welt.
 
 Szeneninterpretation: -
-YUV: 
-	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus Helligkeit (16 Bit),
-	Röte und Bläue (jeweils 8 Bit).
+Treppeneffekt: -
+Trianguläre Raster: - !triang
+YUV: #BV1
+	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus => Helligkeit (16
+	Bit), Röte und Bläue (jeweils 8 Bit).
+
+Zeitliche Quantisierung: #BV1
+	ist die => Quantisierung, bei der Grauwerte in => {Diskretisierung}[diskreten] Zeitabständen
+	genommen werden.
 

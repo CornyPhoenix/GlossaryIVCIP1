@@ -370,6 +370,10 @@ class Glossary
     {
         foreach ($this->definitions as $definition) {
             if ($definition instanceof EmptyDefinition) {
+                if (count($definition->getImages())) {
+                    continue;
+                }
+
                 $entry = $definition->getName();
                 self::warn("Entry \e[1m$entry\e[m is empty.");
             }
