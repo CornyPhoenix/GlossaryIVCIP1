@@ -43,7 +43,7 @@ class BodyDefinition extends Definition
     public function getParsedBody(callable $callback)
     {
         return preg_replace_callback(
-            '/=>\s*([\w-]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())([\w-]*)/',
+            '/=>\s*([^\s\.\?!"=\{\}\[\],\*\)\(]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())([^\s\.\?!"=\{\}\[\],\*\)\(]*)/',
             function (array $matches) use ($callback) {
                 list(, $prefix, , $curly, , , $quadratic, , $suffix) = $matches;
                 $name = $prefix . $curly . $suffix;

@@ -33,7 +33,7 @@ Beidäugiges Stereo: #BV1 !binocular
 Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
 Bikubische Interpolation: #BV1 !bicubic
 	jeder Grauwert an einem Rasterpunkt wird genommen um den Wert des Zentrums einer
-	lokalen bikubischen Interpolationsoberfläche mit Krosssektion $h_3$ zu repräsentieren.
+	lokalen bikubischen Interpolationsoberfläche mit => Querschnitt $h_3$ zu repräsentieren.
 
 Bild: #BV1
 	ist Sicht einer => Szene.
@@ -57,6 +57,10 @@ Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
 
+Bimodale Durchschnittberechnung: #BV1 #IVC
+	vermeidet eine => Durchschnittberechnung über Kanten hinaus. Dazu wird entweder
+	mithilfe einer *=> Rotierende{ }[n ]Maske* oder eines *Median* gemittelt.
+
 Binärbild: - #BV1
 Binarisierung: #BV1
 	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines Schwarz-Weiß-Bild
@@ -69,6 +73,7 @@ CMYK:
 	(M), Gelb (Y) und Schwarz (K).
 
 Computer Vision: => Maschinensehen
+Cross-Section: => Querschnitt
 Diskretisierung: #Math
 	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
 	in diskrete (endliche, abzählbare) Bereiche.
@@ -76,6 +81,20 @@ Diskretisierung: #Math
 Druck-Farbmodelle: 
 	sind => Farbmodelle, die extra für Druckmedien geschaffen wurden. Dies ist durch
 	den weißen Hintergrund erforderlich. Das bekannteste Modell ist => CMYK.
+
+Durchschnittberechnung: #BV1 !averaging
+	kann mihilfe einer Maske berechnet werden. Siehe auch => {Einfache Glättung}.
+
+Einfache Glättung: #BV1
+	ist eine Operation bei der entweder 1. eine *=> Durchschnittberechnung durchgeführt*,
+	2. *Ausreißer entfernt* oder 3. ein *gewichteter Durchschnitt* bestimmt wird.
+
+Empirischer Mittelwert: #Math !mean
+	ist der Durchschnitt aller => Pixel eines => Bild[es].
+
+Empirische Varianz: #Math !variance
+	ist der Durchschnitt aller quadratischen Abweichungen von allen => Pixel[n] zum =>
+	{Empirischer }Mittelwert.
 
 Euklidischen Abstand: #Math #BV1
 	$D_E((i,j),(h,k)) = \sqrt{(i - h)^2 + (j - k)^2}$, ist kostenaufwändig wegen der
@@ -91,11 +110,31 @@ Form-konservierendes Abtasttheorem: #BV1 !shapepreserving !arbitraryrshape
 	than r. Dieses Theorem kann auch auf graustufige Bilder erweitert werden, wie die
 	untenstehende Grafik zeigt. Siehe auch => {Shannons Abtasttheorem}.
 
+Gauß'sche Wahrscheinlichkeitsdichte: #Math !gauss
+	ist eine => Wahrscheinlichkeitsdichte für Standardnormalverteilungen.
+
+Generalized Cylinders: #BV1
+	sind ein Verfahren, bei welchem ein Kreis oder eine andere Form entlang einer Linie
+	geführt werden, um dadurch die Konturen einer Form zu erfassen.
+
 Helligkeit: #BV1 #IVC
 	ist ein Überbegriff subjektiver Eindrücke und objektiver Messgrößen für die
 	Stärke einer visuellen Wahrnehmung von sichtbarem Licht.
 
 Hexagonale Raster: - !hexag
+Histogramm: #BV1 !histogramm
+	$h_f(z)$ eines => Bild[es] $f$ stellt die Frequenzen eines Grauwertes $z$ eines =>
+	Bild[es] dar. Es wird als 1D-Array mit $N$ Elementen dargestellt, wenn das Bild über
+	$N$ => Quantisierung[en] verfügt.
+
+Histogramm-Angleichung: #BV1 !histoeq
+	modifiziert das => Histogramm so, dass es alle Grauwerte den gleichen Wert aufweisen.
+
+Histogramm-Projektionen: #BV1
+	erstellen Profile pro Zeile und Spalte. Dafür werden alle Grauwerte der Zeile bzw.
+	Spalte aufsummiert, sodass man ein => Histogramm für die vertikale bzw. horizontale
+	Verteilung erhält.
+
 Homogene Koordinaten: #BV1 #IVC
 	ergänzen in 3D die Vektoren um eine vierte, bei 2D um eine dritte $w$-Koordinate.
 	Mit diesen können sowohl die => {Perspektische Projektionstransformation} als auch
@@ -124,6 +163,9 @@ Inverse Perspektivische Gleichungen:
 
 JPEG: -
 Kantenerkennung: -
+Klique: #Math
+	ist ein vollständiger Subgraph.
+
 Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
@@ -137,6 +179,9 @@ Koordinaten-Transformationen: #BV1 #IVC
 	sind auch alle => {Affine Koordinaten-Transformationen}[affin].
 
 Korrespondenzproblem: -
+Lokale Nachbarschaftsoperationen: #BV1
+	siehe => Durchschnittberechnung und => Schärfen.
+
 Manhattan-Distanz: #Math #BV1
 	$D_4((i,j),(h,k)) = |i - h| + |j - k|$, wie viele horizontale und vertikale Blöcke
 	muss ich laufen? Siehe => 4-Nachbarschaft.
@@ -148,6 +193,7 @@ Maschinensehen: #BV1
 
 Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
 Mexican Hat: => Bikubische Interpolation
+Mittelwert: => Empirischer Mittelwert
 Motion Tracking: -
 MSE: #Math
 	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
@@ -170,16 +216,17 @@ Natürlichsprachliche Beschreibung: #BV1
 NCS*: !ncs
 	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
 
+Noise: => Rauschen
 Object Recognition: => Objekterkennung
 Objekterkennung: -
 Objektlokalisierung: -
 Octree: -
 Optimale Quantisierung: #BV1 !optquanti
-	*Annahme:* Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern der
-	Quantisierungsstufen N sind bekannt. <p/> *Ziel:* Minimiere den => MSE für die Quantisierung
-	$d_q$ durch Wahl der optimalen Intervalgrenzen $z_n$ und optimalen diskreten Repräsentativen
-	$q_n$. <p/> Lösung für optimale Quantisierung: $z_n = \frac12(q_{n-1} + q_n)\;\text{for
-	} n = 1 \dots N - 1 \text{ when } p(z_n) > 0$.
+	*Annahme:* => Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern
+	der Quantisierungsstufen N sind bekannt. <p/> *Ziel:* Minimiere den => MSE für die
+	Quantisierung $d_q$ durch Wahl der optimalen Intervalgrenzen $z_n$ und optimalen
+	diskreten Repräsentativen $q_n$. <p/> Lösung für optimale Quantisierung: $z_n
+	= \frac12(q_{n-1} + q_n)\;\text{for } n = 1 \dots N - 1 \text{ when } p(z_n) > 0$.
 
 PAL-Standard: #BV1
 	ist ein TV-Signal mit Seitenverhältnis 3:4, 25 vollen => Bilder{ pro }[n pro ]Sekunde
@@ -214,6 +261,10 @@ Quantisierung von Grauwerten: #BV1 !quantigray
 	zu können. Eine Logarithmische Kurve kommt der menschlichen => Helligkeit[swahrnehmung]
 	recht nahe.
 
+Querschnitt: #BV1
+	eines Grauwert-Bildes ist ein Vektor aller => Pixel entlang einer geraden Linie,
+	die man durch ein => Bild zieht.
+
 Raster: 
 	sind Einteilungen des Raums. Es gibt => {Rechteckige Raster}, => {Hexagonale Raster}
 	und => {Trianguläre Raster}.
@@ -221,12 +272,29 @@ Raster:
 Räumliche Quantisierung: #BV1
 	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
 
+Rauschen: #BV1 #IVC
+	sind zusätzliche Störsignale, welche ein tatsächliches => Bild von einem idealen
+	abweichen lassen. Es hat einen => {Empirischer }Mittelwert von 0, ist räumlich und
+	zeitlich unkorreliert und hat eine => {Gauß'sche Wahrscheinlichkeitsdichte}. Rauschen
+	kann durch => Durchschnittberechnung über den Raum oder die Zeit entfernt werden
+	(ist allerdings nicht besonders gut, die Varianz vom Ursprung ist $\frac{\sigma^2}{K}$,
+	wobei $\sigma$ die Varianz des Rauschens ist).
+
 Rechteckige Raster: - !rect
 Rekonstruktion einer Bildfunktion von Aufnahmen: #BV1 !sitfunc
 	kann mithilfe einer Abtastfunktion $s_i(t)$ durchgeführt werden.
 
 Rekonstruktion und Interpretation: #BV1
 	sind Computer-interne Beschreibungen einer => Szene.
+
+Relational Models: #BV1
+	werden verwendet, um => Objekte zu beschreiben, basierend auf einzelnen Teilen. Für
+	die Objekterkennung werden dann erst diese Modelle aufgestellt, eine Beschreibung
+	des Bildes angefertigt und ein R-Morphismus berechnet, um zu prüfen, ob die relationalen
+	Modelle sich innerhalb des Bildmodells befinden. Die Modelle können auch für verschiedene
+	Sichten eines Objekts herhalten, allerdings ist dies nicht unbedingt möglich wenn
+	sich die Form in der Tiefe verändert (zum Beispiel bei Dingen, die im Weltall betrachtet
+	werden). Der Morphismus kann berechnet werden, in dem man größte => Klique[n] findet.
 
 RGB: 
 	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
@@ -237,10 +305,20 @@ Rotation: !rot
 	über Y-Achse: *schwenken* (pan), mit *Nick*-Winkel (pitch). <p/> Rotation über
 	X-Achse: *neigen* (nick), mit *Gier*-Winkel (yaw).
 
+Rotierende Maske: #BV1 !rotmask
+	ist ein => Bimodale{ Durchschnittberechnung}[r Durchschnittberechnungsalgorithmus].
+	Es werden Durchschnittsmasken in alle möglichen Richtungen um einen => Pixel gelegt
+	und die Dispersion (sprich: die => {Empirische }Varianz) bestimmt. Die Maske mit
+	der niedrigsten Dispersion gewinnt und deren Durchschnitt wird als Wert dem Pixel
+	zugewiesen.
+
 Sampling: => Abtasten
 Schachbrett-Distanz: #Math #BV1
 	$D_8((i,j),(h,k)) = \max\{|i - h|, |j - k|\}$, => Manhattan-Distanz wenn diagonale
 	Schritte erlaubt sind. Siehe => 8-Nachbarschaft.
+
+Schärfen: #BV1 !sharpening
+	erhöht die Abweichungen der Pixel zueinander.
 
 Scharr-Operator: -
 Schattierung: #BV1
@@ -293,6 +371,11 @@ Treppeneffekt: #BV1 #IVC !aliasing
 	der Fall, wenn => {Shannons Abtasttheorem} verletzt wird.
 
 Trianguläre Raster: - !triang
+Varianz: => Empirische Varianz
+Wahrscheinlichkeitsdichte: #Math
+	ist ein Hilfsmittel zur Beschreibung einer stetigen Wahrscheinlichkeitsverteilung.
+	Sehr populär ist die => {Gauß'sche Wahrscheinlichkeitsdichte}.
+
 YUV: #BV1
 	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus => Helligkeit (16
 	Bit), Röte und Bläue (jeweils 8 Bit).
