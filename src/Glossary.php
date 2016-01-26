@@ -53,6 +53,14 @@ class Glossary
     }
 
     /**
+     * @param string $text
+     */
+    public static function err($text)
+    {
+        error_log("\e[1;31mERR:\e[m $text");
+    }
+
+    /**
      * @param array $array
      * @param $prefix
      * @return string
@@ -81,11 +89,12 @@ class Glossary
      */
     public function setFilename($filename)
     {
-        $this->filename = $filename;
-        $this->readOutDefinitions();
-        $this->writeOutDefinitions();
-        $this->writeOutLaTeXFile(__DIR__ . '/../build/glossary.tex');
-        $this->flushWiki();
+        if ($this->readOutDefinitions($filename)) {
+            $this->filename = $filename;
+            $this->writeOutDefinitions();
+            $this->writeOutLaTeXFile(__DIR__ . '/../build/glossary.tex');
+            $this->flushWiki();
+        }
 
         return $this;
     }
@@ -174,7 +183,7 @@ class Glossary
         foreach ($this->definitions as $name => $definition) {
             $escaped = $definition->getEscapedName();
             $options = [
-                'name' => $name,
+                'name' => LaTeX::escape($name),
                 'description' => $definition->getLaTeX(),
             ];
 
@@ -258,10 +267,12 @@ class Glossary
 
     /**
      * Reads glossary entries.
+     * @param string $filename
+     * @return bool
      */
-    private function readOutDefinitions()
+    private function readOutDefinitions($filename)
     {
-        $handle = fopen($this->filename, 'r');
+        $handle = fopen($filename, 'r');
         /** @var Definition|BodyDefinition $currentDef */
         $currentDef = null;
         $defs = [];
@@ -286,6 +297,12 @@ class Glossary
 
                 // Match empty def.
                 list(, $currentName, $rest) = $matches;
+
+                if (isset($defs[$currentName])) {
+                    self::err(sprintf("Duplicate entry: \e[1m%s\e[m", $currentName));
+                    return false;
+                }
+
                 $currentDef = $this->createDef($currentName, $rest);
                 $currentDef->setTags($this->readOutTags($rest));
                 $currentDef->setImages($this->readOutImages($rest));
@@ -311,6 +328,8 @@ class Glossary
         $this->definitions = $this->sortDefinitions($defs);
         $this->tags = $this->sortDefinitions(array_values(array_unique($tags)));
         $this->warnEmptyDefinitions();
+
+        return true;
     }
 
     /**

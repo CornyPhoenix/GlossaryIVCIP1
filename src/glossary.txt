@@ -25,6 +25,10 @@ Approximation: #BV1 #Math
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
+Bandpassfilter: #BV1
+	lässt einen bestimmten Bereich von Frequenzen durch, => {Filter}[filtert] allerdings
+	höhere oder tiefere Signale weg.
+
 Beidäugiges Stereo: #BV1 !binocular
 	ist ein Prinzip, bei welchem zwei Kameras eine => Szene aufnehmen. Damit können
 	wir es erreichen, dass wir eine => {Inverse Perspektivische Gleichungen}[inverse
@@ -52,6 +56,11 @@ Bildformation: #BV1 !formation
 	beschreibt die Ermittlung von Bildern, z.B. => {Natürliche Bilder}
 
 Bildrate: => Bilder pro Sekunde
+Bildrestauration: #BV1 !imagerestau
+	kann durch Minimieren des => MSE durchgeführt werden. Dazu verwenden wir eine Pseudoinverse
+	$(H^T H)^{-1} H^T$, welche den Filter $H$ ausgleichen soll, der das Bild primär
+	zerstört hat. Ist $H$ sogar invertierbar, kann gleich $H^{-1}$ verwendet werden.
+
 Bildverarbeitung: -
 Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
@@ -73,7 +82,14 @@ CMYK:
 	(M), Gelb (Y) und Schwarz (K).
 
 Computer Vision: => Maschinensehen
+Cooley & Tukey Decomposition: => Fast Fourier-Transform
 Cross-Section: => Querschnitt
+DCT: #BV1
+	steht für Diskrete => Kosinustransformation.
+
+DFT: #BV1
+	steht für Diskrete => Fourier-Transformation.
+
 Diskretisierung: #Math
 	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
 	in diskrete (endliche, abzählbare) Bereiche.
@@ -100,8 +116,33 @@ Euklidischen Abstand: #Math #BV1
 	$D_E((i,j),(h,k)) = \sqrt{(i - h)^2 + (j - k)^2}$, ist kostenaufwändig wegen der
 	Wurzel. Kann bei Entfernungsbestimmungen vermieden werden.
 
+Eulersche Formel: #BV1 #IVC #Math
+	besagt, dass $e^{ix} = \cos(x) + i \sin(x)$.
+
+Faltung: #BV1 #Math
+	ist eine mathematische Operation, bei der zwei Funktionen miteinander überlagert
+	werden. Sie ist wichtig um lineare Operationen wie => Filter zu beschreiben.<p/>Formel
+	für 1D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty f(r) \cdot g(x - r)\; dr$<p/>Formel
+	für 2D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty \int\limits_{-\infty}^\infty
+	f(r, s) \cdot g(x - r, y - s)\; dr\, ds$<p/>Die Faltung ist assoziativ, kommutativ
+	und distributiv. Außerdem gibt es das Gesetz der *Dualität* der Faltung zur =>
+	Fourier-Transformation, sodass eine Faltung zweier Funktionen der => Raumdomäne
+	gleich der Multiplikation in der => Frequenzdomäne ist.
+
 Farbmodelle: 
 	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV, => {NCS*} und => HSI.
+
+Fast Fourier-Transform: #BV1
+	ist eine Umformung der => Fourier-Transformation nach Cooley und Tukey aus dem Jahr
+	1965. Dabei werden die Koeffizienten in gerade und gerade Teile getrennt und anschließend
+	eine Dekompisation im Frequenzraum durchgeführt, sodass nur $\frac{N}2$ Berechnungen
+	durchgeführt werden müssen.
+
+FFT: => Fast Fourier-Transform
+Filter: #BV1 #IVC
+	lassen nur bestimmte Frequenzen eines Signals passieren. Sie können mithilfe einer
+	=> Faltung auf eine Bildfunktion angewendet werden. Typische Filter sind der => Tiefpass{filter}[-],
+	=> Hochpass{filter}[-] und => Bandpassfilter.
 
 Form-konservierendes Abtasttheorem: #BV1 !shapepreserving !arbitraryrshape
 	(Shape-preserving Sampling of Binary Images) kann durch das Anlegen von Kreisen mit
@@ -109,6 +150,25 @@ Form-konservierendes Abtasttheorem: #BV1 !shapepreserving !arbitraryrshape
 	by twisting the whole plane, such that the displacement of each point is smaller
 	than r. Dieses Theorem kann auch auf graustufige Bilder erweitert werden, wie die
 	untenstehende Grafik zeigt. Siehe auch => {Shannons Abtasttheorem}.
+
+Fourier-Transformation: #BV1
+	(FT) wandelt die Intensitätswerte eines => Bild[es] in Frequenzen um. Für den diskreten
+	Fall ist die Formel:<p/>$G_{uv} = \frac1{MN} \sum\limits_{m = 0}^{M - 1} \sum\limits_{n
+	= 0}^{N - 1} g_{mn} e^{-2\pi i \left(\frac{mu}{M} + \frac{nv}{N}\right)}$<p/>Die
+	FT macht aus einem diskreten Signal ein kontinuierliches, welches erneut => {Quantisierung}[quantisiert]
+	werden kann. Die FT ist *linear*, d.h. $F(a \cdot g + b \cdot h) = a \cdot F(g) +
+	b \cdot F(h)$ und *symmetrisch*, d.h. $G_{-u, -v} = G_{u,v}$. Siehe dazu auch die
+	=> {Eulersche Formel}.
+
+Frequency Domain: => Frequenzdomäne
+Frequenzdomäne: #BV1
+	meint das Vorliegen einer => Bild[funktion] als Sammlung von Fourier-Komponenten
+	mit reellem und imaginärem Anteil. Mithilfe einer inversen => DFT kann sie in die
+	=> Raumdomäne gebracht werden.
+
+Frequenz-Spektrum: #BV1
+	ist die Länge $|G(u,v)|$ eines Frequenzwertes, welcher mit einer => Fourier-Transformation
+	erstellt wurde. <p/> Es gilt: $|G(u,v)| = \sqrt{\Re\{G(u,v)\}^2 + \Im\{G(u,v)\}^2}$
 
 Gauß'sche Wahrscheinlichkeitsdichte: #Math !gauss
 	ist eine => Wahrscheinlichkeitsdichte für Standardnormalverteilungen.
@@ -135,6 +195,9 @@ Histogramm-Projektionen: #BV1
 	Spalte aufsummiert, sodass man ein => Histogramm für die vertikale bzw. horizontale
 	Verteilung erhält.
 
+Hochpassfilter: #BV1
+	lässt hohe Frequenzen durch, => {Filter}[filtert] allerdings tiefe Signale weg.
+
 Homogene Koordinaten: #BV1 #IVC
 	ergänzen in 3D die Vektoren um eine vierte, bei 2D um eine dritte $w$-Koordinate.
 	Mit diesen können sowohl die => {Perspektische Projektionstransformation} als auch
@@ -149,6 +212,7 @@ HSI: #BV1
 	(Intensity); siehe auch => HSB.
 
 HSV: => HSI
+Huffman-Kodierung: - #BV1
 Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
 	Lichts und der spektralen Sensitivität des Sensors.
@@ -161,7 +225,11 @@ Inverse Perspektivische Gleichungen:
 	sollen die Frage lösen, ob aus Bildkoordinaten wieder Weltkoordinaten gewonnen werden
 	können.
 
-JPEG: -
+JPEG: #BV1
+	ist ein Bildformat. Es wird berechnet indem eine Umwandlung in den => YUV[-Farbbereich]
+	erfolgt, eine => DCT angewandt, eine Reduktion durch => Quantisierung erwirkt und
+	eine => Huffman-Kodierung durchgeführt wird.
+
 Kantenerkennung: -
 Klique: #Math
 	ist ein vollständiger Subgraph.
@@ -178,7 +246,20 @@ Koordinaten-Transformationen: #BV1 #IVC
 	aus IVC und BV1: => Rotation, => Skalierung, => Translation und => Scherung. Diese
 	sind auch alle => {Affine Koordinaten-Transformationen}[affin].
 
+Korrelation: #BV1 #Math !korrelation
+	ist eine mathematische Operation, bei der, ähnlich der => Faltung, zwei Funktionen
+	miteinander überlagert werden.<p/>Formel für 1D: $(f \circ g)(x) = \int\limits_{-\infty}^\infty
+	f(r) \cdot g(r - x)\; dr$<p/>Formel für 2D: $(f \circ g)(x) = \int\limits_{-\infty}^\infty
+	\int\limits_{-\infty}^\infty f(r, s) \cdot g(r - x, s - y)\; dr\, ds$<p/>Mithilfe
+	von Korrelationen lassen sich Teil-Bildelemente in einem ganzen wiederfinden.<p/>Korrelation
+	kann mithilfe von komplexen Konjugierten auch dual über die => Fourier-Transformation
+	angewandt werden.
+
 Korrespondenzproblem: -
+Kosinustransformation: #BV1
+	funktioniert ähnlich der => Fourier-Transformation, allerdings werden nur Kosinus-Werte
+	berechnet.
+
 Lokale Nachbarschaftsoperationen: #BV1
 	siehe => Durchschnittberechnung und => Schärfen.
 
@@ -269,6 +350,10 @@ Raster:
 	sind Einteilungen des Raums. Es gibt => {Rechteckige Raster}, => {Hexagonale Raster}
 	und => {Trianguläre Raster}.
 
+Raumdomäne: #BV1
+	meint das Vorliegen einer => Bild[funktion] als 2D-Array von Intensitätswerten.
+	Mithilfe einer => DFT kann sie in die => Frequenzdomäne gebracht werden.
+
 Räumliche Quantisierung: #BV1
 	ist die => Quantisierung einer Bildebene in ein 2D-Array von => Pixel[n].
 
@@ -353,6 +438,13 @@ Slit Illumination: #BV1 #IVC !slitillu
 
 Sobel-Operator: -
 Spaltlampenverfahren: => Slit Illumination
+Spatial Domain: => Raumdomäne
+Spektrale Bildeigenschaften: #BV1 !sip
+	sind Mengen von Frequenzen, welche die Magnituden der räumlichen Frequenzen eines
+	=> Bild[es] aufdecken. Wichtige Eigenschaften sind, dass sie *unabhängig von der
+	Position im Bild* sind, *scharfe Kanten hohe Frequenzen* aufweisen und => Rauschen
+	oftmals hohe Frequenzen darstellt.
+
 Spektrum: !spektrum
 	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
 	„Schwarz“ oder „Grau“.
@@ -362,6 +454,9 @@ Szene: #BV1
 
 Szeneninterpretation: -
 Threshold: => Schwellwert
+Tiefpassfilter: #BV1 !lowpass
+	lässt tiefe Frequenzen durch, => {Filter}[filtert] allerdings hohe Signale weg.
+
 Translation: #BV1 #IVC
 	ist eine => Koordinaten-Transformation{en} für das Verschieben eines Objekts in
 	X-, Y- und Z-Richtung.
