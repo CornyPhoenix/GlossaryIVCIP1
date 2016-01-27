@@ -25,6 +25,11 @@ Approximation: #BV1 #Math
 	Punkte annähernd verbindet. Die Funktion wird mithilfe eines => MSE berechnet. Es
 	ist eine Alternative zu => Interpolation.
 
+assoziativ: => Assoziativgesetz
+Assoziativgesetz: #Math
+	gilt, wenn die Reihenfolge der Ausführung einer Operation $\times$ keine Rolle spielt,
+	also $(a \times b) \times c = a \times (b \times c)$.
+
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
@@ -99,12 +104,25 @@ Diskretisierung: #Math
 	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
 	in diskrete (endliche, abzählbare) Bereiche.
 
+distributiv: => Distributivgesetz
+Distributivgesetz: #Math
+	gilt, wenn zwei Verknüpfungen $+$ und $\cdot$ miteinander verträglich sind, und
+	zwar wenn $a \cdot (b + c) = (a \cdot b) + (a \cdot c)$ gilt.
+
 Druck-Farbmodelle: 
 	sind => Farbmodelle, die extra für Druckmedien geschaffen wurden. Dies ist durch
 	den weißen Hintergrund erforderlich. Das bekannteste Modell ist => CMYK.
 
 Durchschnittberechnung: #BV1 !averaging
 	kann mihilfe einer Maske berechnet werden. Siehe auch => {Einfache Glättung}.
+
+Eigenfaces: => Eigengesichter
+Eigengesichter: #BV1 !eigenfaces
+	sind => Eigenvektor[en] einer => Kovarianzmatrix von normalisierten Gesichtsabbildungen.
+
+Eigenvektor: #Math #BV1
+	einer Abbildung ist in der linearen Algebra ein vom Nullvektor verschiedener Vektor,
+	dessen Richtung durch die Abbildung nicht verändert wird.
 
 Einfache Glättung: #BV1
 	ist eine Operation bei der entweder 1. eine *=> Durchschnittberechnung durchgeführt*,
@@ -133,9 +151,9 @@ Faltung: #BV1 #Math
 	werden. Sie ist wichtig um lineare Operationen wie => Filter zu beschreiben.<p/>Formel
 	für 1D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty f(r) \cdot g(x - r)\; dr$<p/>Formel
 	für 2D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty \int\limits_{-\infty}^\infty
-	f(r, s) \cdot g(x - r, y - s)\; dr\, ds$<p/>Die Faltung ist assoziativ, => {K}[k]ommutativ{gesetz}
-	und distributiv. Außerdem gibt es das Gesetz der *Dualität* der Faltung zur =>
-	Fourier-Transformation, sodass eine Faltung zweier Funktionen der => Raumdomäne
+	f(r, s) \cdot g(x - r, y - s)\; dr\, ds$<p/>Die Faltung ist => assoziativ, => kommutativ
+	und => distributiv. Außerdem gibt es das Gesetz der *Dualität* der Faltung zur
+	=> Fourier-Transformation, sodass eine Faltung zweier Funktionen der => Raumdomäne
 	gleich der Multiplikation in der => Frequenzdomäne ist.
 
 Farbmodelle: #BV1 #IVC
@@ -257,9 +275,10 @@ Inverse Perspektivische Gleichungen:
 	können.
 
 JPEG: #BV1
-	ist ein Bildformat. Es wird berechnet indem eine Umwandlung in den => YUV[-Farbbereich]
-	erfolgt, eine => DCT angewandt, eine Reduktion durch => Quantisierung erwirkt und
-	eine => Huffman-Kodierung durchgeführt wird.
+	ist ein => Bildformat{e} und steht für „Joint Photographic Expert Group“. Es
+	wird berechnet, indem eine Umwandlung in den => YUV[-Farbbereich] erfolgt, eine =>
+	DCT angewandt, eine Reduktion durch => Quantisierung erwirkt und eine => Huffman-Kodierung
+	durchgeführt wird.
 
 Karhunen-Loève-Transformation: #BV1 !karhunen !karhunenex
 	ist ein Verfahren zur => {V}[v]erlustbehaftete{ }[n ]Kompression der multivariaten
@@ -278,13 +297,14 @@ Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
 
+kommutativ: => Kommutativgesetz
 Kommutativgesetz: #Math
 	gilt, wenn die Argumente einer Operation vertauscht werden können.
 
 Komplementärfarben: #IVC !komplementaer
-	ist ein Begriff aus der Farbenlehre. Sowohl der additiven als auch bei der subtraktiven
-	Farbmischung gelten diejenigen Farben als komplementär, die miteinander gemischt
-	einen neutralen Grauton ergeben.
+	ist ein Begriff aus der Farbenlehre. Sowohl der => {A}[a]dditive[n]{ Farbmischung}
+	als auch bei der => {S}[s]ubtraktive[n]{ Farbmischung} Farbmischung gelten diejenigen
+	Farben als komplementär, die miteinander gemischt einen neutralen Grauton ergeben.
 
 Kompression: #BV1
 	versucht Daten in ihrer Größe zu optimieren. Sie kann => {V}[v]erlustfrei{e Kompression}
@@ -307,9 +327,18 @@ Korrelation: #BV1 #Math !korrelation
 	kann mithilfe von komplexen Konjugierten auch dual über die => Fourier-Transformation
 	angewandt werden.
 
-Kosinustransformation: #BV1
-	funktioniert ähnlich der => Fourier-Transformation, allerdings werden nur Kosinus-Werte
-	berechnet.
+Kosinustransformation: #BV1 !dct
+	wird hauptsächlich für => JPEG und andere => {V}[v]erlustbehaftete{ }[ ]Kompression[en]
+	verwendet und funktioniert ähnlich der => Fourier-Transformation, allerdings werden
+	nur Kosinus-Werte gespeichert. Dies hat den Vorteil, dass der Imaginärteil der komplexen
+	Zahlen der FT wegfallen und es zu keinen Wrap-Around-Fehlern kommt.
+
+Kovarianzmatrix: #BV1
+	$V$ eines => Bild[es] muss empirisch bestimmt werden. Es werden mehrere Bilder $M$
+	des gleichen Formats und der gleichen Größe $N$ eines Motivs oder einer => Szene
+	aufgenommen und untersucht. Man bildet für jedes Bild einen Spaltenvektor, welcher
+	aus $N$ Einträgen besteht. Man reiht diese Spaltenvektoren zu einer Matrix $T_{M,
+	N}$ an. Die Kovarianzmatrix ergibt sich dann zu $V = T T^T$.
 
 Lauflängenkodierung: #BV1 !rle
 	speichert Informationen als Sammlung von Tupeln der Form (Information, Länge) ab.
@@ -318,6 +347,16 @@ Lauflängenkodierung: #BV1 !rle
 
 Lokale Nachbarschaftsoperationen: #BV1
 	siehe => Durchschnittberechnung und => Schärfen.
+
+Lossless Predictive Coding: #BV1 !loslesscoding
+	ist ein => {V}[v]erlustfreie[s]{ Kompression} Verfahren bei welchem nicht die reinen
+	Bilddaten sondern die Differenzen zu den benachbarten => Pixel[n] mit Nachbarschaftsgrad
+	$K$ (die Prognose) zusätzlich der Prognoseoperation übertragen werden.<p/>Für
+	bilder genügt meistens eine Nachbarschaft der Größe 3.
+
+Lossy Prediction: #BV1 !lossypred
+	ist ein => {V}[v]erlustbehaftete[s]{ Kompression} Verfahren bei welchem die Prognose
+	des => {Lossless Predictive Coding} noch zusätzlich => quantisiert wird.
 
 Manhattan-Distanz: #Math #BV1
 	$D_4((i,j),(h,k)) = |i - h| + |j - k|$, wie viele horizontale und vertikale Blöcke
@@ -330,9 +369,23 @@ Maschinensehen: #BV1
 
 Mexican Hat: => Bikubische Interpolation
 Mittelwert: => Empirischer Mittelwert
+Moving Picture Experts Group: => MPEG
+MPEG: #BV1
+	ist ein => Kompression[sverfahren] für => Video[s]. Die Abkürzung steht für „Moving
+	Picture Experts Group“. Es verwendet zeitliche => {Lossless Predictive Coding}[Prognoseverfahren]
+	verwendet und der => DCT angewandt. Siehe auch => MPEG-7.
+
+MPEG-7: #BV1 !mpeg7
+	aus dem Jahre 2002 erlaubt zusätzlich zu => MPEG auch das Taggen von => Multimedia[-Inhalten]
+	mit Beschreibungen.
+
+MPEG-Kompression: => MPEG
 MSE: #Math
 	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
 	statistisches Hilfsmittel eingesetzt.
+
+Multimedia: #IVC #BV1
+	ist ein Oberbegriff für => Bild, => Video und => Ton.
 
 Multispektrale Bilder: 
 	beinhalten mehrere => Spektr{um}[en], ein Beispiel ist => RGB.
@@ -381,6 +434,17 @@ Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 Pixel: #BV1 #IVC
 	ist eine Rasterelement eines gerasterten => Bild[es] (Picture Cell).
 
+Progressive Kodierung: #BV1
+	speichert erst ein Bild in seiner undetailliertesten Form ab und verfeinert danach
+	erst Stückweise die Ergebnisse. Konkret werden also erst die niedrigsten Frequenzen
+	der => Frequenzdomäne gesichert und aufsteigend sortiert folgen die höheren.
+
+Quadtree: #BV1 !quadtree
+	ist eine mögliche Implementierung der => Progressive[n ]{ }Kodierung, bei der ein
+	=> Bild rekursiv in vier Teile geteilt wird. Ein Bild der Größe $N = 2K \times
+	2K$ kann in vollständiger Quadtree-Aufteilung aus ca. $1.33 \cdot N$ Knoten bestehen.
+
+quantisiert: => Quantisierung
 Quantisierung: #BV1 #IVC
 	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
 	wird.
@@ -475,6 +539,10 @@ Scherung: #BV1 #IVC !skewing
 	ist eine => Koordinaten-Transformation{en} für das Verziehen eines Objekts in eine
 	X-, Y- oder Z-Richtung.
 
+Schwellwert: #Math
+	bezeichnet einen bestimmten Wert, der für ein Verfahren mindestens erreicht werden
+	muss, um einen Effekt/Fall auszulösen. => Perzeptron[e] basieren sehr darauf.
+
 Shading: => Schattierung
 Shannons Abtasttheorem: #BV1 #IVC
 	„Eine bandlimitierte Funktion mit => Bandbreite $W$ kann genau dann exakt rekonstruiert
@@ -516,6 +584,9 @@ Threshold: => Schwellwert
 Tiefpassfilter: #BV1 !lowpass
 	lässt tiefe Frequenzen durch, => {Filter}[filtert] allerdings hohe Signale weg.
 
+Ton: #BV1
+	ist ein akustisches Signal.
+
 Translation: #BV1 #IVC
 	ist eine => Koordinaten-Transformation{en} für das Verschieben eines Objekts in
 	X-, Y- und Z-Richtung. Sie ist weder zur => Skalierung noch zur => Rotation => {K}[k]ommutativ{gesetz}.
@@ -533,6 +604,9 @@ Verlustbehaftete Kompression: #BV1
 
 Verlustfreie Kompression: #BV1
 	ist zum Beispiel => Lauflängen[-]{kodierung} und => Huffman-Kodierung.
+
+Video: #BV1 #IVC
+	ist ein bewegtes => Bild, also eine zeitliche Aneinandereihung eines Bildes.
 
 Wahrscheinlichkeitsdichte: #Math
 	ist ein Hilfsmittel zur Beschreibung einer stetigen Wahrscheinlichkeitsverteilung.
@@ -568,10 +642,10 @@ Objekterkennung: - #BV1
 Objektlokalisierung: - #BV1
 Octree: - #IVC #BV1
 Parallelprojektion: - #IVC
+Perzeptron: - #BV1
 Phong-Shading: - #IVC
 Projektionsmatrix: - #IVC
 Robert's Cross-Operator: - #IVC #BV1
-Schwellwert: - #Math
 Sobel-Operator: - #IVC #BV1
 Subtraktive Farbmischung: - #IVC
 Szeneninterpretation: -

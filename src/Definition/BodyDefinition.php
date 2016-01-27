@@ -82,27 +82,17 @@ class BodyDefinition extends Definition
                         }
                         throw new \Exception('Syntax error.');
                         break;
-                    case ' ':
-                    case '.':
-                    case ',':
-                    case ';':
-                    case '?':
-                    case '!':
-                    case '"':
-                    case '*':
-                    case '(':
-                    case ')':
-                    case ']':
-                    case '}':
-                    case "\t":
-                    case "\n":
-                    case "\r":
+                    default:
+                        if (preg_match('/[\wäöüÄÖÜ-]/', $nextChar)) {
+                            $link .= $nextChar;
+                            $text .= $nextChar;
+                            $i++;
+
+                            break;
+                        }
+
                         $pos = $i;
                         break 2;
-                    default:
-                        $link .= $nextChar;
-                        $text .= $nextChar;
-                        $i++;
                 }
             }
 
@@ -111,7 +101,12 @@ class BodyDefinition extends Definition
                 $text = $link;
             }
 
+            // Retrieve the definition referenced.
             $def = $this->getGlossary()->getDefinition($link);
+            if ($def instanceof ReferenceDefinition) {
+                $def = $def->getReference();
+            }
+
             if (null === $def) {
                 $string .= $text;
             } else {
