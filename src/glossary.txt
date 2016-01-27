@@ -17,6 +17,11 @@ Abstraktionslevel: #BV1
 Abtasten: - #BV1
 Affine Koordinaten-Transformationen: - #IVC
 Aliasing: => Treppeneffekt
+Antialiasing-Filter: #IVC
+	ist (in der Regel) ein => Tiefpassfilter, welcher den => Treppeneffekt eines Bildes
+	reduziert. Ein Tiefpassfilter reduziert die harten Kanten zwischen Pixeln. Dadurch
+	erscheint es insgesamt weicher und natürlicher.
+
 Approximation: #BV1 #Math
 	ist ein Verfahren, bei dem versucht wird, eine Funktion zu finden, die alle gegebenen
 	Punkte annähernd verbindet. Die Funktion wird mithilfe eines => MSE berechnet. Es
@@ -39,17 +44,17 @@ Bikubische Interpolation: #BV1 !bicubic
 	jeder Grauwert an einem Rasterpunkt wird genommen um den Wert des Zentrums einer
 	lokalen bikubischen Interpolationsoberfläche mit => Querschnitt $h_3$ zu repräsentieren.
 
-Bild: #BV1
+Bild: #BV1 #IVC
 	ist Sicht einer => Szene.
 
 Bildanalyse: #BV1
 	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
 	=> Objektlokalisierung, => {Motion Tracking}.
 
-Bilder pro Sekunde: #BV1
+Bilder pro Sekunde: #BV1 #IVC
 	ist ein Maß für die Bildrate eines Films oder einer Fernsehübertragung.
 
-Bildformate: 
+Bildformate: #IVC #BV1
 	aus der Vorlesung: => {Binärbild}[binär], graustufig und farbig (also multi=> {Spektrum}[spektral]).
 
 Bildformation: #BV1 !formation
@@ -240,8 +245,15 @@ JPEG: #BV1
 	eine => Huffman-Kodierung durchgeführt wird.
 
 Kantenerkennung: -
-Karhunen-Loève-Transformation: #BV1
-	
+Karhunen-Loève-Transformation: #BV1 !karhunen !karhunenex
+	ist ein Verfahren zur => {V}[v]erlustbehafteten{ }[ ]Kompression der multivariaten
+	Statistik. Sie dient dazu, umfangreiche Datensätze zu strukturieren, zu vereinfachen
+	und zu veranschaulichen, indem eine Vielzahl statistischer Variablen durch eine geringere
+	Zahl möglichst aussagekräftiger Linearkombinationen (die „Hauptkomponenten“)
+	genähert wird.<p/>Das Verfahren funktioniert so, dass zu einem Datensatz die Eigenvektoren
+	und Eigenwerte berechnet werden, um die Komponenten zu finden, welche die größte
+	Auswirkung haben. Die Komponente mit der geringsten Auswirkung wird entfernt um die
+	gesamte Komplexität zu reduzieren.
 
 Klique: #Math
 	ist ein vollständiger Subgraph.
@@ -351,7 +363,7 @@ Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 Pixel: #BV1
 	ist die Zelle eines => Bild[es] (Picture Cell).
 
-Quantisierung: #BV1
+Quantisierung: #BV1 #IVC
 	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
 	wird.
 
@@ -442,7 +454,7 @@ Scherung: #BV1 #IVC !skewing
 
 Schwellwert: - #Math
 Shading: => Schattierung
-Shannons Abtasttheorem: #BV1
+Shannons Abtasttheorem: #BV1 #IVC
 	„Eine bandlimitierte Funktion mit => Bandbreite $W$ kann genau dann exakt rekonstruiert
 	werden, wenn die Abtastdistanz nicht größer ist als $1/(2W)$.“; siehe => Fourier-Dekomposition
 	eines Signals. Das Theorem kann auf 2D erweitert werden (mit Bandbreite $W_x$ und
