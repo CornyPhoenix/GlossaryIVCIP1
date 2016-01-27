@@ -39,25 +39,85 @@ class BodyDefinition extends Definition
      *          string $originalText
      *          returns string.
      * @return string
+     * @throws \Exception
      */
     public function getParsedBody(callable $callback)
     {
-        return preg_replace_callback(
-            '/=>\s*([^\s\.\?!"=\{\}\[\],\*\)\(]*)(\{([^}]+)\}|())(\[([^\]]+)\]|())([^\s\.\?!"=\{\}\[\],\*\)\(]*)/',
-            function (array $matches) use ($callback) {
-                list(, $prefix, , $curly, , , $quadratic, , $suffix) = $matches;
-                $name = $prefix . $curly . $suffix;
-                $originalText = $prefix . $quadratic . $suffix ?: $name;
-
-                $def = $this->getGlossary()->getDefinition($name);
-                if (null === $def) {
-                    return $originalText;
+        $string = '';
+        $offset = 0;
+        $body = $this->body;
+        while (($pos = strpos($body, '=>', $offset)) !== false) {
+            $string .= substr($body, $offset, $pos - $offset);
+            for ($i = $pos + 2; $i < strlen($body); $i++) {
+                if ($body[$i] !== ' ') {
+                    break;
                 }
+            }
 
-                return $callback($def, $originalText);
-            },
-            $this->body
-        );
+            $link = '';
+            $text = '';
+
+            while (true) {
+                $nextChar = $body[$i];
+                switch ($nextChar) {
+                    case '{':
+                        $start = $i;
+                        for (; $i < strlen($body); $i++) {
+                            if ('}' === $body[$i]) {
+                                $link .= substr($body, $start + 1, $i - $start - 1);
+                                $i++;
+                                break 2;
+                            }
+                        }
+                        throw new \Exception('Syntax error.');
+                        break;
+                    case '[':
+                        $start = $i;
+                        for (; $i < strlen($body); $i++) {
+                            if (']' === $body[$i]) {
+                                $text .= substr($body, $start + 1, $i - $start - 1);
+                                $i++;
+                                break 2;
+                            }
+                        }
+                        throw new \Exception('Syntax error.');
+                        break;
+                    case ' ':
+                    case '.':
+                    case ',':
+                    case ';':
+                    case '?':
+                    case '!':
+                    case '"':
+                    case '*':
+                    case '(':
+                    case ')':
+                    case ']':
+                    case '}':
+                    case "\t":
+                    case "\n":
+                    case "\r":
+                        $pos = $i;
+                        break 2;
+                    default:
+                        $link .= $nextChar;
+                        $text .= $nextChar;
+                        $i++;
+                }
+            }
+
+            $def = $this->getGlossary()->getDefinition($link);
+            if (null === $def) {
+                $string .= $text;
+            } else {
+                $string .= $callback($def, $text);
+            }
+            $offset = $pos;
+        }
+
+        $string .= substr($body, $offset);
+
+        return $string;
     }
 
     /**

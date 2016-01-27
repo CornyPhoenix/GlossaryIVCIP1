@@ -70,8 +70,8 @@ Bimodale Durchschnittberechnung: #BV1 #IVC
 	vermeidet eine => Durchschnittberechnung über Kanten hinaus. Dazu wird entweder
 	mithilfe einer *=> Rotierende{ }[n ]Maske* oder eines *Median* gemittelt.
 
-Binärbild: - #BV1
-Binarisierung: #BV1
+Binärbild: - #BV1 #IVC
+Binarisieren: #BV1 #IVC
 	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines Schwarz-Weiß-Bild
 	(=> {Binärbild}) gewonnen wird. Beispielsweise wird ein Objekt von einem Hintergrund
 	getrennt. Um das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte
@@ -111,6 +111,10 @@ Empirischer Mittelwert: #Math !mean
 Empirische Varianz: #Math !variance
 	ist der Durchschnitt aller quadratischen Abweichungen von allen => Pixel[n] zum =>
 	{Empirischer }Mittelwert.
+
+Entropie: #BV1
+	einer Pixelquelle ist die durchschnittliche Anzahl an Bits, die benötigt werden,
+	um die Information ihrer Quelle zu speichern.
 
 Euklidischen Abstand: #Math #BV1
 	$D_E((i,j),(h,k)) = \sqrt{(i - h)^2 + (j - k)^2}$, ist kostenaufwändig wegen der
@@ -177,6 +181,7 @@ Generalized Cylinders: #BV1
 	sind ein Verfahren, bei welchem ein Kreis oder eine andere Form entlang einer Linie
 	geführt werden, um dadurch die Konturen einer Form zu erfassen.
 
+Hauptkomponentenanalyse: => Karhunen-Loève-Transformation
 Helligkeit: #BV1 #IVC
 	ist ein Überbegriff subjektiver Eindrücke und objektiver Messgrößen für die
 	Stärke einer visuellen Wahrnehmung von sichtbarem Licht.
@@ -203,6 +208,7 @@ Homogene Koordinaten: #BV1 #IVC
 	Mit diesen können sowohl die => {Perspektische Projektionstransformation} als auch
 	=> {Affine }[affine ]Koordinaten-Transformationen umgesetzt werden.
 
+Hotelling Transform: => Karhunen-Loève-Transformation
 HSB: #BV1 !hsb
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und => Helligkeit
 	(Brightness); siehe auch => HSI.
@@ -212,7 +218,10 @@ HSI: #BV1
 	(Intensity); siehe auch => HSB.
 
 HSV: => HSI
-Huffman-Kodierung: - #BV1
+Huffman-Kodierung: #BV1 !huffman
+	ist eine => {V}[v]erlustfreie{ }[ ]Kompression, welche die Informationen entsprechend
+	der Häufigkeit ihres Auftretens abspeichert.
+
 Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
 	Lichts und der spektralen Sensitivität des Sensors.
@@ -231,12 +240,19 @@ JPEG: #BV1
 	eine => Huffman-Kodierung durchgeführt wird.
 
 Kantenerkennung: -
+Karhunen-Loève-Transformation: #BV1
+	
+
 Klique: #Math
 	ist ein vollständiger Subgraph.
 
 Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
+
+Kompression: #BV1
+	versucht Daten in ihrer Größe zu optimieren. Sie kann => {V}[v]erlustfrei{e Kompression}
+	oder => {V}[v]erlustbehaftet{e Kompression} sein.
 
 Konnektivität: #BV1
 	beschreibt, ob => Pixel zusammenhängen. Primär gibt es => 4-Nachbarschaft und =>
@@ -259,6 +275,11 @@ Korrespondenzproblem: -
 Kosinustransformation: #BV1
 	funktioniert ähnlich der => Fourier-Transformation, allerdings werden nur Kosinus-Werte
 	berechnet.
+
+Lauflängenkodierung: #BV1 !rle
+	speichert Informationen als Sammlung von Tupeln der Form (Information, Länge) ab.
+	Wird nur bitweise kodiert, kann die Information weggelassen werden, sodass nur die
+	Länge gespeichert werden muss. So wird aus 111110001111 die RLE 534.
 
 Lokale Nachbarschaftsoperationen: #BV1
 	siehe => Durchschnittberechnung und => Schärfen.
@@ -366,6 +387,10 @@ Rauschen: #BV1 #IVC
 	wobei $\sigma$ die Varianz des Rauschens ist).
 
 Rechteckige Raster: - !rect
+Redundanz: #BV1
+	einer Kodierung individueller => Pixel ist $r = b - H$, mit => Entropie $H$ und die
+	Anzahl der Bits pro Pixel $b$.
+
 Rekonstruktion einer Bildfunktion von Aufnahmen: #BV1 !sitfunc
 	kann mithilfe einer Abtastfunktion $s_i(t)$ durchgeführt werden.
 
@@ -397,6 +422,7 @@ Rotierende Maske: #BV1 !rotmask
 	der niedrigsten Dispersion gewinnt und deren Durchschnitt wird als Wert dem Pixel
 	zugewiesen.
 
+Run-Length Encoding: => Lauflängenkodierung
 Sampling: => Abtasten
 Schachbrett-Distanz: #Math #BV1
 	$D_8((i,j),(h,k)) = \max\{|i - h|, |j - k|\}$, => Manhattan-Distanz wenn diagonale
@@ -406,6 +432,7 @@ Schärfen: #BV1 !sharpening
 	erhöht die Abweichungen der Pixel zueinander.
 
 Scharr-Operator: -
+Scharzweiß-Bild: => Binärbild
 Schattierung: #BV1
 	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
 
@@ -467,6 +494,12 @@ Treppeneffekt: #BV1 #IVC !aliasing
 
 Trianguläre Raster: - !triang
 Varianz: => Empirische Varianz
+Verlustbehaftete Kompression: #BV1
+	ist zum Beispiel => JPEG.
+
+Verlustfreie Kompression: #BV1
+	ist zum Beispiel => Lauflängen[-]{kodierung} und => Huffman-Kodierung.
+
 Wahrscheinlichkeitsdichte: #Math
 	ist ein Hilfsmittel zur Beschreibung einer stetigen Wahrscheinlichkeitsverteilung.
 	Sehr populär ist die => {Gauß'sche Wahrscheinlichkeitsdichte}.

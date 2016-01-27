@@ -479,7 +479,15 @@ class Glossary
             $subject1 = $this->escapeSort($subject1);
             $subject2 = $this->escapeSort($subject2);
 
-            return $subject1 <=> $subject2;
+            if ($subject1 < $subject2) {
+                return -1;
+            }
+
+            if ($subject1 > $subject2) {
+                return 1;
+            }
+
+            return 0;
         });
 
         return $defs;
@@ -489,7 +497,7 @@ class Glossary
      * @param string $subject
      * @return string
      */
-    private function escapeSort(string $subject)
+    private function escapeSort($subject)
     {
         $map = [
             'ä' => 'a',
