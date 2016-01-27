@@ -58,6 +58,9 @@ class Wiki
         // Write the wiki sidebar.
         $this->writeSidebar();
 
+        // Write the wiki footer.
+        $this->writeFooter();
+
         // Write the tag sites.
         $this->writeTags();
     }
@@ -175,8 +178,6 @@ class Wiki
         $handle = fopen($this->buildFilename('Home'), 'w');
         fwrite($handle, '# ' . $this->glossary->getMeta('title'));
         $this->nl($handle);
-        fwrite($handle, '*Author:* ' . $this->glossary->getMeta('author'));
-        fwrite($handle, "\n");
 
         $letter = null;
         foreach ($this->glossary->getDefinitions() as $definition) {
@@ -191,8 +192,7 @@ class Wiki
             }
             fwrite($handle, '* ' . $definition->getMarkdownLink() . "\n");
         }
-        $this->nl($handle);
-        fwrite($handle, '*Last updated at ' . date('Y-m-d') . '*');
+        $this->hr($handle);
         fclose($handle);
     }
 
@@ -224,6 +224,19 @@ class Wiki
         foreach ($this->glossary->getTags() as $tag) {
             fwrite($handle, "* [#$tag]($tag)\n");
         }
+
+        fclose($handle);
+    }
+
+    /**
+     * Writes a sidebar.
+     */
+    private function writeFooter()
+    {
+        $handle = fopen($this->buildFilename('_Footer'), 'w');
+        fwrite($handle, '*Last updated at ' . date('Y-m-d H:i:s') . '*');
+        $this->nl($handle);
+        fwrite($handle, '*Author:* ' . $this->glossary->getMeta('author'));
 
         fclose($handle);
     }
