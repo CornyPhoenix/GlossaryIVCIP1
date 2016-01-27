@@ -86,4 +86,12 @@ class ReferenceDefinition extends Definition {
     {
         return sprintf('[%s](%s)', $this->getName(), $this->getReference()->getEscapedName());
     }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return false;
+    }
 }

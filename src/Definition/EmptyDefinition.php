@@ -32,4 +32,12 @@ class EmptyDefinition extends Definition
     {
         return '\ding{55}';
     }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return true;
+    }
 }

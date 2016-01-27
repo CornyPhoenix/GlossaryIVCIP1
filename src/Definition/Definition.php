@@ -171,4 +171,9 @@ abstract class Definition {
     {
         return '';
     }
+
+    /**
+     * @return bool
+     */
+    public abstract function isEmpty();
 }
