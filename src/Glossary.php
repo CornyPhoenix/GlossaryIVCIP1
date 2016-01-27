@@ -146,16 +146,18 @@ class Glossary
         $line = '';
         $line .= $this->writeFrontMatter();
 
-        foreach ($this->definitions as $name => $definition) {
-            $line .= $name . ': ';
-            $annotations = array_merge(
-                $definition->getPrefix() ? [$definition->getPrefix()] : [],
-                $this->formatTags($definition),
-                $this->formatImages($definition)
-            );
-            $line .= implode(' ', $annotations);
-            $line .= $definition->toString();
-            $line .= "\n";
+        $empty = [];
+        foreach ($this->definitions as $definition) {
+            if ($definition instanceof EmptyDefinition) {
+                $empty[] = $definition;
+                continue;
+            }
+
+            $line = $this->writeDefinition($line, $definition);
+        }
+
+        foreach ($empty as $definition) {
+            $line = $this->writeDefinition($line, $definition);
         }
 
         return $line;
@@ -491,6 +493,27 @@ class Glossary
         });
 
         return $defs;
+    }
+
+    /**
+     * @param string $line
+     * @param Definition $definition
+     * @return string
+     */
+    private function writeDefinition($line, Definition $definition)
+    {
+        $name = $definition->getName();
+        $line .= $name . ': ';
+        $annotations = array_merge(
+            $definition->getPrefix() ? [$definition->getPrefix()] : [],
+            $this->formatTags($definition),
+            $this->formatImages($definition)
+        );
+        $line .= implode(' ', $annotations);
+        $line .= $definition->toString();
+        $line .= "\n";
+
+        return $line;
     }
 
     /**

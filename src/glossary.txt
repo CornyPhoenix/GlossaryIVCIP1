@@ -9,13 +9,11 @@ author: Konstantin Möllers
 
 Abstand: #Math #BV1
 	ist die Entfernung zwischen zwei Punkten mit Koordinaten $(i,j)$ und $(h,k)$. Es
-	gibt den => {Euklidischen Abstand}, die => Manhattan-Distanz und die => Schachbrett-Distanz.
+	gibt den => Euklidischen{ }[ ]Abstand, die => Manhattan-Distanz und die => Schachbrett-Distanz.
 
 Abstraktionslevel: #BV1
 	bestehen aus Wissenslevel, algorithmischem Level und Implementationslevel.
 
-Abtasten: - #BV1
-Affine Koordinaten-Transformationen: - #IVC
 Aliasing: => Treppeneffekt
 Antialiasing-Filter: #IVC
 	ist (in der Regel) ein => Tiefpassfilter, welcher den => Treppeneffekt eines Bildes
@@ -30,6 +28,7 @@ Approximation: #BV1 #Math
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
+Bandbreite: => Grenzfrequenz
 Bandpassfilter: #BV1
 	lässt einen bestimmten Bereich von Frequenzen durch, => {Filter}[filtert] allerdings
 	höhere oder tiefere Signale weg.
@@ -39,7 +38,6 @@ Beidäugiges Stereo: #BV1 !binocular
 	wir es erreichen, dass wir eine => {Inverse Perspektivische Gleichungen}[inverse
 	perspektivische Gleichung] aufstellen können.
 
-Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
 Bikubische Interpolation: #BV1 !bicubic
 	jeder Grauwert an einem Rasterpunkt wird genommen um den Wert des Zentrums einer
 	lokalen bikubischen Interpolationsoberfläche mit => Querschnitt $h_3$ zu repräsentieren.
@@ -66,7 +64,10 @@ Bildrestauration: #BV1 !imagerestau
 	$(H^T H)^{-1} H^T$, welche den Filter $H$ ausgleichen soll, der das Bild primär
 	zerstört hat. Ist $H$ sogar invertierbar, kann gleich $H^{-1}$ verwendet werden.
 
-Bildverarbeitung: -
+Bildverarbeitung: #BV1 #IVC
+	beschreibt die Aufgabe, Informationen aus einem Bild zu berechnen und in ein maschinenlesbares
+	Format zu überführen.
+
 Bildverstehen: #BV1 !process
 	ist das Berechnen der Bedeutung von Bildern, z.B. => Objekterkennung, => Szeneninterpretation
 	und der => {Natürlichsprachliche Beschreibung}[natürlichsprachlichen Beschreibung].
@@ -75,7 +76,6 @@ Bimodale Durchschnittberechnung: #BV1 #IVC
 	vermeidet eine => Durchschnittberechnung über Kanten hinaus. Dazu wird entweder
 	mithilfe einer *=> Rotierende{ }[n ]Maske* oder eines *Median* gemittelt.
 
-Binärbild: - #BV1 #IVC
 Binarisieren: #BV1 #IVC
 	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines Schwarz-Weiß-Bild
 	(=> {Binärbild}) gewonnen wird. Beispielsweise wird ein Objekt von einem Hintergrund
@@ -133,13 +133,14 @@ Faltung: #BV1 #Math
 	werden. Sie ist wichtig um lineare Operationen wie => Filter zu beschreiben.<p/>Formel
 	für 1D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty f(r) \cdot g(x - r)\; dr$<p/>Formel
 	für 2D: $(f \ast g)(x) = \int\limits_{-\infty}^\infty \int\limits_{-\infty}^\infty
-	f(r, s) \cdot g(x - r, y - s)\; dr\, ds$<p/>Die Faltung ist assoziativ, kommutativ
+	f(r, s) \cdot g(x - r, y - s)\; dr\, ds$<p/>Die Faltung ist assoziativ, => {K}[k]ommutativ{gesetz}
 	und distributiv. Außerdem gibt es das Gesetz der *Dualität* der Faltung zur =>
 	Fourier-Transformation, sodass eine Faltung zweier Funktionen der => Raumdomäne
 	gleich der Multiplikation in der => Frequenzdomäne ist.
 
-Farbmodelle: 
+Farbmodelle: #BV1 #IVC
 	die in der Vorlesung behandelt wurden: => HSB, => RGB, => YUV, => {NCS*} und => HSI.
+	Außerdem gibt es die => Subtraktive{ }[ ]Farbmischung und => Additive{ }[ ]Farbmischung.
 
 Fast Fourier-Transform: #BV1
 	ist eine Umformung der => Fourier-Transformation nach Cooley und Tukey aus dem Jahr
@@ -160,7 +161,11 @@ Form-konservierendes Abtasttheorem: #BV1 !shapepreserving !arbitraryrshape
 	than r. Dieses Theorem kann auch auf graustufige Bilder erweitert werden, wie die
 	untenstehende Grafik zeigt. Siehe auch => {Shannons Abtasttheorem}.
 
-Fourier-Transformation: #BV1
+Fourierspektrum: #IVC #BV1
+	ist die Länge $|G(u,v)|$ eines Frequenzwertes, welcher mit einer => Fourier-Transformation
+	erstellt wurde. <p/> Es gilt: $|G(u,v)| = \sqrt{\Re\{G(u,v)\}^2 + \Im\{G(u,v)\}^2}$
+
+Fourier-Transformation: #BV1 #IVC
 	(FT) wandelt die Intensitätswerte eines => Bild[es] in Frequenzen um. Für den diskreten
 	Fall ist die Formel:<p/>$G_{uv} = \frac1{MN} \sum\limits_{m = 0}^{M - 1} \sum\limits_{n
 	= 0}^{N - 1} g_{mn} e^{-2\pi i \left(\frac{mu}{M} + \frac{nv}{N}\right)}$<p/>Die
@@ -175,10 +180,7 @@ Frequenzdomäne: #BV1
 	mit reellem und imaginärem Anteil. Mithilfe einer inversen => DFT kann sie in die
 	=> Raumdomäne gebracht werden.
 
-Frequenz-Spektrum: #BV1
-	ist die Länge $|G(u,v)|$ eines Frequenzwertes, welcher mit einer => Fourier-Transformation
-	erstellt wurde. <p/> Es gilt: $|G(u,v)| = \sqrt{\Re\{G(u,v)\}^2 + \Im\{G(u,v)\}^2}$
-
+Frequenz-Spektrum: => Fourierspektrum
 Gauß'sche Wahrscheinlichkeitsdichte: #Math !gauss
 	ist eine => Wahrscheinlichkeitsdichte für Standardnormalverteilungen.
 
@@ -186,12 +188,26 @@ Generalized Cylinders: #BV1
 	sind ein Verfahren, bei welchem ein Kreis oder eine andere Form entlang einer Linie
 	geführt werden, um dadurch die Konturen einer Form zu erfassen.
 
+Gradientenoperator: #BV1 #IVC
+	findet Differenzen zwischen einzelnen => Pixel[n].
+
+Grenzfrequenz: #BV1 #IVC
+	ist die höchste Frequenz, für die das => Fourierspektrum der => Bild[funktion]
+	verschieden von Null ist. Diese ist beim Digitalisieren des Bildes aufgrund des =>
+	{Shannons }Abtasttheorem[s] zu beachten: der Abstand der Abtaststellen muss mindestens
+	doppelt so hoch sein, wie die Grenzfrequenz vorgibt, sonst entstehen Scheinfrequenzen.
+
+Händigkeit: #IVC
+	
+
 Hauptkomponentenanalyse: => Karhunen-Loève-Transformation
 Helligkeit: #BV1 #IVC
 	ist ein Überbegriff subjektiver Eindrücke und objektiver Messgrößen für die
 	Stärke einer visuellen Wahrnehmung von sichtbarem Licht.
 
-Hexagonale Raster: - !hexag
+Hexagonale Raster: #BV1 !hexag
+	ist ein => Raster mit sechseckigen => Pixel[n].
+
 Histogramm: #BV1 !histogramm
 	$h_f(z)$ eines => Bild[es] $f$ stellt die Frequenzen eines Grauwertes $z$ eines =>
 	Bild[es] dar. Es wird als 1D-Array mit $N$ Elementen dargestellt, wenn das Bild über
@@ -209,7 +225,8 @@ Hochpassfilter: #BV1
 	lässt hohe Frequenzen durch, => {Filter}[filtert] allerdings tiefe Signale weg.
 
 Homogene Koordinaten: #BV1 #IVC
-	ergänzen in 3D die Vektoren um eine vierte, bei 2D um eine dritte $w$-Koordinate.
+	ergänzen in 3D die Vektoren um eine vierte, bei 2D um eine dritte $w$-Koordinate,
+	durch die alle weiteren Koordinaten geteilt werden (z.B. Rot entspricht $\frac{r}{w}$).<p/>
 	Mit diesen können sowohl die => {Perspektische Projektionstransformation} als auch
 	=> {Affine }[affine ]Koordinaten-Transformationen umgesetzt werden.
 
@@ -244,9 +261,8 @@ JPEG: #BV1
 	erfolgt, eine => DCT angewandt, eine Reduktion durch => Quantisierung erwirkt und
 	eine => Huffman-Kodierung durchgeführt wird.
 
-Kantenerkennung: -
 Karhunen-Loève-Transformation: #BV1 !karhunen !karhunenex
-	ist ein Verfahren zur => {V}[v]erlustbehafteten{ }[ ]Kompression der multivariaten
+	ist ein Verfahren zur => {V}[v]erlustbehaftete{ }[n ]Kompression der multivariaten
 	Statistik. Sie dient dazu, umfangreiche Datensätze zu strukturieren, zu vereinfachen
 	und zu veranschaulichen, indem eine Vielzahl statistischer Variablen durch eine geringere
 	Zahl möglichst aussagekräftiger Linearkombinationen (die „Hauptkomponenten“)
@@ -261,6 +277,14 @@ Klique: #Math
 Kognitionswissenschaft: #BV1
 	ist eine biologische Disziplin um mithilfe empirischer Modelle biologisches Sehen
 	zu beschreiben. Es ist ein Interessensgebiet des => Maschinensehen[s].
+
+Kommutativgesetz: #Math
+	gilt, wenn die Argumente einer Operation vertauscht werden können.
+
+Komplementärfarben: #IVC !komplementaer
+	ist ein Begriff aus der Farbenlehre. Sowohl der additiven als auch bei der subtraktiven
+	Farbmischung gelten diejenigen Farben als komplementär, die miteinander gemischt
+	einen neutralen Grauton ergeben.
 
 Kompression: #BV1
 	versucht Daten in ihrer Größe zu optimieren. Sie kann => {V}[v]erlustfrei{e Kompression}
@@ -283,7 +307,6 @@ Korrelation: #BV1 #Math !korrelation
 	kann mithilfe von komplexen Konjugierten auch dual über die => Fourier-Transformation
 	angewandt werden.
 
-Korrespondenzproblem: -
 Kosinustransformation: #BV1
 	funktioniert ähnlich der => Fourier-Transformation, allerdings werden nur Kosinus-Werte
 	berechnet.
@@ -305,10 +328,8 @@ Maschinensehen: #BV1
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
 	Bedeutung.
 
-Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
 Mexican Hat: => Bikubische Interpolation
 Mittelwert: => Empirischer Mittelwert
-Motion Tracking: -
 MSE: #Math
 	(Minimum Squared Error) steht für den kleinsten quadratischen Fehler. Er wird als
 	statistisches Hilfsmittel eingesetzt.
@@ -332,9 +353,6 @@ NCS*: !ncs
 
 Noise: => Rauschen
 Object Recognition: => Objekterkennung
-Objekterkennung: -
-Objektlokalisierung: -
-Octree: -
 Optimale Quantisierung: #BV1 !optquanti
 	*Annahme:* => Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern
 	der Quantisierungsstufen N sind bekannt. <p/> *Ziel:* Minimiere den => MSE für die
@@ -360,8 +378,8 @@ Photometrische Oberflächeneigenschaften: #BV1 !photosurprop
 	die Möglichkeit einer Oberfläche um Licht zu reflektieren, gegeben durch die =>
 	{Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF)}.
 
-Pixel: #BV1
-	ist die Zelle eines => Bild[es] (Picture Cell).
+Pixel: #BV1 #IVC
+	ist eine Rasterelement eines gerasterten => Bild[es] (Picture Cell).
 
 Quantisierung: #BV1 #IVC
 	ist die Umsetzung eines analogen Signals in ein digitales, bei der => {Diskretisierung}[diskretisiert]
@@ -398,7 +416,9 @@ Rauschen: #BV1 #IVC
 	(ist allerdings nicht besonders gut, die Varianz vom Ursprung ist $\frac{\sigma^2}{K}$,
 	wobei $\sigma$ die Varianz des Rauschens ist).
 
-Rechteckige Raster: - !rect
+Rechteckige Raster: #BV1 !rect
+	ist ein => Raster mit rechteckigen => Pixel[n].
+
 Redundanz: #BV1
 	einer Kodierung individueller => Pixel ist $r = b - H$, mit => Entropie $H$ und die
 	Anzahl der Bits pro Pixel $b$.
@@ -443,7 +463,10 @@ Schachbrett-Distanz: #Math #BV1
 Schärfen: #BV1 !sharpening
 	erhöht die Abweichungen der Pixel zueinander.
 
-Scharr-Operator: -
+Scharr-Operator: #BV1 #IVC
+	ist ein => Gradientenoperator. Er stellt eine Weiterentwicklung des => Sobel-Operator[s]
+	mit genaueren Koeffizienten dar.
+
 Scharzweiß-Bild: => Binärbild
 Schattierung: #BV1
 	ist der Grauwert eines => Pixel[s], welchen dieser einnimmt, um
@@ -452,7 +475,6 @@ Scherung: #BV1 #IVC !skewing
 	ist eine => Koordinaten-Transformation{en} für das Verziehen eines Objekts in eine
 	X-, Y- oder Z-Richtung.
 
-Schwellwert: - #Math
 Shading: => Schattierung
 Shannons Abtasttheorem: #BV1 #IVC
 	„Eine bandlimitierte Funktion mit => Bandbreite $W$ kann genau dann exakt rekonstruiert
@@ -471,11 +493,10 @@ Skalierung: #BV1 #IVC
 
 Skewing: => Scherung
 Slit Illumination: #BV1 #IVC !slitillu
-	ist ein Verfahren zur => Binarisierung bei welchem auf einem Förderband sich ein
+	ist ein Verfahren zur => Binarisieren bei welchem auf einem Förderband sich ein
 	zu scannendes Objekt befindet. Dieses wird von einer Spaltlampe beleuchtet. Die Reflektionen
 	werden von einer Kamera aufgezeichnet und ausgewertet.
 
-Sobel-Operator: -
 Spaltlampenverfahren: => Slit Illumination
 Spatial Domain: => Raumdomäne
 Spektrale Bildeigenschaften: #BV1 !sip
@@ -491,20 +512,21 @@ Spektrum: !spektrum
 Szene: #BV1
 	ist eine Sektion der realen Welt.
 
-Szeneninterpretation: -
 Threshold: => Schwellwert
 Tiefpassfilter: #BV1 !lowpass
 	lässt tiefe Frequenzen durch, => {Filter}[filtert] allerdings hohe Signale weg.
 
 Translation: #BV1 #IVC
 	ist eine => Koordinaten-Transformation{en} für das Verschieben eines Objekts in
-	X-, Y- und Z-Richtung.
+	X-, Y- und Z-Richtung. Sie ist weder zur => Skalierung noch zur => Rotation => {K}[k]ommutativ{gesetz}.
 
 Treppeneffekt: #BV1 #IVC !aliasing
 	tritt auf, wenn ein Bild mit zu wenig Aufnahmen rekonstruiert wird. Dies ist dann
 	der Fall, wenn => {Shannons Abtasttheorem} verletzt wird.
 
-Trianguläre Raster: - !triang
+Trianguläre Raster: #BV1 !triang
+	ist ein => Raster mit dreieckigen => Pixel[n].
+
 Varianz: => Empirische Varianz
 Verlustbehaftete Kompression: #BV1
 	ist zum Beispiel => JPEG.
@@ -524,3 +546,33 @@ Zeitliche Quantisierung: #BV1
 	ist die => Quantisierung, bei der Grauwerte in => {Diskretisierung}[diskreten] Zeitabständen
 	genommen werden.
 
+Abtasten: - #BV1 #IVC
+Additive Farbmischung: - #IVC
+Affine Koordinaten-Transformationen: - #IVC
+Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
+Binärbild: - #BV1 #IVC
+Canny-Algorithmus: - #BV1 #IVC
+Flat-Shading: - #IVC
+Fourier-Dekomposition: - #IVC #BV1
+Gouraud-Shading: - #IVC
+Kantenerkennung: - #BV1 #IVC
+Kirsch-Operator: - #IVC #BV1
+Korrespondenzproblem: - #BV1 #IVC
+Laplace-Operator: - #IVC #BV1
+Lochkamera: - #IVC
+Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
+Motion Tracking: - #BV1
+Normalenvektor: - #IVC #Math
+Objekte: - #BV1
+Objekterkennung: - #BV1
+Objektlokalisierung: - #BV1
+Octree: - #IVC #BV1
+Parallelprojektion: - #IVC
+Phong-Shading: - #IVC
+Projektionsmatrix: - #IVC
+Robert's Cross-Operator: - #IVC #BV1
+Schwellwert: - #Math
+Sobel-Operator: - #IVC #BV1
+Subtraktive Farbmischung: - #IVC
+Szeneninterpretation: -
+Zentralprojektion: - #IVC

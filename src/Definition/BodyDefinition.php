@@ -106,6 +106,11 @@ class BodyDefinition extends Definition
                 }
             }
 
+            // If text is empty, use the Link.
+            if (!$text) {
+                $text = $link;
+            }
+
             $def = $this->getGlossary()->getDefinition($link);
             if (null === $def) {
                 $string .= $text;
