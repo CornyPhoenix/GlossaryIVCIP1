@@ -9,8 +9,6 @@ namespace CornyPhoenix\Component\Glossaries\Definition;
 class EmptyDefinition extends Definition
 {
 
-    const IDENTIFIER = '-';
-
     /**
      * @return string
      */
@@ -33,13 +31,5 @@ class EmptyDefinition extends Definition
     public function getLaTeX()
     {
         return '\ding{55}';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPrefix()
-    {
-        return self::IDENTIFIER;
     }
 }

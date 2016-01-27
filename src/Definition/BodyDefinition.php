@@ -139,6 +139,26 @@ class BodyDefinition extends Definition
     }
 
     /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return !strlen(trim($this->body));
+    }
+
+    /**
+     * @return EmptyDefinition
+     */
+    public function makeEmpty()
+    {
+        $emptyDefinition = new EmptyDefinition($this->getGlossary(), $this->getName());
+        $emptyDefinition->setImages($this->getImages());
+        $emptyDefinition->setTags($this->getTags());
+
+        return $emptyDefinition;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getLaTeX()

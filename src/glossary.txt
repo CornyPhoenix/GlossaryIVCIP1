@@ -215,9 +215,6 @@ Grenzfrequenz: #BV1 #IVC
 	{Shannons }Abtasttheorem[s] zu beachten: der Abstand der Abtaststellen muss mindestens
 	doppelt so hoch sein, wie die Grenzfrequenz vorgibt, sonst entstehen Scheinfrequenzen.
 
-Händigkeit: #IVC
-	
-
 Hauptkomponentenanalyse: => Karhunen-Loève-Transformation
 Helligkeit: #BV1 #IVC
 	ist ein Überbegriff subjektiver Eindrücke und objektiver Messgrößen für die
@@ -620,33 +617,35 @@ Zeitliche Quantisierung: #BV1
 	ist die => Quantisierung, bei der Grauwerte in => {Diskretisierung}[diskreten] Zeitabständen
 	genommen werden.
 
-Abtasten: - #BV1 #IVC
-Additive Farbmischung: - #IVC
-Affine Koordinaten-Transformationen: - #IVC
-Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): - !brdf
-Binärbild: - #BV1 #IVC
-Canny-Algorithmus: - #BV1 #IVC
-Flat-Shading: - #IVC
-Fourier-Dekomposition: - #IVC #BV1
-Gouraud-Shading: - #IVC
-Kantenerkennung: - #BV1 #IVC
-Kirsch-Operator: - #IVC #BV1
-Korrespondenzproblem: - #BV1 #IVC
-Laplace-Operator: - #IVC #BV1
-Lochkamera: - #IVC
-Mehrdeutige Sensor-Antwort: - !mehrsensorantwort
-Motion Tracking: - #BV1
-Normalenvektor: - #IVC #Math
-Objekte: - #BV1
-Objekterkennung: - #BV1
-Objektlokalisierung: - #BV1
-Octree: - #IVC #BV1
-Parallelprojektion: - #IVC
-Perzeptron: - #BV1
-Phong-Shading: - #IVC
-Projektionsmatrix: - #IVC
-Robert's Cross-Operator: - #IVC #BV1
-Sobel-Operator: - #IVC #BV1
-Subtraktive Farbmischung: - #IVC
-Szeneninterpretation: -
-Zentralprojektion: - #IVC
+Abtasten: #BV1 #IVC
+Additive Farbmischung: #IVC
+Affine Koordinaten-Transformationen: #IVC
+Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): !brdf
+Binärbild: #BV1 #IVC
+Canny-Algorithmus: #BV1 #IVC
+Flat-Shading: #IVC
+Foo: 
+Fourier-Dekomposition: #IVC #BV1
+Gouraud-Shading: #IVC
+Händigkeit: #IVC
+Kantenerkennung: #BV1 #IVC
+Kirsch-Operator: #IVC #BV1
+Korrespondenzproblem: #BV1 #IVC
+Laplace-Operator: #IVC #BV1
+Lochkamera: #IVC
+Mehrdeutige Sensor-Antwort: !mehrsensorantwort
+Motion Tracking: #IVC #BV1
+Normalenvektor: #IVC #Math
+Objekte: #BV1
+Objekterkennung: #BV1
+Objektlokalisierung: #BV1
+Octree: #IVC #BV1
+Parallelprojektion: #IVC
+Perzeptron: #BV1
+Phong-Shading: #IVC
+Projektionsmatrix: #IVC
+Robert's Cross-Operator: #IVC #BV1
+Sobel-Operator: #IVC #BV1
+Subtraktive Farbmischung: #IVC
+Szeneninterpretation: 
+Zentralprojektion: #IVC

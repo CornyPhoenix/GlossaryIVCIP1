@@ -294,7 +294,11 @@ class Glossary
             if (preg_match('#^([^\s:][^:]*):(.*)$#', $line, $matches)) {
                 // Write current Definition.
                 if ($currentDef !== null) {
-                    $defs[$currentDef->getName()] = $currentDef;
+                    if ($currentDef instanceof BodyDefinition && $currentDef->isEmpty()) {
+                        $defs[$currentDef->getName()] = $currentDef->makeEmpty();
+                    } else {
+                        $defs[$currentDef->getName()] = $currentDef;
+                    }
                 }
 
                 // Match empty def.
@@ -323,7 +327,11 @@ class Glossary
 
         // Write current definition.
         if ($currentDef !== null) {
-            $defs[$currentDef->getName()] = $currentDef;
+            if ($currentDef instanceof BodyDefinition && $currentDef->isEmpty()) {
+                $defs[$currentDef->getName()] = $currentDef->makeEmpty();
+            } else {
+                $defs[$currentDef->getName()] = $currentDef;
+            }
         }
 
         fclose($handle);
@@ -344,10 +352,6 @@ class Glossary
     private function createDef($currentName, $rest)
     {
         $trim = trim($rest);
-
-        if (strpos($trim, EmptyDefinition::IDENTIFIER) === 0) {
-            return new EmptyDefinition($this, $currentName);
-        }
 
         if (strpos($trim, ReferenceDefinition::IDENTIFIER) === 0) {
             return new ReferenceDefinition($this, $currentName, ltrim(substr($trim, 2)));

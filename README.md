@@ -55,7 +55,7 @@ To make references, use an arrow symbol `=>` and write the referenced key afterw
 
 ### Empty Definitions
 
-Just write a hyphen (`-`), to leave a definition empty (you can still use tags and images, though).
+Just leave out the body of a definition (you can still use tags and images, though).
 
 ```
 Empty Key: - #Some #Tags !empty !image

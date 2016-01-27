@@ -78,4 +78,12 @@ class ReferenceDefinition extends Definition {
     {
         return $this->getGlossary()->getDefinition($this->references);
     }
+
+    /**
+     * @return string
+     */
+    public function getMarkdownLink()
+    {
+        return sprintf('[%s](%s)', $this->getName(), $this->getReference()->getEscapedName());
+    }
 }
