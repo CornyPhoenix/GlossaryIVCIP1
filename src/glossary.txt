@@ -1,11 +1,19 @@
 title: Glossar für IVC und BV1
 author: Konstantin Möllers
 ---
+1. Ableitung: => Steigung
+2. Ableitung: => Krümmung
 4-Nachbarschaft: #BV1 !4nei
 	umfasst alle vier direkt anschließenden => Pixel.
 
 8-Nachbarschaft: #BV1 !8nei
 	umfasst alle vier direkt anschließenden => Pixel sowie die diagonal anliegenden.
+
+Abgrenzungen: #BV1 !boundaries
+	stellen eine Herausforderung der => Bildsegmentierung dar. Bei einer => 8-Nachbarschaft
+	können diese anders ausfallen als bei einer => 4-Nachbarschaft. Äußere abgrenzende
+	=> Pixel sind in der Regel im Uhrzeigersinn angeordnet während innere gegen den
+	Uhrzeigersinn geordnet sind.
 
 Abstand: #Math #BV1
 	ist die Entfernung zwischen zwei Punkten mit Koordinaten $(i,j)$ und $(h,k)$. Es
@@ -51,8 +59,13 @@ Bild: #BV1 #IVC
 	ist Sicht einer => Szene.
 
 Bildanalyse: #BV1
-	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Kantenerkennung,
+	ist das Berechnen von Bildkomponenten und deren Eigenschaften, z.B. => Bildsegmentierung,
 	=> Objektlokalisierung, => {Motion Tracking}.
+
+Bildelemente: #BV1
+	sind das Produkt der => Bildsegmentierung und Edukt der Gruppierung und des Suchens.
+	Sie können ganze => Objekte sein, => Kanten[linien]{erkennung} oder Kantelemente,
+	Vertixe
 
 Bilder pro Sekunde: #BV1 #IVC
 	ist ein Maß für die Bildrate eines Films oder einer Fernsehübertragung.
@@ -68,6 +81,10 @@ Bildrestauration: #BV1 !imagerestau
 	kann durch Minimieren des => MSE durchgeführt werden. Dazu verwenden wir eine Pseudoinverse
 	$(H^T H)^{-1} H^T$, welche den Filter $H$ ausgleichen soll, der das Bild primär
 	zerstört hat. Ist $H$ sogar invertierbar, kann gleich $H^{-1}$ verwendet werden.
+
+Bildsegmentierung: #BV1
+	ist eine Disziplin der => Bildverarbeitung, bei der versucht wird, aus rohen => Bild[ern]
+	=> Bildelemente abzuleiten.<p/>Siehe => Thresholding, => Kantenerkennung.
 
 Bildverarbeitung: #BV1 #IVC
 	beschreibt die Aufgabe, Informationen aus einem Bild zu berechnen und in ein maschinenlesbares
@@ -87,6 +104,7 @@ Binarisieren: #BV1 #IVC
 	getrennt. Um das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte
 	unter diesem weden zu 0 und alle anderen zu 1 ausgewertet.
 
+Chain Code: => Freeman-Code
 CMYK: 
 	ist ein => Druck-Farbmodell{e}, bestehend aus den => Spektr{um}[en] Cyan (C), Magenta
 	(M), Gelb (Y) und Schwarz (K).
@@ -94,11 +112,16 @@ CMYK:
 Computer Vision: => Maschinensehen
 Cooley & Tukey Decomposition: => Fast Fourier-Transform
 Cross-Section: => Querschnitt
+Curvature: => Krümmung
 DCT: #BV1
 	steht für Diskrete => Kosinustransformation.
 
 DFT: #BV1
 	steht für Diskrete => Fourier-Transformation.
+
+Dilatation: #BV1 !erosiondilation !catimagelol
+	umrahmt das Äußere einer Form. Es entspricht einer *ODER*-Operation mit einem Strukturelement.
+	Der Gegensatz dazu ist => Erosion.
 
 Diskretisierung: #Math
 	beschreibt den mathematischen Prozess der Überführung von kontinuierlichen Werten
@@ -138,6 +161,10 @@ Empirische Varianz: #Math !variance
 Entropie: #BV1
 	einer Pixelquelle ist die durchschnittliche Anzahl an Bits, die benötigt werden,
 	um die Information ihrer Quelle zu speichern.
+
+Erosion: #BV1 !erosiondilation !catimagelol
+	trägt das Innere einer Form ab. Es entspricht einer *UND*-Operation mit einem Strukturelement.
+	Der Gegensatz dazu ist => Dilatation.
 
 Euklidischen Abstand: #Math #BV1
 	$D_E((i,j),(h,k)) = \sqrt{(i - h)^2 + (j - k)^2}$, ist kostenaufwändig wegen der
@@ -192,6 +219,7 @@ Fourier-Transformation: #BV1 #IVC
 	b \cdot F(h)$ und *symmetrisch*, d.h. $G_{-u, -v} = G_{u,v}$. Siehe dazu auch die
 	=> {Eulersche Formel}.
 
+Freeman-Code: => Kettencode
 Frequency Domain: => Frequenzdomäne
 Frequenzdomäne: #BV1
 	meint das Vorliegen einer => Bild[funktion] als Sammlung von Fourier-Komponenten
@@ -205,6 +233,12 @@ Gauß'sche Wahrscheinlichkeitsdichte: #Math !gauss
 Generalized Cylinders: #BV1
 	sind ein Verfahren, bei welchem ein Kreis oder eine andere Form entlang einer Linie
 	geführt werden, um dadurch die Konturen einer Form zu erfassen.
+
+Gerade Linien in diskreter Darstellung: #BV1 !straightlines
+	stellen eine Herausforderung dar, da diagonale Linien nur durch Treppen dargestellt
+	werden können. Es sind im => Kettencode dabei nur zwei Elementtypen erlaubt, die
+	Differenz der Elementtypen beträgt höchstens 1 und eines der Elementtypen taucht
+	nicht permanent auf sondern nur in möglichst regelmäßigen Abständen.
 
 Gradientenoperator: #BV1 #IVC
 	findet Differenzen zwischen einzelnen => Pixel[n].
@@ -287,6 +321,12 @@ Karhunen-Loève-Transformation: #BV1 !karhunen !karhunenex
 	Auswirkung haben. Die Komponente mit der geringsten Auswirkung wird entfernt um die
 	gesamte Komplexität zu reduzieren.
 
+Kettencode: #BV1 !chaincode
+	ist ein gegen den Uhrzeigersinn formulierter Code, welcher die (Himmels)-Richtungen
+	unterscheidet. Im Falle einer => 8-Nachbarschaft ist „Ost“ kodiert mit 0, „Nordost“
+	mit 1 usw. bis „Südost“ mit 7. Der Codename leitet sich daher ab, dass die Darstellung
+	üblicherweise in Form von Pfeilketten erfolgt.
+
 Klique: #Math
 	ist ein vollständiger Subgraph.
 
@@ -337,6 +377,17 @@ Kovarianzmatrix: #BV1
 	aus $N$ Einträgen besteht. Man reiht diese Spaltenvektoren zu einer Matrix $T_{M,
 	N}$ an. Die Kovarianzmatrix ergibt sich dann zu $V = T T^T$.
 
+Krümmung: #Math
+	ist der Abstand der => Steigung eines Signals zur nächsten Stelle. Bei einer Funktion
+	ist dies die 2. Ableitung.
+
+k-Steigung und k-Krümmung: #BV1 !kchain
+	sind Gegenstände für ein Verfahren zur Glättung eines => Kettencode[s]. Die rechte
+	$k$-Steigung betrachtet die Gesamtsteigung für die nächsten $k$ Kettencodeelemente,
+	die linke äquivalent für die letzten $k$. Die $k$-Krümmung wird bestimmt indem
+	die linke $k$-Steigung von der rechten abgezogen wird. (Eine Annhährung für die
+	=> {2. Ableitung} also!)
+
 Lauflängenkodierung: #BV1 !rle
 	speichert Informationen als Sammlung von Tupeln der Form (Information, Länge) ab.
 	Wird nur bitweise kodiert, kann die Information weggelassen werden, sodass nur die
@@ -366,6 +417,12 @@ Maschinensehen: #BV1
 
 Mexican Hat: => Bikubische Interpolation
 Mittelwert: => Empirischer Mittelwert
+Morphologische Operationen: #BV1
+	sind Operationen welche die Struktur betreffen und sind für verschiedene Disziplinen
+	geeignet, insbesondere aber für die => Bildsegmentierung.<p/>Einige Operationen
+	sind: => Dilatation, => Erosion sowie Opening (Erosion gefolgt von Dilatation) und
+	Closing (Dilatation gefolgt von Erosion)
+
 Moving Picture Experts Group: => MPEG
 MPEG: #BV1
 	ist ein => Kompression[sverfahren] für => Video[s]. Die Abkürzung steht für „Moving
@@ -516,6 +573,12 @@ Rotierende Maske: #BV1 !rotmask
 	zugewiesen.
 
 Run-Length Encoding: => Lauflängenkodierung
+Salz-und-Pfeffer-Rauschen: #BV1 !saltandpepper
+	ist ein => Rauschen welches Punkte und Linien enthält, die nicht zum eigentlichen
+	Bildsignal gehören. Dies kann verursachen, dass => Objekte zusammengefügt werden,
+	die eigentlich hätten getrennt werden sollen. Eine Lösung stellen => {Morphologische
+	Operationen} dar.
+
 Sampling: => Abtasten
 Schachbrett-Distanz: #Math #BV1
 	$D_8((i,j),(h,k)) = \max\{|i - h|, |j - k|\}$, => Manhattan-Distanz wenn diagonale
@@ -562,6 +625,7 @@ Slit Illumination: #BV1 #IVC !slitillu
 	zu scannendes Objekt befindet. Dieses wird von einer Spaltlampe beleuchtet. Die Reflektionen
 	werden von einer Kamera aufgezeichnet und ausgewertet.
 
+Slope: => Steigung
 Spaltlampenverfahren: => Slit Illumination
 Spatial Domain: => Raumdomäne
 Spektrale Bildeigenschaften: #BV1 !sip
@@ -574,10 +638,18 @@ Spektrum: !spektrum
 	ein bestimmter Farbkanal, also etwa „Rot“ oder eine andere Farbe, „Weiß“,
 	„Schwarz“ oder „Grau“.
 
+Steigung: #Math
+	ist der Abstand eines Signals zur nächsten Stelle. Bei einer Funktion ist dies die
+	1. Ableitung.
+
 Szene: #BV1
 	ist eine Sektion der realen Welt.
 
 Threshold: => Schwellwert
+Thresholding: #BV1 !thresholding
+	ist eine Methode zur => Bildsegmentierung um mittels eines => Schwellwert[s] einen
+	Vordergrund vom Hintergrund zu trennen.
+
 Tiefpassfilter: #BV1 !lowpass
 	lässt tiefe Frequenzen durch, => {Filter}[filtert] allerdings hohe Signale weg.
 
@@ -604,6 +676,9 @@ Verlustfreie Kompression: #BV1
 
 Video: #BV1 #IVC
 	ist ein bewegtes => Bild, also eine zeitliche Aneinandereihung eines Bildes.
+
+Voxel: #BV1 #IVC
+	ist eine Rasterelement eines gerasterten Volumens (Volume Cell), also ein 3D-=> Pixel.
 
 Wahrscheinlichkeitsdichte: #Math
 	ist ein Hilfsmittel zur Beschreibung einer stetigen Wahrscheinlichkeitsverteilung.
