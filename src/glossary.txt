@@ -104,6 +104,9 @@ Binarisieren: #BV1 #IVC
 	getrennt. Um das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte
 	unter diesem weden zu 0 und alle anderen zu 1 ausgewertet.
 
+Canny-Edge-Detector: #BV1 #IVC #Wichtig
+	ist wichtig!
+
 Chain Code: => Freeman-Code
 CMYK: 
 	ist ein => Druck-Farbmodell{e}, bestehend aus den => Spektr{um}[en] Cyan (C), Magenta
@@ -188,13 +191,13 @@ Farbmodelle: #BV1 #IVC
 	Außerdem gibt es die => Subtraktive{ }[ ]Farbmischung und => Additive{ }[ ]Farbmischung.
 
 Fast Fourier-Transform: #BV1
-	ist eine Umformung der => Fourier-Transformation nach Cooley und Tukey aus dem Jahr
-	1965. Dabei werden die Koeffizienten in gerade und gerade Teile getrennt und anschließend
-	eine Dekompisation im Frequenzraum durchgeführt, sodass nur $\frac{N}2$ Berechnungen
-	durchgeführt werden müssen.
+	(nicht im Detail lernen!) ist eine Umformung der => Fourier-Transformation nach Cooley
+	und Tukey aus dem Jahr 1965. Dabei werden die Koeffizienten in gerade und gerade
+	Teile getrennt und anschließend eine Dekompisation im Frequenzraum durchgeführt,
+	sodass nur $\frac{N}2$ Berechnungen durchgeführt werden müssen.
 
 FFT: => Fast Fourier-Transform
-Filter: #BV1 #IVC
+Filter: #BV1 #IVC #Wichtig
 	lassen nur bestimmte Frequenzen eines Signals passieren. Sie können mithilfe einer
 	=> Faltung auf eine Bildfunktion angewendet werden. Typische Filter sind der => Tiefpass{filter}[-],
 	=> Hochpass{filter}[-] und => Bandpassfilter.
@@ -305,13 +308,13 @@ Inverse Perspektivische Gleichungen:
 	sollen die Frage lösen, ob aus Bildkoordinaten wieder Weltkoordinaten gewonnen werden
 	können.
 
-JPEG: #BV1
+JPEG: #BV1 #Wichtig
 	ist ein => Bildformat{e} und steht für „Joint Photographic Expert Group“. Es
 	wird berechnet, indem eine Umwandlung in den => YUV[-Farbbereich] erfolgt, eine =>
 	DCT angewandt, eine Reduktion durch => Quantisierung erwirkt und eine => Huffman-Kodierung
 	durchgeführt wird.
 
-Karhunen-Loève-Transformation: #BV1 !karhunen !karhunenex
+Karhunen-Loève-Transformation: #BV1 #Wichtig !karhunen !karhunenex
 	ist ein Verfahren zur => {V}[v]erlustbehaftete{ }[n ]Kompression der multivariaten
 	Statistik. Sie dient dazu, umfangreiche Datensätze zu strukturieren, zu vereinfachen
 	und zu veranschaulichen, indem eine Vielzahl statistischer Variablen durch eine geringere
@@ -343,7 +346,7 @@ Komplementärfarben: #IVC !komplementaer
 	als auch bei der => {S}[s]ubtraktive[n]{ Farbmischung} Farbmischung gelten diejenigen
 	Farben als komplementär, die miteinander gemischt einen neutralen Grauton ergeben.
 
-Kompression: #BV1
+Kompression: #BV1 #Wichtig
 	versucht Daten in ihrer Größe zu optimieren. Sie kann => {V}[v]erlustfrei{e Kompression}
 	oder => {V}[v]erlustbehaftet{e Kompression} sein.
 
@@ -472,6 +475,7 @@ PAL-Standard: #BV1
 	sowie 625 Reihen pro Bild, von denen nur 576 sichtbar sind. Die => Bandbreite beträgt
 	5 MHz.
 
+PCA: => Karhunen-Loève-Transformation
 Perspektische Projektionstransformation: #BV1 #IVC !persptrans !projtrans
 	ist eine Transformation in drei Schritten: Umwandlung der Weltkoordinaten in Kamerakoordinaten.
 	Projektion der Kamerakoordinaten auf eine Bildebene. Umwandlung der Kamerakoordinaten
@@ -611,8 +615,8 @@ Shannons Abtasttheorem: #BV1 #IVC
 	$W_y$).
 
 Shape-from-Shading: #BV1
-	ist ein Verfahren um eine Höhenkarte oder eine Form anhand einer Schattierung zu
-	erhalten.
+	nicht abgeprüft. Welches Model gibt es in der Welt? ist ein Verfahren um eine Höhenkarte
+	oder eine Form anhand einer Schattierung zu erhalten.
 
 Shape-preserving Sampling Theorem: => Form-konservierendes Abtasttheorem
 Skalierung: #BV1 #IVC
@@ -650,7 +654,7 @@ Thresholding: #BV1 !thresholding
 	ist eine Methode zur => Bildsegmentierung um mittels eines => Schwellwert[s] einen
 	Vordergrund vom Hintergrund zu trennen.
 
-Tiefpassfilter: #BV1 !lowpass
+Tiefpassfilter: #BV1 #Wichtig !lowpass
 	lässt tiefe Frequenzen durch, => {Filter}[filtert] allerdings hohe Signale weg.
 
 Ton: #BV1
@@ -695,17 +699,25 @@ Zeitliche Quantisierung: #BV1
 Abtasten: #BV1 #IVC
 Additive Farbmischung: #IVC
 Affine Koordinaten-Transformationen: #IVC
+Basic Interpretation Algorithm: #BV1 #Wichtig
+Basic Pattern Recognition: #BV1 #Wichtig
+Bayes Classification: #BV1 #Wichtig
 Bidirektionale Reflektanz-Verteilungs-Funktion (BRDF): !brdf
 Binärbild: #BV1 #IVC
-Canny-Algorithmus: #BV1 #IVC
+Eigenvector-Analysis: #BV1 #Wichtig
+Feature Space: #BV1 #Wichtig
 Flat-Shading: #IVC
 Foo: 
 Fourier-Dekomposition: #IVC #BV1
+Generality Assumption: #BV1 #Wichtig
+General Model vs. Appearance Model: #BV1 #Wichtig
 Gouraud-Shading: #IVC
+Grouping: #BV1 #Wichtig
 Händigkeit: #IVC
-Kantenerkennung: #BV1 #IVC
+Hough-Transform: #BV1 #Wichtig
+Kantenerkennung: #BV1 #IVC #Wichtig
 Kirsch-Operator: #IVC #BV1
-Korrespondenzproblem: #BV1 #IVC
+Korrespondenzproblem: #BV1 #IVC #Wichtig
 Laplace-Operator: #IVC #BV1
 Lochkamera: #IVC
 Mehrdeutige Sensor-Antwort: !mehrsensorantwort
@@ -715,12 +727,18 @@ Objekte: #BV1
 Objekterkennung: #BV1
 Objektlokalisierung: #BV1
 Octree: #IVC #BV1
+Optical Flow Constraint Equation: #BV1 #Wichtig
 Parallelprojektion: #IVC
+Perceptron Learning Rule: #BV1 #Wichtig
 Perzeptron: #BV1
 Phong-Shading: #IVC
 Projektionsmatrix: #IVC
 Robert's Cross-Operator: #IVC #BV1
+Simple 2D Shape Features: #BV1 #Wichtig
 Sobel-Operator: #IVC #BV1
+Statistical Decision Theory: #BV1 #Wichtig
 Subtraktive Farbmischung: #IVC
+Supervised Learning: #BV1 #Wichtig
 Szeneninterpretation: 
+Weight Space: #BV1 #Wichtig
 Zentralprojektion: #IVC
