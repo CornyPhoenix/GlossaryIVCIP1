@@ -83,7 +83,7 @@ class BodyDefinition extends Definition
                         throw new \Exception('Syntax error.');
                         break;
                     default:
-                        if (preg_match('/[\wäöüÄÖÜ-]/', $nextChar)) {
+                        if (preg_match('/[\wßäöüÄÖÜ-]/', $nextChar)) {
                             $link .= $nextChar;
                             $text .= $nextChar;
                             $i++;

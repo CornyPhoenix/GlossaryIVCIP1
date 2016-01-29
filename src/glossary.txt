@@ -33,11 +33,16 @@ Approximation: #BV1 #Math
 	Punkte annähernd verbindet. Die Funktion wird mithilfe eines => MSE berechnet. Es
 	ist eine Alternative zu => Interpolation.
 
+Arkustangens mit 2 Argumenten: #Math #BV1 !atan2
+	wird vom => Canny-Edge-Detector benötigt, um korrekte Winkel zu einer => Steigung
+	$\frac{x}{y}$ auszurechnen.
+
 assoziativ: => Assoziativgesetz
 Assoziativgesetz: #Math
 	gilt, wenn die Reihenfolge der Ausführung einer Operation $\times$ keine Rolle spielt,
 	also $(a \times b) \times c = a \times (b \times c)$.
 
+atan2: => Arkustangens mit 2 Argumenten
 Aufgabenorientierung: #BV1
 	meint Aktionen, die zum erfüllen einer bestimmten Aufgabe existieren.
 
@@ -99,13 +104,18 @@ Bimodale Durchschnittberechnung: #BV1 #IVC
 	mithilfe einer *=> Rotierende{ }[n ]Maske* oder eines *Median* gemittelt.
 
 Binarisieren: #BV1 #IVC
-	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines Schwarz-Weiß-Bild
-	(=> {Binärbild}) gewonnen wird. Beispielsweise wird ein Objekt von einem Hintergrund
-	getrennt. Um das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte
-	unter diesem weden zu 0 und alle anderen zu 1 ausgewertet.
+	beschreibt den Vorgang, bei welchem aus einem graustufigen Bild ein reines => Schwarz-Weiß-Bild
+	gewonnen wird. Beispielsweise wird ein Objekt von einem Hintergrund getrennt. Um
+	das Ziel zu erreichen wird ein => Schwellwert gewählt. Alle Grauwerte unter diesem
+	weden zu 0 und alle anderen zu 1 ausgewertet.
 
-Canny-Edge-Detector: #BV1 #IVC #Wichtig
-	ist wichtig!
+Canny-Edge-Detector: #BV1 #IVC #Wichtig !cannyedge
+	ist ein in der digitalen Bildverarbeitung weit verbreiteter, robuster Algorithmus
+	zur => Kantenerkennung. Er gliedert sich in verschiedene => Faltung[soperationen]
+	und liefert ein => Bild, welches idealerweise nur noch die Kanten des Ausgangsbildes
+	enthält. <p/> Das Verfahren nutzt u.a. den => Sobel-Operator und die => {Non-Maximal
+	Suppression} aus, um eindeutige Maxima zu erhalten. <p/> Durch => Hysterese wird
+	ein Parameter $\sigma$ empirisch ermittelt, welcher die besten Kanten ermittelt.
 
 Chain Code: => Freeman-Code
 CMYK: 
@@ -122,6 +132,10 @@ DCT: #BV1
 DFT: #BV1
 	steht für Diskrete => Fourier-Transformation.
 
+Difference of Gaussians: #BV1 #Math !dog
+	(DoG) nähert den Laplacian of Gaussian mithilfe der Differenz von zwei Gauß-Funktionen
+	an.
+
 Dilatation: #BV1 !erosiondilation !catimagelol
 	umrahmt das Äußere einer Form. Es entspricht einer *ODER*-Operation mit einem Strukturelement.
 	Der Gegensatz dazu ist => Erosion.
@@ -135,6 +149,7 @@ Distributivgesetz: #Math
 	gilt, wenn zwei Verknüpfungen $+$ und $\cdot$ miteinander verträglich sind, und
 	zwar wenn $a \cdot (b + c) = (a \cdot b) + (a \cdot c)$ gilt.
 
+DoG: => Difference of Gaussians
 Druck-Farbmodelle: 
 	sind => Farbmodelle, die extra für Druckmedien geschaffen wurden. Dies ist durch
 	den weißen Hintergrund erforderlich. Das bekannteste Modell ist => CMYK.
@@ -153,6 +168,10 @@ Eigenvektor: #Math #BV1
 Einfache Glättung: #BV1
 	ist eine Operation bei der entweder 1. eine *=> Durchschnittberechnung durchgeführt*,
 	2. *Ausreißer entfernt* oder 3. ein *gewichteter Durchschnitt* bestimmt wird.
+
+Einheitlichkeitsvermutung: #BV1
+	besagt, dass bedeutungsvolle => Objekte in => Regionen zusammen gehören oder durch
+	durch => Kanten{erkennung} voneinander getrennt sind.
 
 Empirischer Mittelwert: #Math !mean
 	ist der Durchschnitt aller => Pixel eines => Bild[es].
@@ -230,6 +249,12 @@ Frequenzdomäne: #BV1
 	=> Raumdomäne gebracht werden.
 
 Frequenz-Spektrum: => Fourierspektrum
+Gauß-Filter: #BV1 !gaussfilter
+	werden zur Glättung oder Weichzeichnen des Bildinhaltes verwendet. Es kann damit
+	das Bildrauschen vermindert werden: Kleinere Strukturen gehen verloren, gröbere
+	Strukturen bleiben dagegen erhalten. Spektral kommt die Glättung einem => Tiefpassfilter
+	gleich.
+
 Gauß'sche Wahrscheinlichkeitsdichte: #Math !gauss
 	ist eine => Wahrscheinlichkeitsdichte für Standardnormalverteilungen.
 
@@ -245,6 +270,11 @@ Gerade Linien in diskreter Darstellung: #BV1 !straightlines
 
 Gradientenoperator: #BV1 #IVC
 	findet Differenzen zwischen einzelnen => Pixel[n].
+
+Grauwert-Unterbrechungen: #BV1 !grayvaldisc
+	sind ein gängiges Mittel um => Kanten[ zu erkennen]{erkennung}. Kanten sind oftmals
+	dort, wo die => {1. Ableitung} maximal und die => {2. Ableitung} eine Nullstelle
+	hat.
 
 Grenzfrequenz: #BV1 #IVC
 	ist die höchste Frequenz, für die das => Fourierspektrum der => Bild[funktion]
@@ -283,6 +313,11 @@ Homogene Koordinaten: #BV1 #IVC
 	=> {Affine }[affine ]Koordinaten-Transformationen umgesetzt werden.
 
 Hotelling Transform: => Karhunen-Loève-Transformation
+Hough-Transformation: #BV1 #Wichtig
+	ist ein robustes globales Verfahren zur Erkennung von Geraden, Kreisen oder beliebigen
+	anderen parametrisierbaren geometrischen Figuren in einem binären Gradientenbild,
+	also einem => Schwarz-Weiß-Bild, nach einer => Kantenerkennung.
+
 HSB: #BV1 !hsb
 	(=> Farbmodell{e}) steht für Farbwert (Hue), Sättigung (Saturation) und => Helligkeit
 	(Brightness); siehe auch => HSI.
@@ -295,6 +330,10 @@ HSV: => HSI
 Huffman-Kodierung: #BV1 !huffman
 	ist eine => {V}[v]erlustfreie{ }[ ]Kompression, welche die Informationen entsprechend
 	der Häufigkeit ihres Auftretens abspeichert.
+
+Hysterese: #BV1
+	beschreibt das Erlesen eines => Schwellwert[s], der für ein => Bild die optimalen
+	Kanten für den => Canny-Edge-Detector liefert.
 
 Intensität von Sensorsignalen: #BV1
 	ist abhängig von Ort auf der Sensorebene, der Zeit, der Frequenz des eingehenden
@@ -329,6 +368,10 @@ Kettencode: #BV1 !chaincode
 	unterscheidet. Im Falle einer => 8-Nachbarschaft ist „Ost“ kodiert mit 0, „Nordost“
 	mit 1 usw. bis „Südost“ mit 7. Der Codename leitet sich daher ab, dass die Darstellung
 	üblicherweise in Form von Pfeilketten erfolgt.
+
+Kirsch-Operator: #IVC #BV1
+	berechnet die => Steigung auf Basis einer 3×3-Nachbarschaft, die in 45° Schritten
+	konstruiert wird.
 
 Klique: #Math
 	ist ein vollständiger Subgraph.
@@ -391,11 +434,21 @@ k-Steigung und k-Krümmung: #BV1 !kchain
 	die linke $k$-Steigung von der rechten abgezogen wird. (Eine Annhährung für die
 	=> {2. Ableitung} also!)
 
+Laplace-Operator: #IVC #BV1 !laplace
+	ist anfällig gegenüber => [Bildr]{R}auschen. Er berechnet die => Krümmung auf
+	Basis vierer Differenzen.
+
+Laplacian of Gaussian: #BV1
+	(LoG) ist die Formel $\nabla^2(f(x, y, \sigma) \ast g(x, y)) = \nabla^2(f(x, y, \sigma))
+	\ast g(x, y) = h(x, y) \ast g(x, y)$, wobei $f(x, y, \sigma) = e^{- \frac{x^2 + y^2}{2\sigma^2}}$,
+	also ein => Gauß-Filter, ist. Eine Annäherung des LoG kann durch die => DoG erfolgen.
+
 Lauflängenkodierung: #BV1 !rle
 	speichert Informationen als Sammlung von Tupeln der Form (Information, Länge) ab.
 	Wird nur bitweise kodiert, kann die Information weggelassen werden, sodass nur die
 	Länge gespeichert werden muss. So wird aus 111110001111 die RLE 534.
 
+LoG: => Laplacian of Gaussian
 Lokale Nachbarschaftsoperationen: #BV1
 	siehe => Durchschnittberechnung und => Schärfen.
 
@@ -413,12 +466,25 @@ Manhattan-Distanz: #Math #BV1
 	$D_4((i,j),(h,k)) = |i - h| + |j - k|$, wie viele horizontale und vertikale Blöcke
 	muss ich laufen? Siehe => 4-Nachbarschaft.
 
+Marr-Hildreth-Operator: #BV1
+	wendet den => LoG an um anhand der => Krümmung => Kanten[ zu erkennen]{erkennung}.
+
 Maschinensehen: #BV1
 	beschreibt einen generelleren Begriff für das ganze Feld; beinhaltet => Bildverarbeitung,
 	=> Bildanalyse und => Bildverstehen. Wie => Bildverarbeitung, nur in einer weiteren
 	Bedeutung.
 
-Mexican Hat: => Bikubische Interpolation
+Maximum-Likelihood-Edge-Finding: #BV1
+	ist ein statistisches Verfahren um => Kanten[ zu erkennen]{erkennung}. Es basiert
+	auf der => Maximum-Likelihood-Methode.
+
+Maximum-Likelihood-Methode: #Math
+	(von engl. maximale Wahrscheinlichkeit) bezeichnet in der Statistik ein parametrisches
+	Schätzverfahren. Dabei wird so vorgegangen, dass derjenige Parameter als Schätzung
+	ausgewählt wird, gemäß dessen Verteilung die Realisierung der beobachteten Daten
+	am plausibelsten erscheint.
+
+Mexican Hat: => Laplacian of Gaussian
 Mittelwert: => Empirischer Mittelwert
 Morphologische Operationen: #BV1
 	sind Operationen welche die Struktur betreffen und sind für verschiedene Disziplinen
@@ -461,7 +527,12 @@ Natürlichsprachliche Beschreibung: #BV1
 NCS*: !ncs
 	ist ein => Farbmodell{e}, welches als Spindel dargestellt wird.
 
+NMS: => Non-Maximal Suppression
 Noise: => Rauschen
+Non-Maximal Suppression: #BV1
+	(NMS) ist ein Verfahren um nicht-minimale Punkte auszuschließen und die Maxima auf
+	=> {P}[einp]ixel[große] Stellen zu reduzieren.
+
 Object Recognition: => Objekterkennung
 Optimale Quantisierung: #BV1 !optquanti
 	*Annahme:* => Wahrscheinlichkeitsdichte für kontinuierliche Grauwerte und Nummern
@@ -545,6 +616,12 @@ Redundanz: #BV1
 	einer Kodierung individueller => Pixel ist $r = b - H$, mit => Entropie $H$ und die
 	Anzahl der Bits pro Pixel $b$.
 
+Regionen: #BV1 !regions
+	können mithilfe der Dekomposition von => Histogramm[en] ermittelt werden. Ähnliche
+	„Hügel“ im => RGB[-Histogramm] lassen auf eine Region schließen. Eine andere
+	Möglichkeit ist das Nutzen von Split-and-Merge, wobei Regionsgrenzen anhand von
+	=> Quadtree[-Grenzen] untersucht werden.
+
 Rekonstruktion einer Bildfunktion von Aufnahmen: #BV1 !sitfunc
 	kann mithilfe einer Abtastfunktion $s_i(t)$ durchgeführt werden.
 
@@ -563,6 +640,12 @@ Relational Models: #BV1
 RGB: 
 	steht für die => Spektr{um}[en] Rot (575 nm), Grün (535 nm) und Blau (445 nm),
 	es ist außerdem ein => Farbmodell{e}.
+
+Robert's Cross-Operator: #IVC #BV1 !roberts
+	berechnet die => Steigung auf Basis einer kreuzweisen Grauwert-Differenz-Rechnung.<p/>Differenz
+	$\delta_1 = g_{i j} - g_{i-1 j-1}$<p/>Differenz $\delta_2 = g_{i j-1} - g_{i-1 j}$<p/>Magnitude
+	$|\nabla g_{ij}| = \sqrt{\delta_1^2 + \delta_2^2}$<p/>Winkel $\sphericalangle g_{ij}
+	= \arctan2(\delta_1, \delta_2)$
 
 Rotation: !rot
 	Rotation über Z-Achse: *kippen* (tilt), mit *Roll*-Winkel (roll). <p/> Rotation
@@ -603,6 +686,7 @@ Scherung: #BV1 #IVC !skewing
 	ist eine => Koordinaten-Transformation{en} für das Verziehen eines Objekts in eine
 	X-, Y- oder Z-Richtung.
 
+Schwarz-Weiß-Bild: => Binärbild
 Schwellwert: #Math
 	bezeichnet einen bestimmten Wert, der für ein Verfahren mindestens erreicht werden
 	muss, um einen Effekt/Fall auszulösen. => Perzeptron[e] basieren sehr darauf.
@@ -630,6 +714,12 @@ Slit Illumination: #BV1 #IVC !slitillu
 	werden von einer Kamera aufgezeichnet und ausgewertet.
 
 Slope: => Steigung
+Sobel-Operator: #IVC #BV1 !sobel
+	berechnet die => Steigung auf Basis einer 3×3-Nachbarschaft.<p/>Differenz $\delta_y
+	= g_1 + 2g_2 + g_3 - g_5 - 2g_6 - g_7$<p/>Differenz $\delta_x = g_1 + 2g_0 + g_7
+	- g_3 - 2g_4 - g_5$<p/>Magnitude $|\nabla g_{ij}| = \sqrt{\delta_y^2 + \delta_x^2}$<p/>Winkel
+	$\sphericalangle g_{ij} = \arctan2(\delta_y, \delta_x)$
+
 Spaltlampenverfahren: => Slit Illumination
 Spatial Domain: => Raumdomäne
 Spektrale Bildeigenschaften: #BV1 !sip
@@ -688,6 +778,11 @@ Wahrscheinlichkeitsdichte: #Math
 	ist ein Hilfsmittel zur Beschreibung einer stetigen Wahrscheinlichkeitsverteilung.
 	Sehr populär ist die => {Gauß'sche Wahrscheinlichkeitsdichte}.
 
+Wasserscheiden-Segmentation: #BV1 !watershed
+	simuliert das Bild als topografische 3D-Landkarte, welche mit Wasser geflutet wird.
+	Es werden sich die Stellen gemerkt an denen zwei Wasserbasins zusammenwachsen (den
+	Wasserscheiden).
+
 YUV: #BV1
 	ist das bei => JPEG verwendete => Farbmodell{e}, bestehend aus => Helligkeit (16
 	Bit), Röte und Bläue (jeweils 8 Bit).
@@ -714,11 +809,8 @@ General Model vs. Appearance Model: #BV1 #Wichtig
 Gouraud-Shading: #IVC
 Grouping: #BV1 #Wichtig
 Händigkeit: #IVC
-Hough-Transform: #BV1 #Wichtig
 Kantenerkennung: #BV1 #IVC #Wichtig
-Kirsch-Operator: #IVC #BV1
 Korrespondenzproblem: #BV1 #IVC #Wichtig
-Laplace-Operator: #IVC #BV1
 Lochkamera: #IVC
 Mehrdeutige Sensor-Antwort: !mehrsensorantwort
 Motion Tracking: #IVC #BV1
@@ -733,9 +825,7 @@ Perceptron Learning Rule: #BV1 #Wichtig
 Perzeptron: #BV1
 Phong-Shading: #IVC
 Projektionsmatrix: #IVC
-Robert's Cross-Operator: #IVC #BV1
 Simple 2D Shape Features: #BV1 #Wichtig
-Sobel-Operator: #IVC #BV1
 Statistical Decision Theory: #BV1 #Wichtig
 Subtraktive Farbmischung: #IVC
 Supervised Learning: #BV1 #Wichtig
